@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senior Shop - Interactive Prototype</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Senior Shop - Mobile Ready</title>
     <style>
         /* BASE STYLES */
         :root {
@@ -14,148 +13,149 @@
             --text-main: #1A1A1A;
             --focus-ring: #FF9900;
             --border-color: #CBD5E0;
+            --base-size: 16px;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             background-color: var(--bg-body);
             color: var(--text-main);
-            line-height: 1.6;
-            transition: background 0.3s, color 0.3s;
+            line-height: 1.5;
+            font-size: var(--base-size);
+            padding-bottom: 80px; /* Space for FAB */
         }
 
-        /* HIGH CONTRAST MODE (Dynamic Class) */
+        /* HIGH CONTRAST MODE */
         body.high-contrast-mode {
             --bg-body: #000000;
             --bg-white: #121212;
-            --primary-teal: #FFFF00; /* Yellow for visibility */
-            --primary-dark: #FFD700;
+            --primary-teal: #FFFF00;
             --text-main: #FFFFFF;
             --border-color: #FFFFFF;
         }
-        body.high-contrast-mode .logo-container, 
-        body.high-contrast-mode h1, 
-        body.high-contrast-mode h2, 
-        body.high-contrast-mode p {
-            color: #FFFFFF !important;
-        }
-        body.high-contrast-mode .logo-circle {
-            background: #FFFF00;
-            color: black;
-        }
-        body.high-contrast-mode .logo-text {
-            color: #FFFF00 !important;
-        }
-        body.high-contrast-mode button {
-            border: 2px solid white;
-        }
+        body.high-contrast-mode .logo-text, 
+        body.high-contrast-mode h1, body.high-contrast-mode h2, 
+        body.high-contrast-mode .price { color: #FFFF00 !important; }
+        body.high-contrast-mode button { border: 2px solid white; background: #000; color: #FFF; }
+        body.high-contrast-mode .btn-primary { background: #FFFF00; color: #000; }
 
         /* UTILITIES */
-        .touch-target { cursor: pointer; }
-        
+        .touch-target-box { cursor: pointer; }
+
+        /* HEADER & RESPONSIVENESS */
         header {
             background-color: var(--bg-white);
-            padding: 16px 32px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            gap: 24px;
+            flex-wrap: wrap; /* Allows stacking on mobile */
+            gap: 12px;
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
-        .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-container { display: flex; align-items: center; gap: 8px; text-decoration: none; }
         .logo-circle {
-            width: 48px; height: 48px; background: var(--primary-teal); color: white;
+            width: 40px; height: 40px; background: var(--primary-teal); color: white;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 24px; font-weight: bold;
+            font-size: 20px; font-weight: bold;
         }
-        .logo-text { font-size: 28px; font-weight: 700; color: var(--primary-teal); }
+        .logo-text { font-size: 1.2rem; font-weight: 700; color: var(--primary-teal); }
 
-        .search-container {
-            flex-grow: 1; max-width: 600px; display: flex; height: 52px;
-            border: 2px solid var(--border-color); border-radius: 8px; overflow: hidden;
-        }
-        .search-input { flex-grow: 1; border: none; padding: 0 16px; font-size: 18px; color: #333; }
-        .search-btn {
-            background: var(--primary-teal); color: white; border: none;
-            padding: 0 24px; font-size: 18px; font-weight: bold; cursor: pointer;
-        }
-        .search-btn:hover { background: var(--primary-dark); }
-
-        .header-actions { display: flex; gap: 16px; }
-        .btn-secondary {
-            background: var(--bg-white); border: 2px solid var(--border-color); color: var(--text-main);
-            padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 16px;
-            display: flex; align-items: center; gap: 8px; cursor: pointer;
+        /* HEADER ACTIONS (Buttons) */
+        .header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        
+        .btn-icon {
+            min-width: 44px; height: 44px; border-radius: 8px; border: 1px solid var(--border-color);
+            background: white; font-size: 1rem; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; font-weight: bold;
         }
         .btn-primary {
-            background: var(--primary-teal); color: black; border: none;
-            padding: 8px 20px; border-radius: 6px; font-weight: 600; font-size: 16px;
-            display: flex; align-items: center; gap: 8px; cursor: pointer; color: white;
+            background: var(--primary-teal); color: white; border: none;
+            padding: 0 16px; height: 44px; border-radius: 6px; font-weight: 600; font-size: 1rem;
+            cursor: pointer; display: flex; align-items: center; gap: 6px;
         }
-        body.high-contrast-mode .btn-primary { color: black; background: #FFFF00; }
 
-        .hero { max-width: 1400px; margin: 32px auto; padding: 0 32px; }
+        /* SEARCH BAR (Moves to bottom on mobile) */
+        .search-container {
+            display: flex; height: 48px;
+            border: 2px solid var(--border-color); border-radius: 8px; overflow: hidden;
+            width: 100%; max-width: 500px;
+        }
+        .search-input { flex-grow: 1; border: none; padding: 0 12px; font-size: 1rem; }
+        .search-btn {
+            background: var(--primary-teal); color: white; border: none;
+            padding: 0 20px; font-weight: bold; cursor: pointer;
+        }
+
+        /* MOBILE SPECIFIC LAYOUT */
+        @media (min-width: 768px) {
+            .search-container { width: auto; flex-grow: 1; order: 0; margin: 0 20px; }
+            header { flex-wrap: nowrap; }
+        }
+        
+        @media (max-width: 767px) {
+            .search-container { order: 3; width: 100%; margin-top: 8px; }
+            .logo-text { display: none; } /* Hide text on small screens to save space */
+        }
+
+        /* MAIN CONTENT */
+        .hero { max-width: 1400px; margin: 20px auto; padding: 0 16px; }
         .hero-card {
-            background: var(--bg-white); border-radius: 12px; padding: 48px;
-            display: flex; justify-content: space-between; align-items: center;
+            background: var(--bg-white); border-radius: 12px; padding: 24px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; gap: 20px;
         }
-        .hero-text h1 { color: var(--primary-teal); font-size: 48px; margin: 0 0 16px 0; }
-        .cta-btn {
-            background: var(--primary-teal); color: white; font-size: 20px;
-            padding: 16px 32px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer;
+        
+        @media (min-width: 768px) {
+            .hero-card { flex-direction: row; padding: 48px; }
         }
-        body.high-contrast-mode .cta-btn { color: black; background: #FFFF00; }
 
-        /* PRODUCT GRID (DYNAMIC) */
         .product-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 24px; margin-top: 24px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px; margin-top: 24px;
         }
         .product-card {
             background: var(--bg-white); border: 1px solid var(--border-color);
-            padding: 24px; border-radius: 8px; text-align: center;
-            transition: transform 0.2s;
+            padding: 16px; border-radius: 8px; text-align: center;
         }
-        .product-card:hover { transform: translateY(-5px); border-color: var(--primary-teal); }
-        .price { font-size: 24px; font-weight: bold; color: var(--primary-teal); margin: 10px 0; }
-        body.high-contrast-mode .price { color: #FFFF00; }
+        .price { font-size: 1.4rem; font-weight: bold; color: var(--primary-teal); }
 
+        /* CART MODAL */
+        #cartModal {
+            display: none; position: fixed; top: 60px; right: 10px; left: 10px;
+            background: white; border: 2px solid var(--primary-teal);
+            border-radius: 8px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 200; max-width: 400px; margin: auto;
+        }
+
+        /* ANNOTATIONS */
+        body.show-annotations .h1-label::after { content: " [H1]"; color: red; font-size: 0.8rem; vertical-align: super; font-weight: bold; }
+        body.show-annotations .touch-target-box { outline: 3px dashed #FF9900; outline-offset: 2px; }
+
+        /* FAB */
         .fab {
-            position: fixed; bottom: 32px; right: 32px;
-            background: #E53E3E; color: white; padding: 16px 24px;
-            border-radius: 50px; font-weight: bold; font-size: 18px;
-            border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            z-index: 200;
+            position: fixed; bottom: 20px; right: 20px;
+            background: #E53E3E; color: white; padding: 12px 20px;
+            border-radius: 50px; font-weight: bold; font-size: 1rem;
+            border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 150;
         }
-
-        /* ANNOTATION STYLES (Hidden by default, toggle with 'A' key) */
-        body.show-annotations .h1-label::after {
-            content: " [H1]"; color: red; font-size: 16px; vertical-align: super; font-weight: bold;
-        }
-        body.show-annotations .touch-target-box {
-            outline: 3px dashed #FF9900; outline-offset: 4px;
-        }
-        
-        /* NOTIFICATION TOAST */
-        #toast {
-            visibility: hidden; min-width: 250px; background-color: #333; color: #fff;
-            text-align: center; border-radius: 8px; padding: 16px; position: fixed;
-            z-index: 1000; left: 50%; bottom: 30px; transform: translateX(-50%);
-            font-size: 17px;
-        }
-        #toast.show { visibility: visible; -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
-        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
     </style>
 </head>
-<body class="show-annotations"> <div id="toast">Notification</div>
+<body class="show-annotations">
+
+    <div id="cartModal">
+        <h3>Shopping Cart</h3>
+        <div id="cartItemsList"><p>Cart is empty.</p></div>
+        <div style="margin-top:20px; font-weight:bold; text-align:right;">Total: <span id="cartTotal">$0</span></div>
+        <button class="btn-primary" style="width:100%; justify-content:center; margin-top:10px;">Checkout</button>
+        <button onclick="toggleCart()" style="width:100%; margin-top:10px; background:none; border:none; color:red; padding:10px;">Close</button>
+    </div>
 
     <header>
         <a href="#" class="logo-container touch-target-box">
@@ -163,40 +163,40 @@
             <span class="logo-text">Senior Shop</span>
         </a>
 
-        <form class="search-container touch-target-box" id="searchForm">
-            <input type="text" class="search-input" id="searchInput" placeholder="Search phones, tablets..." aria-label="Search items">
-            <button type="submit" class="search-btn">Search</button>
-        </form>
-
         <div class="header-actions">
-            <button class="btn-secondary touch-target-box" id="readBtn" onclick="readPage()">
-                🔊 Read Page
+            <button class="btn-icon touch-target-box" onclick="resizeText(-2)" aria-label="Smaller Text">A-</button>
+            <button class="btn-icon touch-target-box" onclick="resizeText(2)" aria-label="Larger Text">A+</button>
+            
+            <button class="btn-icon touch-target-box" onclick="toggleAnnotations()" aria-label="Toggle Judge Notes" style="border-color:red; color:red;">
+                🖊️
             </button>
-            <button class="btn-secondary touch-target-box" onclick="toggleAnnotations()">
-                🖊️ Toggle Notes (Press 'A')
-            </button>
-            <button class="btn-primary touch-target-box" id="cartBtn">
-                🛒 Cart (<span id="cartCount">0</span>)
+            
+            <button class="btn-primary touch-target-box" onclick="toggleCart()">
+                🛒 <span id="cartCount">0</span>
             </button>
         </div>
+
+        <form class="search-container touch-target-box" id="searchForm">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search..." aria-label="Search">
+            <button type="submit" class="search-btn">🔍</button>
+        </form>
     </header>
 
     <section class="hero">
         <div class="hero-card">
-            <div class="hero-text" id="heroText">
-                <h1 class="h1-label">Technology Made Simple</h1>
-                <p>We sell phones with large buttons, easy-to-read tablets, and loud speakers. Designed for your comfort.</p>
-                <button class="cta-btn touch-target-box" onclick="scrollToShop()">Browse New Arrivals</button>
+            <div>
+                <h1 class="h1-label">Tech Made Simple</h1>
+                <p>Phones with large buttons & loud speakers.</p>
+                <button class="btn-primary touch-target-box" onclick="scrollToShop()">Browse</button>
             </div>
-            <div style="width:400px; height:250px; background:#EDF2F7; border:2px dashed #CBD5E0; display:flex; align-items:center; justify-content:center; color:#718096; font-weight:bold;">
-                [Image: Senior using tablet]<br>ALT: "Smiling woman using tablet"
+            <div style="min-width:200px; height:150px; background:#EDF2F7; display:flex; align-items:center; justify-content:center; text-align:center; border:2px dashed #CBD5E0;">
+                [Image: Tablet]<br>ALT: "Senior using tablet"
             </div>
         </div>
 
         <div id="shopSection">
-            <h2 style="font-size:32px; margin-top:48px;">Available Products [H2]</h2>
-            <div class="product-grid" id="productGrid">
-                </div>
+            <h2 style="font-size:1.5rem; margin-top:32px;">Featured Items [H2]</h2>
+            <div class="product-grid" id="productGrid"></div>
         </div>
     </section>
 
@@ -205,103 +205,81 @@
     </button>
 
     <script>
-        // --- DATA ---
+        // DATA
         const products = [
-            { id: 1, name: "EasyPhone Big Button", price: "$89", icon: "📱", desc: "Large buttons, SOS key, loud ringer." },
-            { id: 2, name: "ClearView Tablet", price: "$199", icon: "💻", desc: "High contrast screen, simplified menu." },
-            { id: 3, name: "Talking Watch", price: "$29", icon: "⌚", desc: "Speaks the time clearly at the press of a button." },
-            { id: 4, name: "MediAlert Pendant", price: "$49", icon: "🔴", desc: "One-touch emergency contact device." }
+            { name: "Big Button Phone", price: 89, icon: "📱", desc: "Large keys" },
+            { name: "Easy Tablet", price: 199, icon: "💻", desc: "Simple menu" },
+            { name: "Talking Watch", price: 29, icon: "⌚", desc: "Speaks time" },
+            { name: "SOS Pendant", price: 49, icon: "🔴", desc: "Alert button" }
         ];
 
-        let cart = 0;
+        let cartItems = [];
+        let currentFontSize = 16;
 
-        // --- INITIALIZATION ---
-        window.onload = function() {
-            renderProducts(products);
-            showToast("Tip: Press 'A' to hide/show judge notes!");
-        };
+        window.onload = function() { renderProducts(products); };
 
-        // --- FUNCTIONS ---
-        
         function renderProducts(items) {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = "";
             items.forEach(p => {
                 grid.innerHTML += `
                     <div class="product-card touch-target-box">
-                        <div style="font-size:50px;">${p.icon}</div>
+                        <div style="font-size:2.5rem;">${p.icon}</div>
                         <h3>${p.name}</h3>
-                        <p>${p.desc}</p>
-                        <div class="price">${p.price}</div>
-                        <button class="btn-primary" style="width:100%" onclick="addToCart('${p.name}')">Add to Cart</button>
+                        <div class="price">$${p.price}</div>
+                        <button class="btn-primary" style="width:100%; justify-content:center; margin-top:8px;" onclick="addToCart('${p.name}', ${p.price})">Add</button>
                     </div>
                 `;
             });
         }
 
-        // 1. DYNAMIC CART
-        function addToCart(itemName) {
-            cart++;
-            document.getElementById('cartCount').innerText = cart;
-            showToast(`Added ${itemName} to Cart!`);
-        }
-
-        // 2. WORKING SEARCH
-        document.getElementById('searchForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const term = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = products.filter(p => p.name.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term));
-            renderProducts(filtered);
+        function addToCart(name, price) {
+            cartItems.push({ name, price });
+            document.getElementById('cartCount').innerText = cartItems.length;
             
-            if(filtered.length === 0) {
-                document.getElementById('productGrid').innerHTML = "<p>No items found. Try 'phone' or 'watch'.</p>";
-            }
-            showToast(`Searching for "${term}"...`);
-        });
-
-        // 3. REAL TEXT-TO-SPEECH
-        function readPage() {
-            if ('speechSynthesis' in window) {
-                showToast("🔊 Reading page aloud...");
-                const h1 = document.querySelector('h1').innerText;
-                const p = document.querySelector('.hero-text p').innerText;
-                const text = `Senior Shop. ${h1}. ${p}. There are ${products.length} products available below.`;
-                
-                const utterance = new SpeechSynthesisUtterance(text);
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert("Sorry, your browser doesn't support Text-to-Speech.");
-            }
+            // Update Modal
+            const list = document.getElementById('cartItemsList');
+            let total = 0;
+            list.innerHTML = "";
+            cartItems.forEach(item => {
+                total += item.price;
+                list.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>${item.name}</span><b>$${item.price}</b></div>`;
+            });
+            document.getElementById('cartTotal').innerText = "$" + total;
+            
+            // Mobile Alert
+            alert("✓ Added " + name + " to cart!");
         }
 
-        // 4. HIGH CONTRAST TOGGLE
-        function toggleHighContrast() {
-            document.body.classList.toggle('high-contrast-mode');
-            const mode = document.body.classList.contains('high-contrast-mode') ? "High Contrast" : "Standard";
-            showToast(`Switched to ${mode} View`);
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
         }
 
-        // 5. ANNOTATION TOGGLE (Shortcut)
+        // --- NEW: RESIZE TEXT ON TOUCH ---
+        function resizeText(amount) {
+            currentFontSize += amount;
+            if(currentFontSize < 12) currentFontSize = 12;
+            if(currentFontSize > 24) currentFontSize = 24;
+            document.body.style.fontSize = currentFontSize + "px";
+        }
+
+        // --- NEW: TOGGLE ANNOTATIONS ON TOUCH ---
         function toggleAnnotations() {
             document.body.classList.toggle('show-annotations');
         }
 
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'a' || event.key === 'A') {
-                toggleAnnotations();
-            }
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast-mode');
+        }
+
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const term = document.getElementById('searchInput').value.toLowerCase();
+            renderProducts(products.filter(p => p.name.toLowerCase().includes(term)));
         });
 
-        function scrollToShop() {
-            document.getElementById('shopSection').scrollIntoView({behavior: 'smooth'});
-        }
-
-        function showToast(message) {
-            const x = document.getElementById("toast");
-            x.innerText = message;
-            x.className = "show";
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-        }
+        function scrollToShop() { document.getElementById('shopSection').scrollIntoView({behavior: 'smooth'}); }
     </script>
 </body>
 </html>
