@@ -2,135 +2,281 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senior Shop - Home</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
-
+    <title>Senior Shop - Accessible</title>
     <style>
-        :root { --primary: #208090; --bg-color: #F8FAFC; --text-color: #1F2937; --focus-ring: #F59E0B; }
-        body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
-        
-        /* High Contrast & Dyslexia */
-        body.contrast-high { --primary: #FFFF00; --bg-color: #000; --text-color: #fff; background-color: #000 !important; color: #fff !important; }
-        body.contrast-high .bg-white { background-color: #000 !important; border: 2px solid #fff; }
-        body.contrast-high .btn-primary { background-color: #FFFF00 !important; color: #000 !important; border: 2px solid white; }
-        body.dyslexia-mode { font-family: 'OpenDyslexic', sans-serif !important; }
+        /* BASE STYLES - Senior Shop Theme */
+        :root {
+            --bg-body: #F5F7FA;
+            --bg-white: #FFFFFF;
+            --primary-teal: #0F6B6B; /* Your Senior Shop Teal */
+            --primary-dark: #094545;
+            --text-main: #1A1A1A;
+            --focus-ring: #FF9900; /* High Vis Orange Focus */
+            --border-color: #CBD5E0;
+        }
 
-        /* Targets */
-        button, a, input { min-height: 48px; min-width: 48px; }
-        *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 2px; }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* UTILITIES */
+        .touch-target {
+            min-height: 48px;
+            min-width: 48px;
+            cursor: pointer;
+        }
+
+        /* HEADER SECTION */
+        header {
+            background-color: var(--bg-white);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            gap: 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* LOGO */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-circle {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-teal);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-teal);
+        }
+
+        /* FIXED SEARCH BAR */
+        .search-container {
+            flex-grow: 1; /* Takes up remaining space */
+            max-width: 600px;
+            display: flex;
+            height: 52px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
         
-        /* Nav Animation */
-        .group:hover .group-hover\:scale-110 { transform: scale(1.1); }
+        .search-input {
+            flex-grow: 1;
+            border: none;
+            padding: 0 16px;
+            font-size: 18px; /* Larger text for readability */
+            color: #333;
+        }
         
-        /* Judge Mode */
-        .a11y-target { outline: 2px dashed #ff0000 !important; position: relative; }
-        .a11y-heading { outline: 2px solid #2563eb !important; position: relative; }
+        .search-btn {
+            background: var(--primary-teal);
+            color: white;
+            border: none;
+            padding: 0 24px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .search-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* HEADER ACTIONS */
+        .header-actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 2px solid var(--border-color);
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary-teal);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            max-width: 1400px;
+            margin: 32px auto;
+            padding: 0 32px;
+        }
+        
+        .hero-card {
+            background: white;
+            border-radius: 12px;
+            padding: 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .hero-text h1 {
+            color: var(--primary-teal);
+            font-size: 48px; /* H1 Large */
+            margin: 0 0 16px 0;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            color: #4A5568;
+            max-width: 600px;
+            margin-bottom: 32px;
+        }
+
+        .cta-btn {
+            background: var(--primary-teal);
+            color: white;
+            font-size: 20px;
+            padding: 16px 32px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .hero-image-placeholder {
+            width: 400px;
+            height: 250px;
+            background: #EDF2F7;
+            border: 2px dashed #CBD5E0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #718096;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* FLOATING ACTION BUTTON */
+        .fab {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: #E53E3E; /* Red/Pink from screenshot */
+            color: white;
+            padding: 16px 24px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ANNOTATION STYLES (Toggle visible for screenshots) */
+        .annotation-mode .h1-label::after {
+            content: " [H1]"; color: red; font-size: 16px; vertical-align: super; font-weight: bold;
+        }
+        .annotation-mode .touch-target-box {
+            outline: 3px dashed #FF9900;
+            outline-offset: 4px;
+        }
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="annotation-mode"> <header>
+        <a href="#" class="logo-container touch-target-box">
+            <div class="logo-circle">S</div>
+            <span class="logo-text">Senior Shop</span>
+        </a>
 
-    <a href="#main-content" class="absolute -top-96 left-0 bg-[#208090] text-white p-4 z-50 focus:top-0 text-xl font-bold">Skip to Content</a>
+        <form class="search-container touch-target-box" role="search">
+            <input type="text" class="search-input" placeholder="Search for items..." aria-label="Search items">
+            <button type="submit" class="search-btn">Search</button>
+        </form>
 
-    <header class="bg-white shadow-md relative z-40 p-4">
-        <div class="container mx-auto flex flex-col lg:flex-row justify-between items-center gap-4">
+        <div class="header-actions">
+            <button class="btn-secondary touch-target-box" aria-label="Read Page Aloud">
+                🔊 Read Page
+            </button>
             
-            <div class="flex items-center justify-between w-full lg:w-auto">
-                <a href="index.html" class="flex items-center gap-3 group">
-                    <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition">S</div>
-                    <span class="text-3xl md:text-4xl font-bold text-[#208090]">Senior Shop</span>
-                </a>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-3 justify-center w-full lg:w-auto">
-                 <button onclick="toggleVoice()" class="flex items-center gap-2 bg-blue-50 border-2 border-[#208090] text-[#208090] px-4 py-3 rounded-lg font-bold hover:bg-blue-100 transition shadow-sm flex-grow justify-center md:flex-grow-0">
-                    <span class="text-2xl">🗣️</span> <span class="text-lg">Voice</span>
-                </button>
-
-                <div class="relative flex-grow md:flex-grow-0">
-                    <button onclick="document.getElementById('a11y-menu').classList.toggle('hidden')" class="w-full flex items-center justify-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm">
-                        <span class="text-2xl">♿</span> <span class="text-lg">Settings</span>
-                    </button>
-                    <div id="a11y-menu" class="hidden absolute top-full right-0 mt-2 w-72 bg-white border-2 border-[#208090] rounded-xl shadow-xl p-4 z-50">
-                         <button onclick="document.body.classList.toggle('contrast-high')" class="w-full text-left p-3 hover:bg-gray-100 font-bold text-lg border-b">Toggle High Contrast</button>
-                         <div class="flex items-center justify-between p-3">
-                            <label class="font-bold text-lg">Dyslexia Font</label>
-                            <input type="checkbox" onchange="document.body.classList.toggle('dyslexia-mode')" class="w-6 h-6">
-                        </div>
-                    </div>
-                </div>
-
-                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold hover:bg-[#165E6A] shadow-md transition decoration-0 flex-grow justify-center md:flex-grow-0">
-                    <span class="text-2xl">🛒</span> <span class="text-lg">Cart</span>
-                </a>
-            </div>
+            <button class="btn-secondary touch-target-box">
+                ♿ Settings
+            </button>
+            
+            <button class="btn-primary touch-target-box">
+                🛒 Cart (0)
+            </button>
         </div>
     </header>
 
-    <div id="voice-bar" class="hidden fixed bottom-0 left-0 w-full bg-[#208090] text-white p-6 text-center font-bold text-2xl z-50">
-        Listening... Try saying "Shop Phones"
-        <button onclick="toggleVoice()" class="ml-4 bg-white text-[#208090] px-4 py-1 rounded text-lg">Cancel</button>
-    </div>
-
-    <main id="main-content" class="container mx-auto px-4 py-8 flex-grow">
-        
-        <section class="bg-white rounded-2xl p-6 md:p-12 shadow-sm border border-gray-200 mb-12 flex flex-col md:flex-row items-center gap-8">
-            <div class="flex-1 text-center md:text-left">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-[#208090]">Technology Made Simple</h1>
-                <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">Easy-to-use electronics designed for your comfort.</p>
-                <a href="shop.html" class="inline-block bg-[#208090] text-white px-10 py-5 rounded-xl text-2xl font-bold shadow-lg hover:bg-[#165E6A] btn-primary w-full md:w-auto text-center">
-                    Browse New Arrivals
-                </a>
+    <section class="hero">
+        <div class="hero-card">
+            <div class="hero-text">
+                <h1 class="h1-label">Technology Made Simple</h1>
+                <p>We sell phones with large buttons, easy-to-read tablets, and loud speakers. Designed for your comfort.</p>
+                <button class="cta-btn touch-target-box">Browse New Arrivals</button>
             </div>
-            <div class="w-full md:w-1/3 h-64 bg-gray-100 rounded-xl flex items-center justify-center border-2 border-dashed border-gray-300">
-                <img src="https://placehold.co/400x300/F3F4F6/208090?text=Happy+User" alt="Senior using tablet" class="w-full h-full object-cover rounded-xl">
-            </div>
-        </section>
-
-        <h2 class="text-3xl md:text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">Shop by Category</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             
-            <a href="shop.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group block">
-                <div class="text-7xl mb-4 group-hover:scale-110 transition">📱</div>
-                <h3 class="text-3xl font-bold text-gray-800 underline decoration-transparent group-hover:decoration-[#208090]">Easy Phones</h3>
-                <p class="text-xl text-gray-600 mt-2">Big buttons & loud volume</p>
-            </a>
-
-            <a href="health.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group block">
-                <div class="text-7xl mb-4 group-hover:scale-110 transition">💊</div>
-                <h3 class="text-3xl font-bold text-gray-800 underline decoration-transparent group-hover:decoration-[#208090]">Health Aids</h3>
-                <p class="text-xl text-gray-600 mt-2">Monitors & dispensers</p>
-            </a>
-
-            <a href="vision.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group block">
-                <div class="text-7xl mb-4 group-hover:scale-110 transition">👓</div>
-                <h3 class="text-3xl font-bold text-gray-800 underline decoration-transparent group-hover:decoration-[#208090]">Vision Aids</h3>
-                <p class="text-xl text-gray-600 mt-2">Magnifiers & readers</p>
-            </a>
+            <div class="hero-image-placeholder">
+                [Image: Senior using tablet] <br>
+                <span style="font-size:14px; margin-top:8px;">ALT: "Smiling senior woman using a simplified tablet interface"</span>
+            </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="bg-gray-800 text-white p-8 text-center mt-auto">
-        <p class="text-xl">© 2026 Senior Shop.</p>
-    </footer>
+    <section class="hero" style="margin-top:0;">
+        <h2 style="font-size:32px; color:#1A202C; margin-bottom:24px;">Shop by Category [H2]</h2>
+        <div style="display:flex; gap:24px;">
+            <div style="background:white; padding:24px; border:1px solid #ddd; border-radius:8px; flex:1; text-align:center;">
+                <span style="font-size:40px;">📱</span>
+                <h3>Phones</h3>
+            </div>
+            <div style="background:white; padding:24px; border:1px solid #ddd; border-radius:8px; flex:1; text-align:center;">
+                <span style="font-size:40px;">💊</span>
+                <h3>Health</h3>
+            </div>
+        </div>
+    </section>
 
-    <script>
-        function toggleVoice() {
-            const bar = document.getElementById('voice-bar');
-            bar.classList.toggle('hidden');
-        }
-    </script>
-    
-    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-        <button onclick="toggleAnnotations()" style="background: #ef4444; color: white; font-weight: bold; padding: 12px 24px; border-radius: 50px; border: 2px solid white; cursor: pointer;">👁️ Visibility Mode</button>
-    </div>
-    <script>
-        function toggleAnnotations() {
-            document.querySelectorAll('button, a, input').forEach(el => el.classList.toggle('a11y-target'));
-            document.querySelectorAll('h1, h2, h3').forEach(el => el.classList.toggle('a11y-heading'));
-        }
-    </script>
+    <button class="fab touch-target-box">
+        👁️ Advance Visibility Mode
+    </button>
+
 </body>
 </html>
