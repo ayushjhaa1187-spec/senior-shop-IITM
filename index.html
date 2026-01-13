@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senior Shop - Working Checkout</title>
+    <title>Senior Shop - Checkout Fixed</title>
     <style>
         /* BASE STYLES */
         :root {
@@ -173,12 +173,12 @@
         }
         .price { font-size: 1.6rem; font-weight: bold; color: var(--primary-teal); margin: 12px 0; }
 
-        /* CART MODAL */
+        /* CART MODAL - High Z-Index */
         #cartModal {
             display: none; position: fixed; top: 70px; right: 20px;
             background: white; border: 2px solid var(--primary-teal);
-            border-radius: 12px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 200; width: 320px;
+            border-radius: 12px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 9999; width: 320px;
         }
 
         /* ANNOTATIONS */
@@ -201,8 +201,10 @@
         <h3>Shopping Cart</h3>
         <div id="cartItemsList"><p>Your cart is empty.</p></div>
         <div style="margin-top:20px; font-weight:bold; text-align:right;">Total: <span id="cartTotal">$0</span></div>
-        <button class="btn-primary" style="width:100%; justify-content:center; margin-top:16px;" onclick="checkout()">Checkout Now</button>
-        <button onclick="toggleCart()" style="width:100%; margin-top:10px; background:none; border:none; color:red; padding:10px;">Close</button>
+        
+        <button class="btn-primary" type="button" onclick="finalizeOrder()" style="width:100%; justify-content:center; margin-top:16px;">Checkout Now</button>
+        
+        <button onclick="toggleCart()" style="width:100%; margin-top:10px; background:none; border:none; color:red; padding:10px; cursor:pointer;">Close</button>
     </div>
 
     <header>
@@ -283,7 +285,10 @@
         let cartItems = [];
         let currentFontSize = 16;
 
-        window.onload = function() { renderProducts(products); };
+        // INITIALIZE
+        window.onload = function() { 
+            renderProducts(products); 
+        };
 
         function renderProducts(items) {
             const grid = document.getElementById('productGrid');
@@ -328,19 +333,20 @@
             document.getElementById('cartTotal').innerText = "$" + total;
         }
 
-        // NEW CHECKOUT FUNCTION
-        function checkout() {
+        // FIXED CHECKOUT FUNCTION
+        function finalizeOrder() {
             if (cartItems.length === 0) {
-                alert("Your cart is empty! Add items before checking out.");
+                alert("Your cart is empty! Please add items first.");
                 return;
             }
             const total = document.getElementById('cartTotal').innerText;
-            alert("Success! Your order for " + total + " has been placed.\n\nThank you for shopping with Senior Shop!");
-            // Reset Cart
+            alert("🎉 SUCCESS!\n\nOrder Confirmed for " + total + "\nA confirmation email has been sent.");
+            
+            // Reset
             cartItems = [];
             document.getElementById('cartCount').innerText = "0";
             updateCartModal();
-            toggleCart(); // Close modal
+            toggleCart(); 
         }
 
         function toggleCart() {
