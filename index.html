@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senior Shop - Final</title>
+    <title>Senior Shop - Edge to Edge</title>
     <style>
         /* BASE STYLES */
         :root {
-            --bg-body: #F5F7FA;
+            --bg-body: #F9FAFB; /* Very light grey for depth */
             --bg-white: #FFFFFF;
             --primary-teal: #0F6B6B;
             --primary-dark: #094545;
             --text-main: #1A1A1A;
             --focus-ring: #FF9900;
-            --border-color: #CBD5E0;
+            --border-color: #E5E7EB;
             --base-size: 16px;
         }
 
         body {
             font-family: 'Segoe UI', Roboto, sans-serif;
             margin: 0;
+            padding: 0; /* Remove body padding */
             background-color: var(--bg-body);
             color: var(--text-main);
             line-height: 1.5;
             font-size: var(--base-size);
-            padding-bottom: 80px;
+            padding-bottom: 100px; /* Space for FAB */
         }
 
         /* HIGH CONTRAST MODE */
@@ -37,38 +38,42 @@
         }
         body.high-contrast-mode .logo-text, 
         body.high-contrast-mode h1, body.high-contrast-mode h2, 
-        body.high-contrast-mode .price, body.high-contrast-mode h3 { color: #FFFF00 !important; }
+        body.high-contrast-mode .price { color: #FFFF00 !important; }
         body.high-contrast-mode button, body.high-contrast-mode .category-card { border: 2px solid white; background: #000; color: #FFF; }
         body.high-contrast-mode .btn-primary { background: #FFFF00; color: #000; }
-        body.high-contrast-mode .category-card:hover { background: #333; }
-
+        
         /* UTILITIES */
         .touch-target-box { cursor: pointer; }
+        .content-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-        /* HEADER */
+        /* HEADER - FULL WIDTH */
         header {
             background-color: var(--bg-white);
-            padding: 12px 16px;
+            padding: 16px 20px; /* Edge padding */
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-bottom: 1px solid var(--border-color);
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 16px;
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
-        .logo-container { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+        .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
         .logo-circle {
-            width: 40px; height: 40px; background: var(--primary-teal); color: white;
+            width: 44px; height: 44px; background: var(--primary-teal); color: white;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 20px; font-weight: bold;
+            font-size: 22px; font-weight: bold;
         }
-        .logo-text { font-size: 1.2rem; font-weight: 700; color: var(--primary-teal); }
+        .logo-text { font-size: 1.4rem; font-weight: 700; color: var(--primary-teal); }
 
-        .header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .header-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
         
         .btn-icon {
             min-width: 44px; height: 44px; border-radius: 8px; border: 1px solid var(--border-color);
@@ -77,93 +82,115 @@
         }
         .btn-primary {
             background: var(--primary-teal); color: white; border: none;
-            padding: 0 16px; height: 44px; border-radius: 6px; font-weight: 600; font-size: 1rem;
-            cursor: pointer; display: flex; align-items: center; gap: 6px;
+            padding: 0 20px; height: 44px; border-radius: 6px; font-weight: 600; font-size: 1rem;
+            cursor: pointer; display: flex; align-items: center; gap: 8px;
         }
 
         .search-container {
             display: flex; height: 48px;
             border: 2px solid var(--border-color); border-radius: 8px; overflow: hidden;
-            width: 100%; max-width: 500px;
+            width: 100%; max-width: 600px;
         }
-        .search-input { flex-grow: 1; border: none; padding: 0 12px; font-size: 1rem; }
+        .search-input { flex-grow: 1; border: none; padding: 0 16px; font-size: 1rem; }
         .search-btn {
             background: var(--primary-teal); color: white; border: none;
-            padding: 0 20px; font-weight: bold; cursor: pointer;
+            padding: 0 24px; font-weight: bold; cursor: pointer;
         }
 
         @media (min-width: 768px) {
-            .search-container { width: auto; flex-grow: 1; order: 0; margin: 0 20px; }
+            .search-container { width: auto; flex-grow: 1; order: 0; margin: 0 30px; }
             header { flex-wrap: nowrap; }
         }
         @media (max-width: 767px) {
-            .search-container { order: 3; width: 100%; margin-top: 8px; }
+            .search-container { order: 3; width: 100%; margin-top: 10px; }
             .logo-text { display: none; }
         }
 
-        /* MAIN CONTENT */
-        .container { max-width: 1400px; margin: 20px auto; padding: 0 16px; }
-        
-        .hero-card {
-            background: var(--bg-white); border-radius: 12px; padding: 24px;
-            border: 1px solid var(--border-color);
-            display: flex; flex-direction: column; gap: 20px;
+        /* HERO - DEFRAMED (Full Width Banner) */
+        .hero-section {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            padding: 40px 0;
+            width: 100%;
         }
-        @media (min-width: 768px) { .hero-card { flex-direction: row; padding: 48px; } }
+        
+        .hero-layout {
+            display: flex; flex-direction: column; gap: 30px;
+            align-items: center;
+        }
+        
+        @media (min-width: 768px) {
+            .hero-layout { flex-direction: row; justify-content: space-between; text-align: left; }
+            .hero-text { max-width: 50%; }
+        }
 
-        /* CATEGORY SECTION */
+        .hero-text h1 { 
+            color: var(--primary-teal); font-size: 2.8rem; margin: 0 0 16px 0; line-height: 1.2;
+        }
+        .hero-text p { font-size: 1.2rem; color: #4B5563; margin-bottom: 24px; }
+
+        .hero-image {
+            width: 100%; max-width: 400px; height: 250px; 
+            background: #F3F4F6; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; border: 2px dashed #D1D5DB;
+        }
+
+        /* CATEGORIES - Clean Grid */
+        .section-title { font-size: 1.8rem; margin: 40px 0 24px 0; color: var(--text-main); }
+        
         .category-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 16px; margin-top: 16px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 20px;
         }
         .category-card {
-            background: var(--bg-white); border: 2px solid var(--border-color);
-            border-radius: 12px; padding: 20px; text-align: center;
-            cursor: pointer; transition: 0.2s; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; min-height: 120px;
+            background: var(--bg-white); 
+            /* No Border, just shadow for cleaner look */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-radius: 12px; padding: 24px 16px; text-align: center;
+            cursor: pointer; transition: 0.2s;
         }
         .category-card:hover {
-            border-color: var(--primary-teal); background-color: #F0FDFD;
-            transform: translateY(-2px);
+            transform: translateY(-4px); box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            color: var(--primary-teal);
         }
-        
+        .category-icon { font-size: 2.5rem; margin-bottom: 12px; display: block; }
+        .category-label { font-weight: 700; font-size: 1.1rem; }
+
         /* PRODUCT GRID */
         .product-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 16px; margin-top: 24px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 24px;
         }
         .product-card {
-            background: var(--bg-white); border: 1px solid var(--border-color);
-            padding: 16px; border-radius: 8px; text-align: center;
+            background: var(--bg-white); border-radius: 12px;
+            padding: 24px; text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Soft shadow instead of border */
+            border: 1px solid transparent; /* invisible border for high contrast mode */
+            transition: 0.2s;
         }
-        .price { font-size: 1.4rem; font-weight: bold; color: var(--primary-teal); }
+        .product-card:hover { 
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1); transform: translateY(-4px);
+        }
+        .price { font-size: 1.6rem; font-weight: bold; color: var(--primary-teal); margin: 12px 0; }
 
         /* CART MODAL */
         #cartModal {
-            display: none; position: fixed; top: 60px; right: 10px; left: 10px;
+            display: none; position: fixed; top: 70px; right: 20px;
             background: white; border: 2px solid var(--primary-teal);
-            border-radius: 8px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            z-index: 200; max-width: 400px; margin: auto;
+            border-radius: 12px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 200; width: 320px;
         }
 
-        /* DYNAMIC ANNOTATIONS (Judge Mode) */
-        /* H1 Label */
-        body.show-annotations .h1-label::after { 
-            content: " [H1]"; color: red; font-size: 0.8rem; vertical-align: super; font-weight: bold; 
-        }
-        /* H2 Label - NOW DYNAMIC (Not hardcoded) */
-        body.show-annotations .h2-label::after { 
-            content: " [H2]"; color: red; font-size: 0.8rem; vertical-align: super; font-weight: bold; 
-        }
-        /* Touch Targets */
-        body.show-annotations .touch-target-box { 
-            outline: 3px dashed #FF9900; outline-offset: 2px; 
-        }
+        /* ANNOTATIONS (Judge Mode) */
+        body.show-annotations .h1-label::after { content: " [H1]"; color: red; font-size: 1rem; vertical-align: super; font-weight: bold; }
+        body.show-annotations .h2-label::after { content: " [H2]"; color: red; font-size: 1rem; vertical-align: super; font-weight: bold; }
+        body.show-annotations .touch-target-box { outline: 3px dashed #FF9900; outline-offset: 2px; }
 
         .fab {
-            position: fixed; bottom: 20px; right: 20px;
-            background: #E53E3E; color: white; padding: 12px 20px;
-            border-radius: 50px; font-weight: bold; font-size: 1rem;
+            position: fixed; bottom: 30px; right: 30px;
+            background: #E53E3E; color: white; padding: 14px 24px;
+            border-radius: 50px; font-weight: bold; font-size: 1.1rem;
             border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             z-index: 150;
         }
@@ -173,9 +200,9 @@
 
     <div id="cartModal">
         <h3>Shopping Cart</h3>
-        <div id="cartItemsList"><p>Cart is empty.</p></div>
+        <div id="cartItemsList"><p>Your cart is empty.</p></div>
         <div style="margin-top:20px; font-weight:bold; text-align:right;">Total: <span id="cartTotal">$0</span></div>
-        <button class="btn-primary" style="width:100%; justify-content:center; margin-top:10px;">Checkout</button>
+        <button class="btn-primary" style="width:100%; justify-content:center; margin-top:16px;">Checkout Now</button>
         <button onclick="toggleCart()" style="width:100%; margin-top:10px; background:none; border:none; color:red; padding:10px;">Close</button>
     </div>
 
@@ -193,45 +220,53 @@
         </div>
 
         <form class="search-container touch-target-box" id="searchForm">
-            <input type="text" class="search-input" id="searchInput" placeholder="Search..." aria-label="Search">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search for items..." aria-label="Search">
             <button type="submit" class="search-btn">🔍</button>
         </form>
     </header>
 
-    <div class="container">
-        <div class="hero-card">
-            <div>
-                <h1 class="h1-label">Tech Made Simple</h1>
-                <p>Phones with large buttons & loud speakers.</p>
-                <button class="btn-primary touch-target-box" onclick="scrollToShop()">Browse</button>
-            </div>
-            <div style="min-width:200px; height:150px; background:#EDF2F7; display:flex; align-items:center; justify-content:center; text-align:center; border:2px dashed #CBD5E0;">
-                [Image: Tablet]<br>ALT: "Senior using tablet"
+    <section class="hero-section">
+        <div class="content-wrapper">
+            <div class="hero-layout">
+                <div class="hero-text">
+                    <h1 class="h1-label">Technology Made Simple</h1>
+                    <p>Phones with large buttons, easy-to-read tablets, and loud speakers. Designed for your comfort.</p>
+                    <button class="btn-primary touch-target-box" onclick="scrollToShop()">Browse Catalog</button>
+                </div>
+                <div class="hero-image">
+                    <div>
+                        [Image: Senior using tablet]<br>
+                        <span style="font-size:0.9rem; color:#6B7280;">ALT: "Smiling woman using accessible tablet"</span>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <h2 class="h2-label" style="font-size:1.5rem; margin-top:32px;">Shop by Category</h2>
+    <div class="content-wrapper">
+        
+        <h2 class="h2-label section-title">Shop by Category</h2>
         <div class="category-grid">
             <div class="category-card touch-target-box" onclick="filterCategory('Phone')">
-                <div style="font-size:2.5rem; margin-bottom:8px;">📱</div>
-                <div style="font-weight:bold;">Phones</div>
+                <span class="category-icon">📱</span>
+                <span class="category-label">Phones</span>
             </div>
             <div class="category-card touch-target-box" onclick="filterCategory('Tablet')">
-                <div style="font-size:2.5rem; margin-bottom:8px;">💻</div>
-                <div style="font-weight:bold;">Tablets</div>
+                <span class="category-icon">💻</span>
+                <span class="category-label">Tablets</span>
             </div>
             <div class="category-card touch-target-box" onclick="filterCategory('Health')">
-                <div style="font-size:2.5rem; margin-bottom:8px;">❤️</div>
-                <div style="font-weight:bold;">Health</div>
+                <span class="category-icon">❤️</span>
+                <span class="category-label">Health</span>
             </div>
             <div class="category-card touch-target-box" onclick="filterCategory('all')">
-                <div style="font-size:2.5rem; margin-bottom:8px;">📋</div>
-                <div style="font-weight:bold;">View All</div>
+                <span class="category-icon">📋</span>
+                <span class="category-label">View All</span>
             </div>
         </div>
 
         <div id="shopSection">
-            <h2 class="h2-label" style="font-size:1.5rem; margin-top:32px;">Featured Items</h2>
+            <h2 class="h2-label section-title">Featured Items</h2>
             <div class="product-grid" id="productGrid"></div>
         </div>
     </div>
@@ -243,12 +278,12 @@
     <script>
         // DATA
         const products = [
-            { name: "Big Button Phone", price: 89, icon: "📱", desc: "Large keys", category: "Phone" },
-            { name: "Easy Tablet", price: 199, icon: "💻", desc: "Simple menu", category: "Tablet" },
-            { name: "Talking Watch", price: 29, icon: "⌚", desc: "Speaks time", category: "Health" },
-            { name: "SOS Pendant", price: 49, icon: "🔴", desc: "Alert button", category: "Health" },
+            { name: "Big Button Phone", price: 89, icon: "📱", desc: "Large keys & SOS", category: "Phone" },
+            { name: "Easy Tablet", price: 199, icon: "💻", desc: "Simple menu system", category: "Tablet" },
+            { name: "Talking Watch", price: 29, icon: "⌚", desc: "Speaks the time", category: "Health" },
+            { name: "SOS Pendant", price: 49, icon: "🔴", desc: "Emergency alert", category: "Health" },
             { name: "Loud Speaker", price: 59, icon: "🔊", desc: "Voice boost", category: "Accessories" },
-            { name: "Stylus Pen", price: 19, icon: "🖊️", desc: "Easy grip", category: "Tablet" }
+            { name: "Stylus Pen", price: 19, icon: "🖊️", desc: "Easy grip handle", category: "Tablet" }
         ];
 
         let cartItems = [];
@@ -260,27 +295,25 @@
             const grid = document.getElementById('productGrid');
             grid.innerHTML = "";
             if(items.length === 0) {
-                grid.innerHTML = "<p>No items found in this category.</p>";
+                grid.innerHTML = "<p>No items found.</p>";
                 return;
             }
             items.forEach(p => {
                 grid.innerHTML += `
                     <div class="product-card touch-target-box">
-                        <div style="font-size:2.5rem;">${p.icon}</div>
-                        <h3>${p.name}</h3>
+                        <div style="font-size:3rem; margin-bottom:10px;">${p.icon}</div>
+                        <h3 style="margin:0; font-size:1.2rem;">${p.name}</h3>
+                        <p style="color:#666; margin:8px 0;">${p.desc}</p>
                         <div class="price">$${p.price}</div>
-                        <button class="btn-primary" style="width:100%; justify-content:center; margin-top:8px;" onclick="addToCart('${p.name}', ${p.price})">Add</button>
+                        <button class="btn-primary" style="width:100%; justify-content:center;" onclick="addToCart('${p.name}', ${p.price})">Add to Cart</button>
                     </div>
                 `;
             });
         }
 
         function filterCategory(category) {
-            if (category === 'all') {
-                renderProducts(products);
-            } else {
-                renderProducts(products.filter(p => p.category === category));
-            }
+            if (category === 'all') { renderProducts(products); } 
+            else { renderProducts(products.filter(p => p.category === category)); }
         }
 
         function addToCart(name, price) {
@@ -296,7 +329,7 @@
             list.innerHTML = "";
             cartItems.forEach(item => {
                 total += item.price;
-                list.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>${item.name}</span><b>$${item.price}</b></div>`;
+                list.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #eee; padding-bottom:4px;"><span>${item.name}</span><b>$${item.price}</b></div>`;
             });
             document.getElementById('cartTotal').innerText = "$" + total;
         }
@@ -308,8 +341,8 @@
 
         function resizeText(amount) {
             currentFontSize += amount;
-            if(currentFontSize < 12) currentFontSize = 12;
-            if(currentFontSize > 24) currentFontSize = 24;
+            if(currentFontSize < 14) currentFontSize = 14;
+            if(currentFontSize > 28) currentFontSize = 28;
             document.body.style.fontSize = currentFontSize + "px";
         }
 
