@@ -3,75 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senior Shop - Accessible E-Commerce</title>
+    <title>Senior Shop - Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
 
     <style>
-        /* --- CORE STYLES --- */
-        :root {
-            --primary: #208090;
-            --bg-color: #F8FAFC;
-            --text-color: #1F2937;
-            --focus-ring: #F59E0B;
-        }
-
-        body {
-            font-family: 'Source Sans 3', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        /* --- ACCESSIBILITY MODES --- */
-        body.contrast-high {
-            --primary: #FFFF00;
-            --bg-color: #000000;
-            --text-color: #FFFFFF;
-            background-color: #000000 !important;
-            color: #FFFFFF !important;
-        }
-        body.contrast-high .bg-white { background-color: #000000 !important; border: 2px solid #FFFFFF; }
-        body.contrast-high .btn-primary { background-color: #FFFF00 !important; color: #000000 !important; border: 2px solid white; }
-        body.contrast-high .text-gray-600 { color: #DDDDDD !important; }
-
+        :root { --primary: #208090; --bg-color: #F8FAFC; --text-color: #1F2937; --focus-ring: #F59E0B; }
+        body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        
+        /* High Contrast & Dyslexia */
+        body.contrast-high { --primary: #FFFF00; --bg-color: #000; --text-color: #fff; background-color: #000 !important; color: #fff !important; }
+        body.contrast-high .bg-white { background-color: #000 !important; border: 2px solid #fff; }
+        body.contrast-high .btn-primary { background-color: #FFFF00 !important; color: #000 !important; border: 2px solid white; }
         body.dyslexia-mode { font-family: 'OpenDyslexic', sans-serif !important; }
 
-        /* --- INTERACTIVE --- */
+        /* Targets */
         button, a, input { min-height: 48px; min-width: 48px; }
         *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 2px; }
-
-        /* --- VOICE COMMAND BAR --- */
-        #voice-bar {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #208090;
-            color: white;
-            padding: 24px;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            z-index: 100;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
-        }
-        .mic-pulse {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background-color: #F59E0B;
-            border-radius: 50%;
-            margin-right: 12px;
-            animation: pulse 1s infinite;
-        }
-        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
-
-        /* --- MENU --- */
-        .a11y-menu { display: none; position: absolute; top: 100%; right: 0; width: 340px; background: white; border: 2px solid #208090; padding: 20px; z-index: 50; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 12px; }
-        .a11y-menu.open { display: block; }
+        
+        /* Nav Animation */
+        .group:hover .group-hover\:scale-110 { transform: scale(1.1); }
+        
+        /* Judge Mode */
+        .a11y-target { outline: 2px dashed #ff0000 !important; position: relative; }
+        .a11y-heading { outline: 2px solid #2563eb !important; position: relative; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -79,196 +35,102 @@
     <a href="#main-content" class="absolute -top-96 left-0 bg-[#208090] text-white p-4 z-50 focus:top-0 text-xl font-bold">Skip to Content</a>
 
     <header class="bg-white shadow-md relative z-40 p-4">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="container mx-auto flex flex-col lg:flex-row justify-between items-center gap-4">
             
-            <a href="#" class="flex items-center gap-3 group w-full md:w-auto">
-                <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition">S</div>
-                <span class="text-4xl font-bold text-[#208090]">Senior Shop</span>
-            </a>
-
-            <div class="hidden md:flex relative flex-1 max-w-lg mx-8">
-                <input type="text" placeholder="Search for items..." class="w-full border-2 border-gray-400 rounded-l-lg px-4 py-3 text-xl focus:border-[#208090]">
-                <button class="bg-[#208090] text-white px-8 rounded-r-lg font-bold hover:bg-[#165E6A] text-lg">Search</button>
+            <div class="flex items-center justify-between w-full lg:w-auto">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition">S</div>
+                    <span class="text-3xl md:text-4xl font-bold text-[#208090]">Senior Shop</span>
+                </a>
             </div>
 
-            <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-center">
-                
-                <button onclick="toggleVoice()" class="flex items-center gap-2 bg-blue-50 border-2 border-[#208090] text-[#208090] px-4 py-3 rounded-lg font-bold hover:bg-blue-100 transition shadow-sm">
-                    <span class="text-2xl">🗣️</span> 
-                    <span class="text-lg">Voice Command</span>
+            <div class="flex flex-wrap items-center gap-3 justify-center w-full lg:w-auto">
+                 <button onclick="toggleVoice()" class="flex items-center gap-2 bg-blue-50 border-2 border-[#208090] text-[#208090] px-4 py-3 rounded-lg font-bold hover:bg-blue-100 transition shadow-sm flex-grow justify-center md:flex-grow-0">
+                    <span class="text-2xl">🗣️</span> <span class="text-lg">Voice</span>
                 </button>
 
-                <div class="relative">
-                    <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm">
-                        <span class="text-2xl">♿</span> 
-                        <span class="text-lg">Settings</span>
+                <div class="relative flex-grow md:flex-grow-0">
+                    <button onclick="document.getElementById('a11y-menu').classList.toggle('hidden')" class="w-full flex items-center justify-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm">
+                        <span class="text-2xl">♿</span> <span class="text-lg">Settings</span>
                     </button>
-
-                    <div id="a11y-menu" class="a11y-menu text-left">
-                        <div class="flex justify-between items-center mb-4 border-b pb-2">
-                            <h3 class="font-bold text-xl text-gray-800">Accessibility Tools</h3>
-                            <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg">Close</button>
-                        </div>
-                        
-                        <div class="mb-6">
-                            <button onclick="readPage()" class="w-full bg-blue-100 hover:bg-blue-200 text-blue-900 font-bold py-4 rounded-lg flex items-center justify-center gap-3 border border-blue-300 text-lg">
-                                <span class="text-2xl">🔊</span> Read Page Aloud
-                            </button>
-                            <button onclick="stopReading()" class="text-red-600 underline mt-3 w-full text-center hidden font-bold text-lg" id="stop-btn">Stop Reading</button>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block font-bold text-gray-700 mb-2 text-lg">Contrast Level</label>
-                            <div class="flex gap-2">
-                                <button onclick="setContrast('normal')" class="flex-1 py-3 bg-white border-2 border-gray-300 rounded font-bold">Normal</button>
-                                <button onclick="setContrast('high')" class="flex-1 py-3 bg-black text-yellow-300 border-2 border-white rounded font-bold">High</button>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded border border-gray-200 mt-4">
-                            <label class="font-bold text-gray-700 text-lg">Dyslexia Friendly Font</label>
-                            <input type="checkbox" onchange="document.body.classList.toggle('dyslexia-mode')" class="w-8 h-8 accent-[#208090]">
+                    <div id="a11y-menu" class="hidden absolute top-full right-0 mt-2 w-72 bg-white border-2 border-[#208090] rounded-xl shadow-xl p-4 z-50">
+                         <button onclick="document.body.classList.toggle('contrast-high')" class="w-full text-left p-3 hover:bg-gray-100 font-bold text-lg border-b">Toggle High Contrast</button>
+                         <div class="flex items-center justify-between p-3">
+                            <label class="font-bold text-lg">Dyslexia Font</label>
+                            <input type="checkbox" onchange="document.body.classList.toggle('dyslexia-mode')" class="w-6 h-6">
                         </div>
                     </div>
                 </div>
 
-                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold hover:bg-[#165E6A] shadow-md transition decoration-0">
-                    <span class="text-2xl">🛒</span>
-                    <span class="text-lg">Cart (0)</span>
+                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold hover:bg-[#165E6A] shadow-md transition decoration-0 flex-grow justify-center md:flex-grow-0">
+                    <span class="text-2xl">🛒</span> <span class="text-lg">Cart</span>
                 </a>
-
             </div>
         </div>
     </header>
 
-    <div id="voice-bar">
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-center gap-4">
-            <div class="flex items-center">
-                <span class="mic-pulse"></span>
-                <span>Listening... Try saying "Find Easy Phones"</span>
-            </div>
-            <button onclick="toggleVoice()" class="bg-white text-[#208090] px-6 py-2 rounded-lg text-lg font-bold shadow hover:bg-gray-100">Cancel</button>
-        </div>
+    <div id="voice-bar" class="hidden fixed bottom-0 left-0 w-full bg-[#208090] text-white p-6 text-center font-bold text-2xl z-50">
+        Listening... Try saying "Shop Phones"
+        <button onclick="toggleVoice()" class="ml-4 bg-white text-[#208090] px-4 py-1 rounded text-lg">Cancel</button>
     </div>
 
-    <main id="main-content" class="container mx-auto px-4 py-12 flex-grow">
+    <main id="main-content" class="container mx-auto px-4 py-8 flex-grow">
         
-        <section class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 mb-12 flex flex-col md:flex-row items-center gap-8">
+        <section class="bg-white rounded-2xl p-6 md:p-12 shadow-sm border border-gray-200 mb-12 flex flex-col md:flex-row items-center gap-8">
             <div class="flex-1 text-center md:text-left">
                 <h1 class="text-4xl md:text-6xl font-bold mb-6 text-[#208090]">Technology Made Simple</h1>
-                <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">We sell phones with large buttons, easy-to-read tablets, and loud speakers. Designed for your comfort.</p>
-                <button class="bg-[#208090] text-white px-10 py-5 rounded-xl text-2xl font-bold shadow-lg hover:bg-[#165E6A] btn-primary">
+                <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">Easy-to-use electronics designed for your comfort.</p>
+                <a href="shop.html" class="inline-block bg-[#208090] text-white px-10 py-5 rounded-xl text-2xl font-bold shadow-lg hover:bg-[#165E6A] btn-primary w-full md:w-auto text-center">
                     Browse New Arrivals
-                </button>
+                </a>
             </div>
-            <div class="w-full md:w-1/3 bg-gray-100 h-64 rounded-xl flex items-center justify-center text-gray-400 border-2 border-dashed border-gray-300">
-                <span class="text-xl font-bold">[Image: Senior using tablet]</span>
+            <div class="w-full md:w-1/3 h-64 bg-gray-100 rounded-xl flex items-center justify-center border-2 border-dashed border-gray-300">
+                <img src="https://placehold.co/400x300/F3F4F6/208090?text=Happy+User" alt="Senior using tablet" class="w-full h-full object-cover rounded-xl">
             </div>
         </section>
 
-        <h2 class="text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">Shop by Category</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <a href="shop.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
-                <div class="text-7xl mb-4">📱</div>
-                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Easy Phones</h3>
-                <p class="text-xl text-gray-600 mt-2">Large buttons & loud volume</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">Shop by Category</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            
+            <a href="shop.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group block">
+                <div class="text-7xl mb-4 group-hover:scale-110 transition">📱</div>
+                <h3 class="text-3xl font-bold text-gray-800 underline decoration-transparent group-hover:decoration-[#208090]">Easy Phones</h3>
+                <p class="text-xl text-gray-600 mt-2">Big buttons & loud volume</p>
             </a>
-            <a href="#" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
-                <div class="text-7xl mb-4">💊</div>
-                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Health Aids</h3>
-                <p class="text-xl text-gray-600 mt-2">Pill organizers & monitors</p>
+
+            <a href="health.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group block">
+                <div class="text-7xl mb-4 group-hover:scale-110 transition">💊</div>
+                <h3 class="text-3xl font-bold text-gray-800 underline decoration-transparent group-hover:decoration-[#208090]">Health Aids</h3>
+                <p class="text-xl text-gray-600 mt-2">Monitors & dispensers</p>
             </a>
-            <a href="#" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
-                <div class="text-7xl mb-4">👓</div>
-                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Vision Aids</h3>
-                <p class="text-xl text-gray-600 mt-2">Magnifiers & reading lights</p>
+
+            <a href="vision.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group block">
+                <div class="text-7xl mb-4 group-hover:scale-110 transition">👓</div>
+                <h3 class="text-3xl font-bold text-gray-800 underline decoration-transparent group-hover:decoration-[#208090]">Vision Aids</h3>
+                <p class="text-xl text-gray-600 mt-2">Magnifiers & readers</p>
             </a>
         </div>
     </main>
 
-    <footer class="bg-gray-800 text-white pt-12 pb-6 mt-12 text-center">
-        <p class="text-xl mb-4">© 2026 Senior Shop. Compliance: WCAG 2.1 Level AA.</p>
-        <p class="text-gray-400">Need Help? Call 1-800-555-0199</p>
+    <footer class="bg-gray-800 text-white p-8 text-center mt-auto">
+        <p class="text-xl">© 2026 Senior Shop.</p>
     </footer>
 
     <script>
-        // 1. MENU TOGGLE
-        function toggleMenu() {
-            document.getElementById('a11y-menu').classList.toggle('open');
-        }
-
-        // 2. CONTRAST SETTINGS
-        function setContrast(mode) {
-            if (mode === 'high') document.body.classList.add('contrast-high');
-            else document.body.classList.remove('contrast-high');
-        }
-
-        // 3. VOICE COMMAND SIMULATION
         function toggleVoice() {
             const bar = document.getElementById('voice-bar');
-            if (bar.style.display === 'block') {
-                bar.style.display = 'none';
-            } else {
-                bar.style.display = 'block';
-                // Simulate listening logic
-                setTimeout(() => {
-                    if(bar.style.display === 'block') {
-                         bar.innerHTML = '<div class="container mx-auto text-center font-bold text-white">Redirecting to Easy Phones...</div>';
-                         setTimeout(() => { window.location.href = 'shop.html'; }, 1500);
-                    }
-                }, 3000);
-            }
-        }
-
-        // 4. SCREEN READER (Reads the Main Content)
-        let speech = new SpeechSynthesisUtterance();
-        speech.lang = "en-US";
-        speech.rate = 0.9;
-
-        function readPage() {
-            const heading = document.querySelector('h1').innerText;
-            const sub = document.querySelector('p').innerText;
-            speech.text = "Welcome to Senior Shop. " + heading + ". " + sub + ". Use the Tab key to navigate categories.";
-            
-            window.speechSynthesis.speak(speech);
-            document.getElementById('stop-btn').classList.remove('hidden');
-        }
-
-        function stopReading() {
-            window.speechSynthesis.cancel();
-            document.getElementById('stop-btn').classList.add('hidden');
+            bar.classList.toggle('hidden');
         }
     </script>
-	<div id="visibility-controls" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-    <button onclick="toggleAnnotations()" style="background: #ef4444; color: white; font-weight: bold; padding: 12px 24px; border-radius: 50px; border: 2px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: sans-serif; cursor: pointer;">
-        👁️ Advance Visibility Mode
-    </button>
-</div>
-
-<style>
-    /* Styles for the annotations */
-    .a11y-target { outline: 2px dashed #ff0000 !important; position: relative; }
-    .a11y-target::after { content: '48px Target'; position: absolute; top: -12px; right: 0; background: #ff0000; color: white; font-size: 9px; padding: 2px 4px; border-radius: 2px; font-weight: bold; pointer-events: none; z-index: 1000; }
     
-    .a11y-heading { outline: 2px solid #2563eb !important; position: relative; }
-    .a11y-heading::after { content: attr(tagName); position: absolute; top: 0; left: -24px; background: #2563eb; color: white; font-size: 10px; padding: 2px 4px; font-weight: bold; z-index: 1000; }
-</style>
-
-<script>
-    function toggleAnnotations() {
-        const targets = document.querySelectorAll('button, a, input, select, label');
-        const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-        
-        targets.forEach(el => {
-            el.classList.toggle('a11y-target');
-        });
-        
-        headings.forEach(el => {
-            el.classList.toggle('a11y-heading');
-            // Store tag name for the label
-            if(!el.getAttribute('tagName')) el.setAttribute('tagName', el.tagName);
-        });
-    }
-</script>
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+        <button onclick="toggleAnnotations()" style="background: #ef4444; color: white; font-weight: bold; padding: 12px 24px; border-radius: 50px; border: 2px solid white; cursor: pointer;">👁️ Visibility Mode</button>
+    </div>
+    <script>
+        function toggleAnnotations() {
+            document.querySelectorAll('button, a, input').forEach(el => el.classList.toggle('a11y-target'));
+            document.querySelectorAll('h1, h2, h3').forEach(el => el.classList.toggle('a11y-heading'));
+        }
+    </script>
 </body>
 </html>
