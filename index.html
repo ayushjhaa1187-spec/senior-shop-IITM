@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senior Shop - Edge to Edge</title>
+    <title>Senior Shop - Working Checkout</title>
     <style>
         /* BASE STYLES */
         :root {
-            --bg-body: #F9FAFB; /* Very light grey for depth */
+            --bg-body: #F9FAFB;
             --bg-white: #FFFFFF;
             --primary-teal: #0F6B6B;
             --primary-dark: #094545;
@@ -20,12 +20,12 @@
         body {
             font-family: 'Segoe UI', Roboto, sans-serif;
             margin: 0;
-            padding: 0; /* Remove body padding */
+            padding: 0;
             background-color: var(--bg-body);
             color: var(--text-main);
             line-height: 1.5;
             font-size: var(--base-size);
-            padding-bottom: 100px; /* Space for FAB */
+            padding-bottom: 100px;
         }
 
         /* HIGH CONTRAST MODE */
@@ -50,10 +50,10 @@
             padding: 0 20px;
         }
 
-        /* HEADER - FULL WIDTH */
+        /* HEADER */
         header {
             background-color: var(--bg-white);
-            padding: 16px 20px; /* Edge padding */
+            padding: 16px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -106,7 +106,7 @@
             .logo-text { display: none; }
         }
 
-        /* HERO - DEFRAMED (Full Width Banner) */
+        /* HERO - DEFRAMED */
         .hero-section {
             background: var(--bg-white);
             border-bottom: 1px solid var(--border-color);
@@ -136,7 +136,7 @@
             text-align: center; border: 2px dashed #D1D5DB;
         }
 
-        /* CATEGORIES - Clean Grid */
+        /* CATEGORIES */
         .section-title { font-size: 1.8rem; margin: 40px 0 24px 0; color: var(--text-main); }
         
         .category-grid {
@@ -145,7 +145,6 @@
         }
         .category-card {
             background: var(--bg-white); 
-            /* No Border, just shadow for cleaner look */
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             border-radius: 12px; padding: 24px 16px; text-align: center;
             cursor: pointer; transition: 0.2s;
@@ -165,8 +164,8 @@
         .product-card {
             background: var(--bg-white); border-radius: 12px;
             padding: 24px; text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Soft shadow instead of border */
-            border: 1px solid transparent; /* invisible border for high contrast mode */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid transparent;
             transition: 0.2s;
         }
         .product-card:hover { 
@@ -182,7 +181,7 @@
             z-index: 200; width: 320px;
         }
 
-        /* ANNOTATIONS (Judge Mode) */
+        /* ANNOTATIONS */
         body.show-annotations .h1-label::after { content: " [H1]"; color: red; font-size: 1rem; vertical-align: super; font-weight: bold; }
         body.show-annotations .h2-label::after { content: " [H2]"; color: red; font-size: 1rem; vertical-align: super; font-weight: bold; }
         body.show-annotations .touch-target-box { outline: 3px dashed #FF9900; outline-offset: 2px; }
@@ -202,7 +201,7 @@
         <h3>Shopping Cart</h3>
         <div id="cartItemsList"><p>Your cart is empty.</p></div>
         <div style="margin-top:20px; font-weight:bold; text-align:right;">Total: <span id="cartTotal">$0</span></div>
-        <button class="btn-primary" style="width:100%; justify-content:center; margin-top:16px;">Checkout Now</button>
+        <button class="btn-primary" style="width:100%; justify-content:center; margin-top:16px;" onclick="checkout()">Checkout Now</button>
         <button onclick="toggleCart()" style="width:100%; margin-top:10px; background:none; border:none; color:red; padding:10px;">Close</button>
     </div>
 
@@ -244,24 +243,19 @@
     </section>
 
     <div class="content-wrapper">
-        
         <h2 class="h2-label section-title">Shop by Category</h2>
         <div class="category-grid">
             <div class="category-card touch-target-box" onclick="filterCategory('Phone')">
-                <span class="category-icon">📱</span>
-                <span class="category-label">Phones</span>
+                <span class="category-icon">📱</span><span class="category-label">Phones</span>
             </div>
             <div class="category-card touch-target-box" onclick="filterCategory('Tablet')">
-                <span class="category-icon">💻</span>
-                <span class="category-label">Tablets</span>
+                <span class="category-icon">💻</span><span class="category-label">Tablets</span>
             </div>
             <div class="category-card touch-target-box" onclick="filterCategory('Health')">
-                <span class="category-icon">❤️</span>
-                <span class="category-label">Health</span>
+                <span class="category-icon">❤️</span><span class="category-label">Health</span>
             </div>
             <div class="category-card touch-target-box" onclick="filterCategory('all')">
-                <span class="category-icon">📋</span>
-                <span class="category-label">View All</span>
+                <span class="category-icon">📋</span><span class="category-label">View All</span>
             </div>
         </div>
 
@@ -332,6 +326,21 @@
                 list.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #eee; padding-bottom:4px;"><span>${item.name}</span><b>$${item.price}</b></div>`;
             });
             document.getElementById('cartTotal').innerText = "$" + total;
+        }
+
+        // NEW CHECKOUT FUNCTION
+        function checkout() {
+            if (cartItems.length === 0) {
+                alert("Your cart is empty! Add items before checking out.");
+                return;
+            }
+            const total = document.getElementById('cartTotal').innerText;
+            alert("Success! Your order for " + total + " has been placed.\n\nThank you for shopping with Senior Shop!");
+            // Reset Cart
+            cartItems = [];
+            document.getElementById('cartCount').innerText = "0";
+            updateCartModal();
+            toggleCart(); // Close modal
         }
 
         function toggleCart() {
