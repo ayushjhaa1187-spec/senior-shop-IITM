@@ -11,6 +11,11 @@
         body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); line-height: 1.6; }
         button, a { min-height: 48px; min-width: 48px; }
     </style>
+    <button onclick="startVoice()"
+  class="bg-blue-100 text-blue-900 px-4 py-2 rounded-lg font-bold">
+  🗣️ Voice
+</button>
+
 </head>
 <body class="flex flex-col min-h-screen">
 
@@ -56,5 +61,65 @@
     <div style="position: fixed; bottom: 20px; right: 20px;">
         <button onclick="document.querySelectorAll('button, a').forEach(e=>e.style.outline='2px dashed red')" style="background:red;color:white;padding:10px;border-radius:20px;">👁️ Visibility Mode</button>
     </div>
+    <script>
+let recognition;
+
+function startVoice() {
+  if (!('webkitSpeechRecognition' in window)) {
+    alert("Voice commands not supported in this browser.");
+    return;
+  }
+
+  recognition = new webkitSpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.onresult = function(event) {
+    const command = event.results[0][0].transcript.toLowerCase();
+    handleCommand(command);
+  };
+
+  recognition.start();
+}
+
+function handleCommand(command) {
+  console.log("Voice command:", command);
+
+  if (command.includes("home")) {
+    window.location.href = "index.html";
+  }
+
+  else if (command.includes("phone")) {
+    window.location.href = "shop.html";
+  }
+
+  else if (command.includes("health")) {
+    window.location.href = "health.html";
+  }
+
+  else if (command.includes("vision")) {
+    window.location.href = "vision.html";
+  }
+
+  else if (command.includes("cart")) {
+    window.location.href = "cart.html";
+  }
+
+  else if (command.includes("checkout")) {
+    window.location.href = "payment.html";
+  }
+
+  else if (command.includes("add to cart")) {
+    const btn = document.querySelector("button[data-add-to-cart]");
+    if (btn) btn.click();
+  }
+
+  else {
+    alert("Sorry, I didn't understand that.");
+  }
+}
+</script>
+
 </body>
 </html>
