@@ -4,122 +4,64 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jitterbug Flip 2 - Senior Shop</title>
-
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
-
-<style>
-:root { --primary:#208090; --bg:#F8FAFC; --focus:#F59E0B }
-body { font-family:'Source Sans 3',sans-serif; background:var(--bg); line-height:1.6 }
-
-button,a { min-height:48px; min-width:48px }
-*:focus-visible { outline:4px solid var(--focus); outline-offset:2px }
-
-#voice-bar {
-    display:none;
-    position:fixed;
-    bottom:0; left:0; width:100%;
-    background:#208090; color:white;
-    padding:24px; text-align:center;
-    z-index:100; font-size:1.5rem; font-weight:bold;
-}
-
-.a11y-target { outline:2px dashed red!important }
-.a11y-heading { outline:2px solid #2563eb!important }
-</style>
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body class="bg-gray-50 min-h-screen flex flex-col">
 
-<header class="bg-white shadow-md p-4">
-<div class="container mx-auto flex justify-between items-center">
-
-<!-- ✅ FIXED: points to index.html -->
-<a href="index.html" class="flex items-center gap-3">
-<div class="w-12 h-12 bg-[#208090] rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
-<span class="text-3xl font-bold text-[#208090]">Senior Shop</span>
-</a>
-
-<!-- ✅ FIXED CART LINK (NO JS INSIDE) -->
-<a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold">
-<span class="text-2xl">🛒</span>
-<span class="text-lg">Cart</span>
-</a>
-
-</div>
+<header class="bg-white shadow p-4">
+  <div class="max-w-6xl mx-auto flex justify-between items-center">
+    <a href="index.html" class="text-3xl font-bold text-[#208090]">Senior Shop</a>
+    <a href="cart.html" class="text-xl font-bold">🛒 Cart</a>
+  </div>
 </header>
 
-<div id="voice-bar">
-Listening… Adding item to cart
-<button onclick="toggleVoice()" class="ml-4 bg-white text-[#208090] px-4 py-2 rounded-lg font-bold">Cancel</button>
-</div>
+<main class="flex-grow max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-10">
+  
+  <img src="https://placehold.co/500x400/208090/FFFFFF?text=Jitterbug+Flip+2"
+       alt="Jitterbug Flip 2"
+       class="rounded-xl border">
 
-<main class="container mx-auto px-4 py-10 max-w-4xl flex-grow">
+  <div>
+    <h1 class="text-4xl font-bold mb-4">Jitterbug Flip 2</h1>
+    <p class="text-xl mb-4 text-gray-700">
+      Easy-to-use flip phone with big buttons and loud sound.
+    </p>
+    <div class="text-3xl font-bold text-[#208090] mb-6">$99.99</div>
 
-<nav class="text-xl mb-6">
-<a href="index.html" class="underline text-[#208090]">Home</a> ›
-<a href="shop.html" class="underline text-[#208090]">Phones</a> ›
-<span class="font-bold">Jitterbug Flip 2</span>
-</nav>
+    <button onclick="addToCart()"
+      class="bg-[#208090] hover:bg-[#165E6A] text-white px-10 py-4 text-2xl rounded-xl font-bold">
+      Add to Cart
+    </button>
+  </div>
 
-<div class="bg-white rounded-xl shadow p-8 border flex flex-col md:flex-row gap-8">
-
-<img src="https://placehold.co/300x300/208090/FFFFFF?text=Jitterbug" alt="Jitterbug Flip Phone" class="w-64 h-64 rounded border">
-
-<div class="flex-grow">
-<h1 class="text-4xl font-bold mb-4">Jitterbug Flip 2</h1>
-<p class="text-xl text-gray-600 mb-6">Large buttons, loud speakers, simple menus.</p>
-
-<div class="text-3xl font-bold text-[#208090] mb-6">$99.99</div>
-
-<button onclick="addToCart(this)"
-class="btn-primary bg-[#208090] text-white px-10 py-4 rounded-xl text-2xl font-bold hover:bg-[#165E6A]">
-Add to Cart
-</button>
-</div>
-
-</div>
 </main>
 
 <script>
-/* ✅ CORRECT PLACE FOR JAVASCRIPT */
+function addToCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-function addToCart(btn) {
-    let count = parseInt(localStorage.getItem('cartCount') || '0');
-    localStorage.setItem('cartCount', count + 1);
+  const product = {
+    id: "jitterbug-flip-2",
+    name: "Jitterbug Flip 2",
+    price: 99.99,
+    qty: 1
+  };
 
-    btn.innerText = "✓ Added!";
-    btn.disabled = true;
-    btn.style.backgroundColor = "#166534";
+  const existing = cart.find(item => item.id === product.id);
 
-    setTimeout(() => {
-        window.location.href = "cart.html";
-    }, 900);
-}
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push(product);
+  }
 
-function toggleVoice() {
-    const bar = document.getElementById('voice-bar');
-    bar.style.display = bar.style.display === 'block' ? 'none' : 'block';
-}
-</script>
-
-<div style="position:fixed;bottom:20px;right:20px;">
-<button onclick="toggleAnnotations()" class="bg-red-600 text-white px-6 py-3 rounded-full font-bold">
-👁️ Advance Visibility
-</button>
-</div>
-
-<script>
-function toggleAnnotations() {
-    document.querySelectorAll('button,a').forEach(e=>e.classList.toggle('a11y-target'));
-    document.querySelectorAll('h1,h2,h3').forEach(e=>e.classList.toggle('a11y-heading'));
+  localStorage.setItem("cart", JSON.stringify(cart));
+  window.location.href = "cart.html";
 }
 </script>
 
 </body>
 </html>
-
-
 
 
