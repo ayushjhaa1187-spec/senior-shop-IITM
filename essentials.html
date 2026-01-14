@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Daily Essentials</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+
+<header class="bg-white shadow p-4 flex justify-between">
+  <a href="index.html">← Home</a>
+  <div class="flex gap-2">
+    <input placeholder="Search" class="border px-2 rounded">
+    <button onclick="readPage()">🔊</button>
+    <button onclick="startVoice()">🗣️</button>
+    <a href="cart.html">🛒</a>
+  </div>
+</header>
+
+<main class="p-6 grid md:grid-cols-2 gap-6">
+  <div class="card">📦 Storage Box</div>
+  <div class="card">🧹 Cleaning Tools</div>
+  <div class="card">📓 Reminder Notebook</div>
+  <div class="card">🕯️ Night Light</div>
+</main>
+
+</body>
+</html>
+
