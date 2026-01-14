@@ -2,97 +2,44 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Product Details - Senior Shop</title>
+<title>Product Details</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex flex-col">
+<body class="bg-gray-100 p-6">
 
-<header class="bg-white shadow p-4">
-  <div class="max-w-6xl mx-auto flex justify-between items-center">
-    <a href="index.html" class="text-3xl font-bold text-[#208090]">Senior Shop</a>
-    <a href="cart.html" class="text-xl font-bold">🛒 Cart</a>
-  </div>
-</header>
+<a href="shop.html" class="underline mb-4 block">← Back</a>
 
-<main class="flex-grow max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-10">
-  <img id="product-img" class="rounded-xl border" />
-  
-  <div>
-    <h1 id="product-name" class="text-4xl font-bold mb-4"></h1>
-    <p id="product-desc" class="text-xl mb-4 text-gray-700"></p>
-    <div id="product-price" class="text-3xl font-bold text-[#208090] mb-6"></div>
+<div class="bg-white p-6 rounded shadow max-w-xl mx-auto">
+  <h1 id="name" class="text-3xl font-bold mb-4"></h1>
+  <p id="price" class="text-2xl mb-6"></p>
 
-    <button onclick="addToCart()"
-      class="bg-[#208090] hover:bg-[#165E6A] text-white px-10 py-4 text-2xl rounded-xl font-bold">
-      Add to Cart
-    </button>
-  </div>
-</main>
+  <button onclick="addToCart()"
+    class="bg-[#208090] text-white px-6 py-3 rounded text-xl font-bold">
+    Add to Cart
+  </button>
+</div>
 
 <script>
-const products = {
-  jitterbug: {
-    id: "jitterbug",
-    name: "Jitterbug Flip 2",
-    price: 99.99,
-    desc: "Easy-to-use flip phone with big buttons and loud sound.",
-    img: "https://placehold.co/500x400/208090/FFFFFF?text=Jitterbug+Flip+2"
-  },
-  clarity: {
-    id: "clarity",
-    name: "Clarity Alto Plus",
-    price: 129.99,
-    desc: "Extra loud phone with flashing visual ringer.",
-    img: "https://placehold.co/500x400/EEEEEE/208090?text=Clarity+Alto"
-  },
-  nokia: {
-    id: "nokia",
-    name: "Nokia 2780 Flip",
-    price: 69.99,
-    desc: "Classic reliable flip phone with large screen.",
-    img: "https://placehold.co/500x400/DDDDDD/208090?text=Nokia+2780"
-  },
-  snapfon: {
-    id: "snapfon",
-    name: "Snapfon ez4G",
-    price: 79.99,
-    desc: "High-contrast phone with SOS button.",
-    img: "https://placehold.co/500x400/333333/FFFFFF?text=Snapfon+ez4G"
-  }
-};
-
 const params = new URLSearchParams(window.location.search);
-const productId = params.get("id");
-const product = products[productId];
+const name = params.get('name');
+const price = params.get('price');
 
-if (!product) {
-  document.body.innerHTML = "<h1 class='text-3xl p-10'>Product not found</h1>";
-}
-
-document.getElementById("product-name").textContent = product.name;
-document.getElementById("product-desc").textContent = product.desc;
-document.getElementById("product-price").textContent = `$${product.price}`;
-document.getElementById("product-img").src = product.img;
+document.getElementById('name').innerText = name;
+document.getElementById('price').innerText = `$${price}`;
 
 function addToCart() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const existing = cart.find(item => item.id === product.id);
-
-  if (existing) {
-    existing.qty += 1;
-  } else {
-    cart.push({ ...product, qty: 1 });
-  }
-
-  localStorage.setItem("cart", JSON.stringify(cart));
-  window.location.href = "cart.html";
+  let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  cart.push({ name, price });
+  localStorage.setItem('cart', JSON.stringify(cart));
+  window.location.href = 'cart.html';
 }
 </script>
 
 </body>
 </html>
+
+
 
 
 
