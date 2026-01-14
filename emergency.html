@@ -1,87 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emergency Alerts - Senior Shop</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root { --primary: #208090; --bg-color: #F8FAFC; }
-        body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); line-height: 1.6; }
-        body.contrast-high { background-color: #000 !important; color: #fff !important; --primary: #FFFF00; }
-        body.contrast-high .bg-white { background-color: #000 !important; border: 2px solid #fff; }
-        body.contrast-high .btn-primary { background-color: #FFFF00 !important; color: #000 !important; }
-        button, a { min-height: 48px; min-width: 48px; }
-    </style>
+<meta charset="UTF-8">
+<title>Emergency</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></cript>
 </head>
-<body class="flex flex-col min-h-screen">
+<body>
 
-    <header class="bg-white shadow-md p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-[#208090] rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
-                <span class="text-3xl font-bold text-[#208090]">Senior Shop</span>
-            </a>
-            <a href="cart.html" class="text-2xl">🛒 Cart</a>
-        </div>
-    </header>
+<header class="bg-white shadow p-4 flex justify-between">
+  <a href="index.html">← Home</a>
+  <div class="flex gap-2">
+    <input placeholder="Search" class="border px-2 rounded">
+    <button onclick="readPage()">🔊</button>
+    <button onclick="startVoice()">🗣️</button>
+    <a href="cart.html">🛒</a>
+  </div>
+</header>
 
-    <main class="container mx-auto px-4 py-8">
-        <nav class="mb-6 text-xl">
-             <a href="index.html" class="underline text-[#208090] font-bold">Home</a> <span class="mx-2">></span> <span class="font-bold">Emergency Alerts</span>
-        </nav>
+<main class="p-6 grid md:grid-cols-2 gap-6">
+  <div class="card">🚨 SOS Button</div>
+  <div class="card">📟 Medical Alert</div>
+  <div class="card">🔦 Emergency Light</div>
+  <div class="card">📻 Radio</div>
+</main>
 
-        <h1 class="text-4xl font-bold mb-8">🚨 Emergency Alert Systems</h1>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <article class="bg-white rounded-xl shadow p-6 border border-gray-200">
-                <img src="https://placehold.co/400x300/208090/FFFFFF?text=SOS+Pendant" alt="Medical Alert Pendant" class="w-full h-48 object-cover rounded mb-4">
-                <h2 class="text-2xl font-bold mb-2">Medical Alert Pendant</h2>
-                <p class="text-lg text-gray-600 mb-4">Waterproof SOS button. 24/7 monitoring. No monthly fees.</p>
-                <div class="flex justify-between items-center mt-4">
-                    <span class="text-3xl font-bold text-[#208090]">$149.99</span>
-                    <button onclick="window.location.href='product-detail.html'" class="bg-[#208090] text-white px-6 py-2 rounded-lg font-bold text-lg hover:bg-[#165E6A]">View</button>
-                </div>
-            </article>
-
-            <article class="bg-white rounded-xl shadow p-6 border border-gray-200">
-                <img src="https://placehold.co/400x300/EEEEEE/208090?text=Fall+Detector" alt="Automatic Fall Detector" class="w-full h-48 object-cover rounded mb-4">
-                <h2 class="text-2xl font-bold mb-2">Automatic Fall Detector</h2>
-                <p class="text-lg text-gray-600 mb-4">Detects falls automatically. Calls family immediately.</p>
-                <div class="flex justify-between items-center mt-4">
-                    <span class="text-3xl font-bold text-[#208090]">$199.99</span>
-                    <button class="bg-[#208090] text-white px-6 py-2 rounded-lg font-bold text-lg">View</button>
-                </div>
-            </article>
-
-            <article class="bg-white rounded-xl shadow p-6 border border-gray-200">
-                <img src="https://placehold.co/400x300/333333/FFFFFF?text=GPS+Tracker" alt="GPS Tracking Watch" class="w-full h-48 object-cover rounded mb-4">
-                <h2 class="text-2xl font-bold mb-2">GPS Tracking Watch</h2>
-                <p class="text-lg text-gray-600 mb-4">Real-time location tracking. Geo-fence alerts. SOS button.</p>
-                <div class="flex justify-between items-center mt-4">
-                    <span class="text-3xl font-bold text-[#208090]">$179.99</span>
-                    <button class="bg-[#208090] text-white px-6 py-2 rounded-lg font-bold text-lg">View</button>
-                </div>
-            </article>
-
-            <article class="bg-white rounded-xl shadow p-6 border border-gray-200">
-                <img src="https://placehold.co/400x300/DDDDDD/208090?text=Smoke+Alarm" alt="Voice Alert Smoke Detector" class="w-full h-48 object-cover rounded mb-4">
-                <h2 class="text-2xl font-bold mb-2">Voice Alert Smoke Detector</h2>
-                <p class="text-lg text-gray-600 mb-4">Speaks "Fire!" loudly. Strobe light for hearing impaired.</p>
-                <div class="flex justify-between items-center mt-4">
-                    <span class="text-3xl font-bold text-[#208090]">$64.99</span>
-                    <button class="bg-[#208090] text-white px-6 py-2 rounded-lg font-bold text-lg">View</button>
-                </div>
-            </article>
-
-        </div>
-    </main>
-
-    <div style="position: fixed; bottom: 20px; right: 20px;">
-        <button onclick="document.body.classList.toggle('contrast-high')" style="background:#ef4444;color:white;padding:12px 24px;border-radius:50px;font-weight:bold;box-shadow: 0 4px 12px rgba(0,0,0,0.3);">👁️ High Contrast</button>
-    </div>
 </body>
 </html>
