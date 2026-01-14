@@ -1,0 +1,23 @@
+/* Force modal visibility when shown */
+.modal-overlay.show {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.modal-overlay {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+```
+
+---
+
+### **ISSUE 2: Console Errors**
+
+**Open Browser Console (F12) and check for errors:**
+
+If you see:
+```
+Uncaught TypeError: Cannot read property 'classList' of null
