@@ -2,199 +2,28 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Easy Phones</title>
+<title>Phones</title>
 <script src="https://cdn.tailwindcss.com"></script>
-   <button onclick="startVoice()"
-  class="bg-blue-100 text-blue-900 px-4 py-2 rounded-lg font-bold">
-  🗣️ Voice
-</button>
-
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
 </head>
-   <header class="bg-white shadow p-4">
-  <div class="max-w-6xl mx-auto flex flex-wrap gap-4 justify-between items-center">
 
-    <!-- LOGO -->
-    <a href="index.html" class="flex items-center gap-3">
-      <div class="w-10 h-10 bg-[#208090] rounded-full flex items-center justify-center text-white font-bold">S</div>
-      <span class="text-2xl font-bold text-[#208090]">Senior Shop</span>
-    </a>
-
-    <!-- SEARCH -->
-    <div class="flex items-center gap-2 flex-grow max-w-md">
-      <input id="searchInput"
-        type="text"
-        placeholder="Search products..."
-        class="flex-grow border-2 border-gray-300 rounded-lg px-4 py-2 text-lg"
-        aria-label="Search products">
-      <button onclick="searchProducts()"
-        class="bg-[#208090] text-white px-4 py-2 rounded-lg font-bold">
-        Search
-      </button>
-    </div>
-
-    <!-- ACTIONS -->
-    <div class="flex items-center gap-3">
-      <button onclick="readPage()" aria-label="Read page aloud"
-        class="bg-blue-100 text-blue-900 px-3 py-2 rounded-lg font-bold">
-        🔊 Read
-      </button>
-
-      <button onclick="startVoice()" aria-label="Voice commands"
-        class="bg-blue-100 text-blue-900 px-3 py-2 rounded-lg font-bold">
-        🗣️ Voice
-      </button>
-
-      <a href="cart.html" aria-label="Shopping cart"
-        class="bg-[#208090] text-white px-4 py-2 rounded-lg font-bold">
-        🛒 Cart
-      </a>
-    </div>
-
+<body>
+<header class="bg-white shadow p-4 flex justify-between">
+  <a href="index.html">← Home</a>
+  <div class="flex gap-3">
+    <button onclick="readPage()">🔊</button>
+    <button onclick="startVoice()">🗣️</button>
+    <a href="cart.html">🛒</a>
   </div>
 </header>
 
-
-<body class="bg-gray-100 p-6">
-
-<h1 class="text-3xl font-bold mb-6">Easy Phones</h1>
-
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-<!-- PRODUCT 1 -->
-<a href="product-detail.html?id=jitterbug&name=Jitterbug Flip 2&price=99.99"
-   class="bg-white p-4 rounded shadow block">
-  <img src="https://placehold.co/300x200" class="mb-3">
-  <h2 class="text-xl font-bold">Jitterbug Flip 2</h2>
-  <p class="text-gray-600">$99.99</p>
-</a>
-
-<!-- PRODUCT 2 -->
-<a href="product-detail.html?id=nokia&name=Nokia 2780&price=69.99"
-   class="bg-white p-4 rounded shadow block">
-  <img src="https://placehold.co/300x200" class="mb-3">
-  <h2 class="text-xl font-bold">Nokia 2780</h2>
-  <p class="text-gray-600">$69.99</p>
-</a>
-
-<!-- PRODUCT 3 -->
-<a href="product-detail.html?id=snapfon&name=Snapfon ez4G&price=79.99"
-   class="bg-white p-4 rounded shadow block">
-  <img src="https://placehold.co/300x200" class="mb-3">
-  <h2 class="text-xl font-bold">Snapfon ez4G</h2>
-  <p class="text-gray-600">$79.99</p>
-</a>
-
-</div>
-   <script>
-let recognition;
-
-function startVoice() {
-  if (!('webkitSpeechRecognition' in window)) {
-    alert("Voice commands not supported in this browser.");
-    return;
-  }
-
-  recognition = new webkitSpeechRecognition();
-  recognition.lang = 'en-US';
-  recognition.continuous = false;
-  recognition.interimResults = false;
-
-  recognition.onresult = function(event) {
-    const command = event.results[0][0].transcript.toLowerCase();
-    handleCommand(command);
-  };
-
-  recognition.start();
-}
-
-function handleCommand(command) {
-  console.log("Voice command:", command);
-
-  if (command.includes("home")) {
-    window.location.href = "index.html";
-  }
-
-  else if (command.includes("phone")) {
-    window.location.href = "shop.html";
-  }
-
-  else if (command.includes("health")) {
-    window.location.href = "health.html";
-  }
-
-  else if (command.includes("vision")) {
-    window.location.href = "vision.html";
-  }
-
-  else if (command.includes("cart")) {
-    window.location.href = "cart.html";
-  }
-
-  else if (command.includes("checkout")) {
-    window.location.href = "payment.html";
-  }
-
-  else if (command.includes("add to cart")) {
-    const btn = document.querySelector("button[data-add-to-cart]");
-    if (btn) btn.click();
-  }
-
-  else {
-    alert("Sorry, I didn't understand that.");
-  }
-}
-</script>
-
-<script>
-/* ========== READ PAGE ========== */
-function readPage() {
-  window.speechSynthesis.cancel();
-  const text = document.querySelector("main")?.innerText || document.body.innerText;
-  const msg = new SpeechSynthesisUtterance(text);
-  msg.lang = "en-US";
-  msg.rate = 0.9;
-  window.speechSynthesis.speak(msg);
-}
-
-/* ========== SEARCH ========== */
-function searchProducts() {
-  const q = document.getElementById("searchInput").value.trim().toLowerCase();
-  if (!q) return;
-
-  // redirect to shop with query
-  window.location.href = `shop.html?q=${encodeURIComponent(q)}`;
-}
-
-/* ========== VOICE COMMANDS ========== */
-let recognition;
-
-function startVoice() {
-  if (!('webkitSpeechRecognition' in window)) {
-    alert("Voice not supported in this browser.");
-    return;
-  }
-
-  recognition = new webkitSpeechRecognition();
-  recognition.lang = 'en-US';
-  recognition.onresult = (e) => {
-    const cmd = e.results[0][0].transcript.toLowerCase();
-    handleVoice(cmd);
-  };
-  recognition.start();
-}
-
-function handleVoice(cmd) {
-  if (cmd.includes("home")) location.href = "index.html";
-  else if (cmd.includes("phone")) location.href = "shop.html";
-  else if (cmd.includes("health")) location.href = "health.html";
-  else if (cmd.includes("vision")) location.href = "vision.html";
-  else if (cmd.includes("cart")) location.href = "cart.html";
-  else if (cmd.includes("checkout")) location.href = "payment.html";
-  else if (cmd.includes("read")) readPage();
-  else alert("Sorry, command not understood");
-}
-</script>
-
+<main class="p-6 grid md:grid-cols-2 gap-6">
+  <a href="product-detail.html?id=jitterbug" class="card">Jitterbug Flip 2</a>
+  <a href="product-detail.html?id=clarity" class="card">Clarity Alto</a>
+  <a href="product-detail.html?id=snapfon" class="card">Snapfon ez4G</a>
+  <a href="product-detail.html?id=nokia" class="card">Nokia 2780</a>
+</main>
 </body>
 </html>
 
