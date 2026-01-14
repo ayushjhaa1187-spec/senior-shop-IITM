@@ -1,264 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Easy Phones - Senior Shop</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
-
-    <style>
-        /* --- CORE STYLES --- */
-        :root { --primary: #208090; --bg-color: #F8FAFC; --text-color: #1F2937; --focus-ring: #F59E0B; --card-bg: #FFFFFF; }
-        body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
-
-        /* Accessibility Modes */
-        body.contrast-high { --primary: #FFFF00; --bg-color: #000000; --text-color: #FFFFFF; --card-bg: #000000; background-color: #000000 !important; color: #FFFFFF !important; }
-        body.contrast-high .bg-white { background-color: #000000 !important; border: 2px solid #FFFFFF; }
-        body.contrast-high .btn-primary { background-color: #FFFF00 !important; color: #000000 !important; border: 2px solid white; }
-        body.dyslexia-mode { font-family: 'OpenDyslexic', sans-serif !important; }
-
-        /* Interactive */
-        button, a, input { min-height: 48px; min-width: 48px; }
-        *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 2px; }
-        .product-card { background-color: var(--card-bg); border: 1px solid #E5E7EB; }
-        .hidden-product { display: none !important; }
-
-        /* Voice Bar */
-        #voice-bar { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #208090; color: white; padding: 24px; text-align: center; z-index: 100; font-weight: bold; font-size: 1.5rem; box-shadow: 0 -4px 10px rgba(0,0,0,0.2); }
-        .mic-pulse { display: inline-block; width: 20px; height: 20px; background: #F59E0B; border-radius: 50%; animation: pulse 1s infinite; margin-right: 12px; }
-        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
-
-        /* Menu */
-        .a11y-menu { display: none; position: absolute; top: 100%; right: 0; width: 320px; background: white; border: 2px solid #208090; padding: 20px; z-index: 50; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-    </style>
+<meta charset="UTF-8">
+<title>Easy Phones</title>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex flex-col min-h-screen">
 
-    <a href="#products-grid" class="fixed top-0 left-0 transform -translate-y-full focus:translate-y-0 bg-[#208090] text-white p-4 z-50 transition-transform font-bold text-lg">Skip to Products</a>
+<body class="bg-gray-100 p-6">
 
-    <header class="bg-white shadow-md relative z-40 p-4">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <a href="seniorshop.html" class="flex items-center gap-3 group">
-                <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition">S</div>
-                <span class="text-4xl font-bold text-[#208090]">Senior Shop</span>
-            </a>
+<h1 class="text-3xl font-bold mb-6">Easy Phones</h1>
 
-            <div class="flex flex-wrap items-center gap-3 justify-center">
-                 <button onclick="toggleVoice()" class="flex items-center gap-2 bg-blue-50 border-2 border-[#208090] text-[#208090] px-4 py-3 rounded-lg font-bold hover:bg-blue-100 transition shadow-sm">
-                    <span class="text-2xl">🗣️</span> <span class="text-lg">Voice Command</span>
-                </button>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                <div class="relative">
-                    <button onclick="document.getElementById('a11y-menu').style.display = document.getElementById('a11y-menu').style.display === 'block' ? 'none' : 'block'" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm">
-                        <span class="text-2xl">♿</span> <span class="text-lg">Settings</span>
-                    </button>
-                    <div id="a11y-menu" class="a11y-menu text-left">
-                        <button onclick="document.body.classList.toggle('contrast-high')" class="w-full text-left p-3 hover:bg-gray-100 font-bold text-lg border-b">Toggle High Contrast</button>
-                        <button onclick="readPage()" class="w-full text-left p-3 hover:bg-gray-100 font-bold text-lg border-b">🔊 Read Page</button>
-                    </div>
-                </div>
+<!-- PRODUCT 1 -->
+<a href="product-detail.html?id=jitterbug&name=Jitterbug Flip 2&price=99.99"
+   class="bg-white p-4 rounded shadow block">
+  <img src="https://placehold.co/300x200" class="mb-3">
+  <h2 class="text-xl font-bold">Jitterbug Flip 2</h2>
+  <p class="text-gray-600">$99.99</p>
+</a>
 
-                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold hover:bg-[#165E6A] shadow-md transition decoration-0">
-                    <span class="text-2xl">🛒</span> <span class="text-lg">Cart (0)</span>
-                </a>
-            </div>
-        </div>
-    </header>
+<!-- PRODUCT 2 -->
+<a href="product-detail.html?id=nokia&name=Nokia 2780&price=69.99"
+   class="bg-white p-4 rounded shadow block">
+  <img src="https://placehold.co/300x200" class="mb-3">
+  <h2 class="text-xl font-bold">Nokia 2780</h2>
+  <p class="text-gray-600">$69.99</p>
+</a>
 
-    <div id="voice-bar">
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-center gap-4">
-            <div class="flex items-center">
-                <span class="mic-pulse"></span>
-                <span>Listening... Try saying "Filter by Large Screen"</span>
-            </div>
-            <button onclick="toggleVoice()" class="bg-white text-[#208090] px-6 py-2 rounded-lg text-lg font-bold shadow hover:bg-gray-100">Cancel</button>
-        </div>
-    </div>
+<!-- PRODUCT 3 -->
+<a href="product-detail.html?id=snapfon&name=Snapfon ez4G&price=79.99"
+   class="bg-white p-4 rounded shadow block">
+  <img src="https://placehold.co/300x200" class="mb-3">
+  <h2 class="text-xl font-bold">Snapfon ez4G</h2>
+  <p class="text-gray-600">$79.99</p>
+</a>
 
-    <main class="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
-        
-        <aside class="w-full md:w-1/4 product-card p-6 rounded-xl shadow-sm h-fit bg-white">
-            <div class="flex justify-between items-center mb-6 border-b-2 border-gray-200 pb-2">
-                <h2 class="text-2xl font-bold">Filter By Needs</h2>
-                <button onclick="clearFilters()" class="text-base text-red-600 underline font-bold hover:text-red-800">Reset</button>
-            </div>
-            
-            <form id="filter-form">
-                <fieldset class="mb-6">
-                    <legend class="font-bold text-xl mb-3 text-[#208090]">Vision Support</legend>
-                    <label class="flex items-center mb-4 cursor-pointer p-2 hover:bg-gray-100 rounded">
-                        <input type="checkbox" name="filter" value="large-screen" class="w-6 h-6 accent-[#208090]"> 
-                        <span class="text-lg ml-3">Large Screen</span>
-                    </label>
-                    <label class="flex items-center mb-4 cursor-pointer p-2 hover:bg-gray-100 rounded">
-                        <input type="checkbox" name="filter" value="talking-keys" class="w-6 h-6 accent-[#208090]"> 
-                        <span class="text-lg ml-3">Talking Keys</span>
-                    </label>
-                </fieldset>
-
-                <fieldset>
-                    <legend class="font-bold text-xl mb-3 text-[#208090]">Hearing Support</legend>
-                    <label class="flex items-center mb-4 cursor-pointer p-2 hover:bg-gray-100 rounded">
-                        <input type="checkbox" name="filter" value="loud-volume" class="w-6 h-6 accent-[#208090]"> 
-                        <span class="text-lg ml-3">Extra Loud (>80dB)</span>
-                    </label>
-                    <label class="flex items-center mb-4 cursor-pointer p-2 hover:bg-gray-100 rounded">
-                        <input type="checkbox" name="filter" value="visual-ringer" class="w-6 h-6 accent-[#208090]"> 
-                        <span class="text-lg ml-3">Visual Ringer</span>
-                    </label>
-                </fieldset>
-            </form>
-        </aside>
-
-        <section class="w-full md:w-3/4">
-            <div class="flex justify-between items-end mb-6">
-                <h1 class="text-3xl font-bold">Easy-to-Use Mobile Phones</h1>
-                <p id="result-count" class="text-xl font-bold text-[#208090]" aria-live="polite">Showing 4 results</p>
-            </div>
-            
-            <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <article class="product-card bg-white rounded-xl shadow p-6 flex flex-col hover:border-[#208090] transition group" data-features="large-screen talking-keys loud-volume">
-                    <div class="h-48 bg-gray-100 mb-4 rounded-lg overflow-hidden border border-gray-200">
-                        <img src="https://placehold.co/400x300/208090/FFFFFF?text=Jitterbug+Flip&font=roboto" alt="Jitterbug Flip Phone" class="w-full h-full object-cover">
-                    </div>
-                    <h2 class="text-2xl font-bold mb-2 group-hover:text-[#208090]">Jitterbug Flip 2</h2>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-bold">Big Buttons</span>
-                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-sm font-bold">Talking</span>
-                    </div>
-                    <p class="text-gray-600 mb-4 text-lg flex-grow">Ultimate senior phone with large screen and speaking keypad.</p>
-                    <div class="mt-auto flex justify-between items-center pt-4 border-t border-gray-100">
-                        <span class="text-3xl font-bold text-[#208090]">$99.99</span>
-                        <a href="product-detail.html" class="bg-[#208090] text-white px-6 py-2 rounded-lg font-bold hover:bg-[#165E6A] text-lg">View Details</a>
-                    </div>
-                </article>
-
-                <article class="product-card bg-white rounded-xl shadow p-6 flex flex-col hover:border-[#208090] transition group" data-features="loud-volume visual-ringer">
-                    <div class="h-48 bg-gray-100 mb-4 rounded-lg overflow-hidden border border-gray-200">
-                        <img src="https://placehold.co/400x300/EEEEEE/208090?text=Clarity+Alto&font=roboto" alt="Clarity Alto Phone" class="w-full h-full object-cover">
-                    </div>
-                    <h2 class="text-2xl font-bold mb-2 group-hover:text-[#208090]">Clarity Alto Plus</h2>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-bold">100dB Volume</span>
-                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm font-bold">Flashing Light</span>
-                    </div>
-                    <p class="text-gray-600 mb-4 text-lg flex-grow">Designed for severe hearing loss. Flashes when ringing.</p>
-                    <div class="mt-auto flex justify-between items-center pt-4 border-t border-gray-100">
-                        <span class="text-3xl font-bold text-[#208090]">$129.99</span>
-                        <a href="#" class="bg-[#208090] text-white px-6 py-2 rounded-lg font-bold hover:bg-[#165E6A] text-lg">View Details</a>
-                    </div>
-                </article>
-
-                <article class="product-card bg-white rounded-xl shadow p-6 flex flex-col hover:border-[#208090] transition group" data-features="large-screen talking-keys">
-                    <div class="h-48 bg-gray-100 mb-4 rounded-lg overflow-hidden border border-gray-200">
-                        <img src="https://placehold.co/400x300/333333/FFFFFF?text=Snapfon+ez4G&font=roboto" alt="Snapfon Bar Phone" class="w-full h-full object-cover">
-                    </div>
-                    <h2 class="text-2xl font-bold mb-2 group-hover:text-[#208090]">Snapfon ez4G</h2>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-bold">High Contrast</span>
-                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-sm font-bold">Talking</span>
-                    </div>
-                    <p class="text-gray-600 mb-4 text-lg flex-grow">Bar-style phone with massive contrast screen and SOS button.</p>
-                    <div class="mt-auto flex justify-between items-center pt-4 border-t border-gray-100">
-                        <span class="text-3xl font-bold text-[#208090]">$79.99</span>
-                        <a href="#" class="bg-[#208090] text-white px-6 py-2 rounded-lg font-bold hover:bg-[#165E6A] text-lg">View Details</a>
-                    </div>
-                </article>
-
-                <article class="product-card bg-white rounded-xl shadow p-6 flex flex-col hover:border-[#208090] transition group" data-features="large-screen">
-                    <div class="h-48 bg-gray-100 mb-4 rounded-lg overflow-hidden border border-gray-200">
-                        <img src="https://placehold.co/400x300/DDDDDD/208090?text=Nokia+2780&font=roboto" alt="Nokia Flip Phone" class="w-full h-full object-cover">
-                    </div>
-                    <h2 class="text-2xl font-bold mb-2 group-hover:text-[#208090]">Nokia 2780 Flip</h2>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-bold">Standard</span>
-                    </div>
-                    <p class="text-gray-600 mb-4 text-lg flex-grow">A reliable classic flip phone. Good screen, standard volume.</p>
-                    <div class="mt-auto flex justify-between items-center pt-4 border-t border-gray-100">
-                        <span class="text-3xl font-bold text-[#208090]">$69.99</span>
-                        <a href="#" class="bg-[#208090] text-white px-6 py-2 rounded-lg font-bold hover:bg-[#165E6A] text-lg">View Details</a>
-                    </div>
-                </article>
-
-            </div>
-        </section>
-    </main>
-
-    <script>
-        // TOGGLES
-        function toggleVoice() {
-            const bar = document.getElementById('voice-bar');
-            bar.style.display = bar.style.display === 'block' ? 'none' : 'block';
-        }
-        function readPage() {
-            window.speechSynthesis.speak(new SpeechSynthesisUtterance("Filtering page. Use the checkboxes to find phones."));
-        }
-
-        // FILTER LOGIC
-        const checkboxes = document.querySelectorAll('input[name="filter"]');
-        const products = document.querySelectorAll('.product-card');
-        const countLabel = document.getElementById('result-count');
-
-        checkboxes.forEach(box => {
-            box.addEventListener('change', filterProducts);
-        });
-
-        function filterProducts() {
-            const activeFilters = Array.from(checkboxes).filter(i => i.checked).map(i => i.value);
-            let visibleCount = 0;
-
-            products.forEach(product => {
-                const productFeatures = product.getAttribute('data-features').split(' ');
-                const isMatch = activeFilters.every(val => productFeatures.includes(val));
-
-                if (isMatch) {
-                    product.classList.remove('hidden-product');
-                    visibleCount++;
-                } else {
-                    product.classList.add('hidden-product');
-                }
-            });
-            countLabel.textContent = `Showing ${visibleCount} results`;
-        }
-
-        function clearFilters() {
-            checkboxes.forEach(box => box.checked = false);
-            filterProducts();
-        }
-    </script>
-	<div id="visibility-controls" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-    <button onclick="toggleAnnotations()" style="background: #ef4444; color: white; font-weight: bold; padding: 12px 24px; border-radius: 50px; border: 2px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: sans-serif; cursor: pointer;">
-        👁️ Advance Visibility Mode
-    </button>
 </div>
 
-<style>
-    /* Styles for the annotations */
-    .a11y-target { outline: 2px dashed #ff0000 !important; position: relative; }
-    .a11y-target::after { content: '48px Target'; position: absolute; top: -12px; right: 0; background: #ff0000; color: white; font-size: 9px; padding: 2px 4px; border-radius: 2px; font-weight: bold; pointer-events: none; z-index: 1000; }
-    
-    .a11y-heading { outline: 2px solid #2563eb !important; position: relative; }
-    .a11y-heading::after { content: attr(tagName); position: absolute; top: 0; left: -24px; background: #2563eb; color: white; font-size: 10px; padding: 2px 4px; font-weight: bold; z-index: 1000; }
-</style>
-
-<script>
-    function toggleAnnotations() {
-        const targets = document.querySelectorAll('button, a, input, select, label');
-        const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-        
-        targets.forEach(el => {
-            el.classList.toggle('a11y-target');
-        });
-        
-        headings.forEach(el => {
-            el.classList.toggle('a11y-heading');
-            // Store tag name for the label
-            if(!el.getAttribute('tagName')) el.setAttribute('tagName', el.tagName);
-        });
-    }
-</script>
 </body>
 </html>
