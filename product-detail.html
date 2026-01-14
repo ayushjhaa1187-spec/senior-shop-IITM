@@ -1,180 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jitterbug Flip 2 - Senior Shop</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jitterbug Flip 2 - Senior Shop</title>
 
-    <style>
-        :root { --primary: #208090; --bg-color: #F8FAFC; --text-color: #1F2937; --focus-ring: #F59E0B; }
-        body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
-        
-        /* High Contrast */
-        body.contrast-high { --primary: #FFFF00; --bg-color: #000000; --text-color: #FFFFFF; background-color: #000000 !important; color: #FFFFFF !important; }
-        body.contrast-high .bg-white { background-color: #000000 !important; border: 2px solid #FFFFFF; }
-        body.contrast-high .btn-primary { background-color: #FFFF00 !important; color: #000000 !important; border: 2px solid white; }
-        
-        body.dyslexia-mode { font-family: 'OpenDyslexic', sans-serif !important; }
-
-        button, a, input { min-height: 48px; min-width: 48px; }
-        *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 2px; }
-        
-        /* Voice Bar */
-        #voice-bar { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #208090; color: white; padding: 24px; text-align: center; z-index: 100; font-weight: bold; font-size: 1.5rem; box-shadow: 0 -4px 10px rgba(0,0,0,0.2); }
-        .mic-pulse { display: inline-block; width: 20px; height: 20px; background: #F59E0B; border-radius: 50%; animation: pulse 1s infinite; margin-right: 12px; }
-        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
-        
-        .a11y-menu { display: none; position: absolute; top: 100%; right: 0; width: 320px; background: white; border: 2px solid #208090; padding: 20px; z-index: 50; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-    </style>
-	const cartSpan = document.querySelector('[href="cart.html"] span');
-const count = localStorage.getItem('cartCount') || 0;
-if (cartSpan) cartSpan.textContent = `Cart (${count})`;
-
-</head>
-<body class="flex flex-col min-h-screen">
-
-    <a href="#product-main" class="fixed top-0 left-0 transform -translate-y-full focus:translate-y-0 bg-[#208090] text-white p-4 z-50 transition-transform text-lg font-bold">Skip to Product Details</a>
-
-    <header class="bg-white shadow-md relative z-40 p-4">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <a href="index.htm" class="flex items-center gap-3 group">
-                <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition">S</div>
-                <span class="text-4xl font-bold text-[#208090]">Senior Shop</span>
-            </a>
-
-            <div class="flex flex-wrap items-center gap-3 justify-center">
-                
-                <button onclick="toggleVoice()" class="flex items-center gap-2 bg-blue-50 border-2 border-[#208090] text-[#208090] px-4 py-3 rounded-lg font-bold hover:bg-blue-100 transition shadow-sm">
-                    <span class="text-2xl">🗣️</span> 
-                    <span class="text-lg">Voice Command</span>
-                </button>
-
-                <div class="relative">
-                    <button onclick="document.getElementById('a11y-menu').style.display = document.getElementById('a11y-menu').style.display === 'block' ? 'none' : 'block'" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm">
-                        <span class="text-2xl">♿</span> <span class="text-lg">Settings</span>
-                    </button>
-                    <div id="a11y-menu" class="a11y-menu text-left">
-                        <button onclick="document.body.classList.toggle('contrast-high')" class="w-full text-left p-3 hover:bg-gray-100 font-bold text-lg border-b">Toggle High Contrast</button>
-                        <button onclick="readPage()" class="w-full text-left p-3 hover:bg-gray-100 font-bold text-lg border-b">🔊 Read Page</button>
-                        <button onclick="window.speechSynthesis.cancel()" class="w-full text-left p-3 text-red-600 font-bold text-lg">Stop Reading</button>
-                    </div>
-                </div>
-
-                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold hover:bg-[#165E6A] shadow-md transition decoration-0">
-                    <span class="text-2xl">🛒</span>
-					
-                   function addToCart(btn) {
-    let count = parseInt(localStorage.getItem('cartCount') || '0');
-    localStorage.setItem('cartCount', count + 1);
-    btn.innerHTML = "✓ Added!";
-    setTimeout(() => location.href = 'cart.html', 800);
-}
-
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <div id="voice-bar">
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-center gap-4">
-            <div class="flex items-center">
-                <span class="mic-pulse"></span>
-                <span>Listening... Try saying "Add to Cart"</span>
-            </div>
-            <button onclick="toggleVoice()" class="bg-white text-[#208090] px-6 py-2 rounded-lg text-lg font-bold shadow hover:bg-gray-100">Cancel</button>
-        </div>
-    </div>
-
-    <main id="product-main" class="container mx-auto px-4 py-8">
-        <nav class="text-xl mb-6 font-medium">
-            <a href="shop.html" class="underline text-[#208090] hover:text-[#165E6A]">Phones</a> > <span class="font-bold text-gray-800">Jitterbug Flip 2</span>
-        </nav>
-
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-    <nav class="text-xl font-medium">
-        <a href="index.html" class="underline text-[#208090] hover:text-[#165E6A]">Home</a> 
-        <span class="mx-2">></span> 
-        <a href="shop.html" class="underline text-[#208090] hover:text-[#165E6A]">Phones</a> 
-        <span class="mx-2">></span> 
-        <span class="font-bold text-gray-800">Jitterbug Flip 2</span>
-    </nav>
-    
-    <button onclick="history.back()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg text-lg flex items-center gap-2 border border-gray-400">
-        <span>⬅</span> Go Back
-    </button>
-</div>
-    </main>
-
-    <script>
-        function toggleVoice() {
-            const bar = document.getElementById('voice-bar');
-            bar.style.display = bar.style.display === 'block' ? 'none' : 'block';
-            
-            // Simulate voice adding item
-            if(bar.style.display === 'block') {
-                setTimeout(() => {
-                    bar.innerHTML = '<div class="text-white text-2xl">Adding Jitterbug to Cart...</div>';
-                    setTimeout(() => { 
-                         addToCart(document.querySelector('.btn-primary'));
-                         bar.style.display = 'none';
-                    }, 1500);
-                }, 3000);
-            }
-        }
-
-        function readPage() {
-            const msg = new SpeechSynthesisUtterance(document.querySelector('main').innerText);
-            window.speechSynthesis.speak(msg);
-        }
-
-        function addToCart(btn) {
-            btn.innerHTML = "✓ Added!";
-            btn.style.backgroundColor = "#166534";
-            // Announce to screen reader
-            const alert = document.createElement('div');
-            alert.setAttribute('role', 'alert');
-            alert.innerText = "Item added to cart";
-            document.body.appendChild(alert);
-            
-            setTimeout(() => { window.location.href = 'cart.html'; }, 1000);
-        }
-    </script>
-	<div id="visibility-controls" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-    <button onclick="toggleAnnotations()" style="background: #ef4444; color: white; font-weight: bold; padding: 12px 24px; border-radius: 50px; border: 2px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: sans-serif; cursor: pointer;">
-        👁️ Advance Visibility Mode
-    </button>
-</div>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
 
 <style>
-    /* Styles for the annotations */
-    .a11y-target { outline: 2px dashed #ff0000 !important; position: relative; }
-    .a11y-target::after { content: '48px Target'; position: absolute; top: -12px; right: 0; background: #ff0000; color: white; font-size: 9px; padding: 2px 4px; border-radius: 2px; font-weight: bold; pointer-events: none; z-index: 1000; }
-    
-    .a11y-heading { outline: 2px solid #2563eb !important; position: relative; }
-    .a11y-heading::after { content: attr(tagName); position: absolute; top: 0; left: -24px; background: #2563eb; color: white; font-size: 10px; padding: 2px 4px; font-weight: bold; z-index: 1000; }
+:root { --primary:#208090; --bg:#F8FAFC; --focus:#F59E0B }
+body { font-family:'Source Sans 3',sans-serif; background:var(--bg); line-height:1.6 }
+
+button,a { min-height:48px; min-width:48px }
+*:focus-visible { outline:4px solid var(--focus); outline-offset:2px }
+
+#voice-bar {
+    display:none;
+    position:fixed;
+    bottom:0; left:0; width:100%;
+    background:#208090; color:white;
+    padding:24px; text-align:center;
+    z-index:100; font-size:1.5rem; font-weight:bold;
+}
+
+.a11y-target { outline:2px dashed red!important }
+.a11y-heading { outline:2px solid #2563eb!important }
 </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+
+<header class="bg-white shadow-md p-4">
+<div class="container mx-auto flex justify-between items-center">
+
+<!-- ✅ FIXED: points to index.html -->
+<a href="index.html" class="flex items-center gap-3">
+<div class="w-12 h-12 bg-[#208090] rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
+<span class="text-3xl font-bold text-[#208090]">Senior Shop</span>
+</a>
+
+<!-- ✅ FIXED CART LINK (NO JS INSIDE) -->
+<a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold">
+<span class="text-2xl">🛒</span>
+<span class="text-lg">Cart</span>
+</a>
+
+</div>
+</header>
+
+<div id="voice-bar">
+Listening… Adding item to cart
+<button onclick="toggleVoice()" class="ml-4 bg-white text-[#208090] px-4 py-2 rounded-lg font-bold">Cancel</button>
+</div>
+
+<main class="container mx-auto px-4 py-10 max-w-4xl flex-grow">
+
+<nav class="text-xl mb-6">
+<a href="index.html" class="underline text-[#208090]">Home</a> ›
+<a href="shop.html" class="underline text-[#208090]">Phones</a> ›
+<span class="font-bold">Jitterbug Flip 2</span>
+</nav>
+
+<div class="bg-white rounded-xl shadow p-8 border flex flex-col md:flex-row gap-8">
+
+<img src="https://placehold.co/300x300/208090/FFFFFF?text=Jitterbug" alt="Jitterbug Flip Phone" class="w-64 h-64 rounded border">
+
+<div class="flex-grow">
+<h1 class="text-4xl font-bold mb-4">Jitterbug Flip 2</h1>
+<p class="text-xl text-gray-600 mb-6">Large buttons, loud speakers, simple menus.</p>
+
+<div class="text-3xl font-bold text-[#208090] mb-6">$99.99</div>
+
+<button onclick="addToCart(this)"
+class="btn-primary bg-[#208090] text-white px-10 py-4 rounded-xl text-2xl font-bold hover:bg-[#165E6A]">
+Add to Cart
+</button>
+</div>
+
+</div>
+</main>
 
 <script>
-    function toggleAnnotations() {
-        const targets = document.querySelectorAll('button, a, input, select, label');
-        const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-        
-        targets.forEach(el => {
-            el.classList.toggle('a11y-target');
-        });
-        
-        headings.forEach(el => {
-            el.classList.toggle('a11y-heading');
-            // Store tag name for the label
-            if(!el.getAttribute('tagName')) el.setAttribute('tagName', el.tagName);
-        });
-    }
-</script>
-</body>
+/* ✅ CORRECT PLACE FOR JAVASCRIPT */
 
+function addToCart(btn) {
+    let count = parseInt(localStorage.getItem('cartCount') || '0');
+    localStorage.setItem('cartCount', count + 1);
+
+    btn.innerText = "✓ Added!";
+    btn.disabled = true;
+    btn.style.backgroundColor = "#166534";
+
+    setTimeout(() => {
+        window.location.href = "cart.html";
+    }, 900);
+}
+
+function toggleVoice() {
+    const bar = document.getElementById('voice-bar');
+    bar.style.display = bar.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+
+<div style="position:fixed;bottom:20px;right:20px;">
+<button onclick="toggleAnnotations()" class="bg-red-600 text-white px-6 py-3 rounded-full font-bold">
+👁️ Advance Visibility
+</button>
+</div>
+
+<script>
+function toggleAnnotations() {
+    document.querySelectorAll('button,a').forEach(e=>e.classList.toggle('a11y-target'));
+    document.querySelectorAll('h1,h2,h3').forEach(e=>e.classList.toggle('a11y-heading'));
+}
+</script>
+
+</body>
 </html>
+
+
 
 
