@@ -213,7 +213,17 @@
                 // Simulate listening logic
                 setTimeout(() => {
                     if(bar.style.display === 'block') {
-                         bar.innerHTML = '<div class="container mx-auto text-center font-bold text-white">Redirecting to Easy Phones...</div>';
+                        const originalHTML = bar.innerHTML;
+
+function toggleVoice() {
+    if (bar.style.display === 'block') {
+        bar.style.display = 'none';
+        bar.innerHTML = originalHTML;
+    } else {
+        bar.style.display = 'block';
+    }
+}
+
                          setTimeout(() => { window.location.href = 'shop.html'; }, 1500);
                     }
                 }, 3000);
@@ -277,5 +287,6 @@ document.getElementById('stop-btn').classList.remove('hidden');
 </script>
 </body>
 </html>
+
 
 
