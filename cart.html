@@ -1,118 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart - Senior Shop</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
-    
-    <style>
-        :root { --primary: #208090; --bg-color: #F8FAFC; --focus-ring: #F59E0B; }
-        body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); line-height: 1.6; }
-        
-        /* Accessbility Modes */
-        body.contrast-high { background-color: #000; color: #fff; --primary: #FFFF00; }
-        body.contrast-high .bg-white { background-color: #000; border: 2px solid #fff; }
-        body.contrast-high .btn-primary { background-color: #FFFF00; color: #000; border: 2px solid white; }
-        body.dyslexia-mode { font-family: 'OpenDyslexic', sans-serif !important; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopping Cart - Senior Shop</title>
 
-        button, a, input { min-height: 48px; min-width: 48px; }
-        *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 2px; }
-        
-        #voice-bar { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #208090; color: white; padding: 24px; text-align: center; z-index: 100; font-weight: bold; font-size: 1.5rem; }
-    </style>
-</head>
-<body class="flex flex-col min-h-screen">
-
-    <header class="bg-white shadow-md p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="seniorshop.html" class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-[#208090] rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
-                <span class="text-3xl font-bold text-[#208090]">Senior Shop</span>
-            </a>
-            <button onclick="toggleVoice()" class="flex items-center gap-2 bg-blue-50 border-2 border-[#208090] text-[#208090] px-4 py-2 rounded-lg font-bold">
-                <span class="text-2xl">🗣️</span> <span class="text-lg">Voice Command</span>
-            </button>
-        </div>
-    </header>
-
-    <div id="voice-bar">Listening... Say "Checkout"</div>
-
-    <main class="container mx-auto px-4 py-8 max-w-4xl">
-        <h1 class="text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">Your Shopping Cart</h1>
-
-        <div class="bg-white rounded-xl shadow-md p-6 mb-8 border border-gray-200 flex flex-col md:flex-row items-center gap-6">
-            <img src="https://placehold.co/150x150/208090/FFFFFF?text=Jitterbug" alt="Jitterbug Phone" class="w-32 h-32 rounded-lg object-cover border-2 border-gray-200">
-            
-            <div class="flex-grow text-center md:text-left">
-                <h2 class="text-2xl font-bold">Jitterbug Flip 2</h2>
-                <p class="text-xl text-gray-600">Red Edition • Large Buttons</p>
-                <div class="text-green-700 font-bold mt-2">✓ In Stock</div>
-            </div>
-
-            <div class="text-center">
-                <div class="flex items-center gap-4 justify-center mb-2">
-                    <button class="w-12 h-12 bg-gray-200 rounded-lg text-2xl font-bold hover:bg-gray-300" aria-label="Decrease quantity">-</button>
-                    <span class="text-2xl font-bold">1</span>
-                    <button class="w-12 h-12 bg-gray-200 rounded-lg text-2xl font-bold hover:bg-gray-300" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="text-red-600 underline font-bold text-lg">Remove</button>
-            </div>
-
-            <div class="text-3xl font-bold text-[#208090]">$99.99</div>
-        </div>
-
-        <div class="bg-gray-100 rounded-xl p-8 text-center md:text-right">
-            <div class="text-2xl mb-2">Subtotal: <span class="font-bold">$99.99</span></div>
-            <div class="text-xl text-gray-600 mb-6">Shipping: <span class="font-bold text-green-700">FREE</span></div>
-            
-            <a href="payment.html" class="inline-block bg-[#208090] text-white text-3xl font-bold px-12 py-5 rounded-xl shadow-lg hover:bg-[#165E6A] transition-transform active:scale-95 btn-primary">
-                Proceed to Checkout ➔
-            </a>
-        </div>
-    </main>
-
-    <script>
-        function toggleVoice() {
-            const bar = document.getElementById('voice-bar');
-            bar.style.display = bar.style.display === 'block' ? 'none' : 'block';
-            if(bar.style.display === 'block') {
-                setTimeout(() => { window.location.href = 'payment.html'; }, 2000);
-            }
-        }
-    </script>
-	<div id="visibility-controls" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-    <button onclick="toggleAnnotations()" style="background: #ef4444; color: white; font-weight: bold; padding: 12px 24px; border-radius: 50px; border: 2px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: sans-serif; cursor: pointer;">
-        👁️ Advance Visibility Mode
-    </button>
-</div>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
 
 <style>
-    /* Styles for the annotations */
-    .a11y-target { outline: 2px dashed #ff0000 !important; position: relative; }
-    .a11y-target::after { content: '48px Target'; position: absolute; top: -12px; right: 0; background: #ff0000; color: white; font-size: 9px; padding: 2px 4px; border-radius: 2px; font-weight: bold; pointer-events: none; z-index: 1000; }
-    
-    .a11y-heading { outline: 2px solid #2563eb !important; position: relative; }
-    .a11y-heading::after { content: attr(tagName); position: absolute; top: 0; left: -24px; background: #2563eb; color: white; font-size: 10px; padding: 2px 4px; font-weight: bold; z-index: 1000; }
+:root { --primary:#208090; --bg:#F8FAFC; --focus:#F59E0B }
+body { font-family:'Source Sans 3',sans-serif; background:var(--bg); line-height:1.6 }
+body.contrast-high { background:#000; color:#fff }
+body.dyslexia-mode { font-family:'OpenDyslexic',sans-serif!important }
+
+button,a,input { min-height:48px; min-width:48px }
+*:focus-visible { outline:4px solid var(--focus); outline-offset:2px }
+
+#voice-bar {
+    display:none;
+    position:fixed;
+    bottom:0; left:0; width:100%;
+    background:#208090; color:white;
+    padding:24px; text-align:center;
+    z-index:100; font-size:1.4rem; font-weight:bold;
+}
+
+.a11y-target { outline:2px dashed red!important }
+.a11y-heading { outline:2px solid #2563eb!important }
 </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+
+<header class="bg-white shadow-md p-4">
+<div class="container mx-auto flex justify-between items-center">
+<a href="index.html" class="flex items-center gap-3">
+<div class="w-12 h-12 bg-[#208090] rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
+<span class="text-3xl font-bold text-[#208090]">Senior Shop</span>
+</a>
+
+<button onclick="toggleVoice()" class="bg-blue-50 border-2 border-[#208090] px-4 py-2 rounded-lg font-bold text-lg">
+🗣️ Voice
+</button>
+</div>
+</header>
+
+<div id="voice-bar">
+Listening… Redirecting to Checkout
+<button onclick="toggleVoice()" class="ml-4 bg-white text-[#208090] px-4 py-2 rounded-lg font-bold">Cancel</button>
+</div>
+
+<main class="container mx-auto px-4 py-8 max-w-4xl flex-grow">
+
+<h1 class="text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">Your Shopping Cart</h1>
+
+<div class="bg-white rounded-xl shadow-md p-6 mb-8 border flex flex-col md:flex-row gap-6 items-center">
+<img src="https://placehold.co/150x150/208090/FFFFFF?text=Jitterbug" alt="Jitterbug Phone" class="w-32 h-32 rounded border">
+
+<div class="flex-grow text-center md:text-left">
+<h2 class="text-2xl font-bold">Jitterbug Flip 2</h2>
+<p class="text-xl text-gray-600">Red Edition • Large Buttons</p>
+<div class="text-green-700 font-bold mt-2">✓ In Stock</div>
+</div>
+
+<div class="text-center">
+<div class="flex items-center gap-4 justify-center mb-2">
+<button class="w-12 h-12 bg-gray-200 rounded text-2xl">-</button>
+<span class="text-2xl font-bold">1</span>
+<button class="w-12 h-12 bg-gray-200 rounded text-2xl">+</button>
+</div>
+<button class="text-red-600 underline font-bold">Remove</button>
+</div>
+
+<div class="text-3xl font-bold text-[#208090]">$99.99</div>
+</div>
+
+<div class="bg-gray-100 rounded-xl p-8 text-center md:text-right">
+<div class="text-2xl mb-2">Subtotal: <strong>$99.99</strong></div>
+<div class="text-xl mb-6">Shipping: <strong class="text-green-700">FREE</strong></div>
+
+<a href="payment.html" class="inline-block bg-[#208090] text-white text-3xl font-bold px-12 py-5 rounded-xl shadow hover:bg-[#165E6A]">
+Proceed to Checkout ➔
+</a>
+</div>
+
+</main>
 
 <script>
-    function toggleAnnotations() {
-        const targets = document.querySelectorAll('button, a, input, select, label');
-        const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-        
-        targets.forEach(el => {
-            el.classList.toggle('a11y-target');
-        });
-        
-        headings.forEach(el => {
-            el.classList.toggle('a11y-heading');
-            // Store tag name for the label
-            if(!el.getAttribute('tagName')) el.setAttribute('tagName', el.tagName);
-        });
+const voiceBar = document.getElementById('voice-bar');
+let voiceTimeout = null;
+
+function toggleVoice() {
+    if (voiceBar.style.display === 'block') {
+        voiceBar.style.display = 'none';
+        clearTimeout(voiceTimeout);
+    } else {
+        voiceBar.style.display = 'block';
+        voiceTimeout = setTimeout(() => {
+            if (voiceBar.style.display === 'block') {
+                window.location.href = 'payment.html';
+            }
+        }, 2000);
     }
+}
+
+function toggleAnnotations() {
+    document.querySelectorAll('button,a,input').forEach(e=>e.classList.toggle('a11y-target'));
+    document.querySelectorAll('h1,h2,h3').forEach(e=>e.classList.toggle('a11y-heading'));
+}
 </script>
+
+<div style="position:fixed;bottom:20px;right:20px;">
+<button onclick="toggleAnnotations()" class="bg-red-600 text-white px-6 py-3 rounded-full font-bold">
+👁️ Advance Visibility
+</button>
+</div>
+
 </body>
 </html>
