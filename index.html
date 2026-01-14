@@ -2,284 +2,273 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Senior Shop - Mobile Ready</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior Shop - Accessible E-Commerce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
+
     <style>
-        /* BASE STYLES */
+        /* --- CORE STYLES --- */
         :root {
-            --bg-body: #F5F7FA;
-            --bg-white: #FFFFFF;
-            --primary-teal: #0F6B6B;
-            --primary-dark: #094545;
-            --text-main: #1A1A1A;
-            --focus-ring: #FF9900;
-            --border-color: #CBD5E0;
-            --base-size: 16px;
+            --primary: #208090;
+            --bg-color: #F8FAFC;
+            --text-color: #1F2937;
+            --focus-ring: #F59E0B;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.5;
-            font-size: var(--base-size);
-            padding-bottom: 80px; /* Space for FAB */
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
         }
 
-        /* HIGH CONTRAST MODE */
-        body.high-contrast-mode {
-            --bg-body: #000000;
-            --bg-white: #121212;
-            --primary-teal: #FFFF00;
-            --text-main: #FFFFFF;
-            --border-color: #FFFFFF;
+        /* --- ACCESSIBILITY MODES --- */
+        body.contrast-high {
+            --primary: #FFFF00;
+            --bg-color: #000000;
+            --text-color: #FFFFFF;
+            background-color: #000000 !important;
+            color: #FFFFFF !important;
         }
-        body.high-contrast-mode .logo-text, 
-        body.high-contrast-mode h1, body.high-contrast-mode h2, 
-        body.high-contrast-mode .price { color: #FFFF00 !important; }
-        body.high-contrast-mode button { border: 2px solid white; background: #000; color: #FFF; }
-        body.high-contrast-mode .btn-primary { background: #FFFF00; color: #000; }
+        body.contrast-high .bg-white { background-color: #000000 !important; border: 2px solid #FFFFFF; }
+        body.contrast-high .btn-primary { background-color: #FFFF00 !important; color: #000000 !important; border: 2px solid white; }
+        body.contrast-high .text-gray-600 { color: #DDDDDD !important; }
 
-        /* UTILITIES */
-        .touch-target-box { cursor: pointer; }
+        body.dyslexia-mode { font-family: 'OpenDyslexic', sans-serif !important; }
 
-        /* HEADER & RESPONSIVENESS */
-        header {
-            background-color: var(--bg-white);
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            flex-wrap: wrap; /* Allows stacking on mobile */
-            gap: 12px;
-            position: sticky;
-            top: 0;
+        /* --- INTERACTIVE --- */
+        button, a, input { min-height: 48px; min-width: 48px; }
+        *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 2px; }
+
+        /* --- VOICE COMMAND BAR --- */
+        #voice-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #208090;
+            color: white;
+            padding: 24px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
             z-index: 100;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
         }
+        .mic-pulse {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #F59E0B;
+            border-radius: 50%;
+            margin-right: 12px;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
 
-        .logo-container { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-        .logo-circle {
-            width: 40px; height: 40px; background: var(--primary-teal); color: white;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 20px; font-weight: bold;
-        }
-        .logo-text { font-size: 1.2rem; font-weight: 700; color: var(--primary-teal); }
-
-        /* HEADER ACTIONS (Buttons) */
-        .header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-        
-        .btn-icon {
-            min-width: 44px; height: 44px; border-radius: 8px; border: 1px solid var(--border-color);
-            background: white; font-size: 1rem; cursor: pointer; display: flex;
-            align-items: center; justify-content: center; font-weight: bold;
-        }
-        .btn-primary {
-            background: var(--primary-teal); color: white; border: none;
-            padding: 0 16px; height: 44px; border-radius: 6px; font-weight: 600; font-size: 1rem;
-            cursor: pointer; display: flex; align-items: center; gap: 6px;
-        }
-
-        /* SEARCH BAR (Moves to bottom on mobile) */
-        .search-container {
-            display: flex; height: 48px;
-            border: 2px solid var(--border-color); border-radius: 8px; overflow: hidden;
-            width: 100%; max-width: 500px;
-        }
-        .search-input { flex-grow: 1; border: none; padding: 0 12px; font-size: 1rem; }
-        .search-btn {
-            background: var(--primary-teal); color: white; border: none;
-            padding: 0 20px; font-weight: bold; cursor: pointer;
-        }
-
-        /* MOBILE SPECIFIC LAYOUT */
-        @media (min-width: 768px) {
-            .search-container { width: auto; flex-grow: 1; order: 0; margin: 0 20px; }
-            header { flex-wrap: nowrap; }
-        }
-        
-        @media (max-width: 767px) {
-            .search-container { order: 3; width: 100%; margin-top: 8px; }
-            .logo-text { display: none; } /* Hide text on small screens to save space */
-        }
-
-        /* MAIN CONTENT */
-        .hero { max-width: 1400px; margin: 20px auto; padding: 0 16px; }
-        .hero-card {
-            background: var(--bg-white); border-radius: 12px; padding: 24px;
-            border: 1px solid var(--border-color);
-            display: flex; flex-direction: column; gap: 20px;
-        }
-        
-        @media (min-width: 768px) {
-            .hero-card { flex-direction: row; padding: 48px; }
-        }
-
-        .product-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 16px; margin-top: 24px;
-        }
-        .product-card {
-            background: var(--bg-white); border: 1px solid var(--border-color);
-            padding: 16px; border-radius: 8px; text-align: center;
-        }
-        .price { font-size: 1.4rem; font-weight: bold; color: var(--primary-teal); }
-
-        /* CART MODAL */
-        #cartModal {
-            display: none; position: fixed; top: 60px; right: 10px; left: 10px;
-            background: white; border: 2px solid var(--primary-teal);
-            border-radius: 8px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            z-index: 200; max-width: 400px; margin: auto;
-        }
-
-        /* ANNOTATIONS */
-        body.show-annotations .h1-label::after { content: " [H1]"; color: red; font-size: 0.8rem; vertical-align: super; font-weight: bold; }
-        body.show-annotations .touch-target-box { outline: 3px dashed #FF9900; outline-offset: 2px; }
-
-        /* FAB */
-        .fab {
-            position: fixed; bottom: 20px; right: 20px;
-            background: #E53E3E; color: white; padding: 12px 20px;
-            border-radius: 50px; font-weight: bold; font-size: 1rem;
-            border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            z-index: 150;
-        }
+        /* --- MENU --- */
+        .a11y-menu { display: none; position: absolute; top: 100%; right: 0; width: 340px; background: white; border: 2px solid #208090; padding: 20px; z-index: 50; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 12px; }
+        .a11y-menu.open { display: block; }
     </style>
 </head>
-<body class="show-annotations">
+<body class="flex flex-col min-h-screen">
 
-    <div id="cartModal">
-        <h3>Shopping Cart</h3>
-        <div id="cartItemsList"><p>Cart is empty.</p></div>
-        <div style="margin-top:20px; font-weight:bold; text-align:right;">Total: <span id="cartTotal">$0</span></div>
-        <button class="btn-primary" style="width:100%; justify-content:center; margin-top:10px;">Checkout</button>
-        <button onclick="toggleCart()" style="width:100%; margin-top:10px; background:none; border:none; color:red; padding:10px;">Close</button>
-    </div>
+    <a href="#main-content" class="absolute -top-96 left-0 bg-[#208090] text-white p-4 z-50 focus:top-0 text-xl font-bold">Skip to Content</a>
 
-    <header>
-        <a href="#" class="logo-container touch-target-box">
-            <div class="logo-circle">S</div>
-            <span class="logo-text">Senior Shop</span>
-        </a>
-
-        <div class="header-actions">
-            <button class="btn-icon touch-target-box" onclick="resizeText(-2)" aria-label="Smaller Text">A-</button>
-            <button class="btn-icon touch-target-box" onclick="resizeText(2)" aria-label="Larger Text">A+</button>
+    <header class="bg-white shadow-md relative z-40 p-4">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             
-            <button class="btn-icon touch-target-box" onclick="toggleAnnotations()" aria-label="Toggle Judge Notes" style="border-color:red; color:red;">
-                🖊️
-            </button>
-            
-            <button class="btn-primary touch-target-box" onclick="toggleCart()">
-                🛒 <span id="cartCount">0</span>
-            </button>
+            <a href="#" class="flex items-center gap-3 group w-full md:w-auto">
+                <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition">S</div>
+                <span class="text-4xl font-bold text-[#208090]">Senior Shop</span>
+            </a>
+
+            <div class="hidden md:flex relative flex-1 max-w-lg mx-8">
+                <input type="text" placeholder="Search for items..." class="w-full border-2 border-gray-400 rounded-l-lg px-4 py-3 text-xl focus:border-[#208090]">
+                <button class="bg-[#208090] text-white px-8 rounded-r-lg font-bold hover:bg-[#165E6A] text-lg">Search</button>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-center">
+                
+                <button onclick="toggleVoice()" class="flex items-center gap-2 bg-blue-50 border-2 border-[#208090] text-[#208090] px-4 py-3 rounded-lg font-bold hover:bg-blue-100 transition shadow-sm">
+                    <span class="text-2xl">🗣️</span> 
+                    <span class="text-lg">Voice Command</span>
+                </button>
+
+                <div class="relative">
+                    <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm">
+                        <span class="text-2xl">♿</span> 
+                        <span class="text-lg">Settings</span>
+                    </button>
+
+                    <div id="a11y-menu" class="a11y-menu text-left">
+                        <div class="flex justify-between items-center mb-4 border-b pb-2">
+                            <h3 class="font-bold text-xl text-gray-800">Accessibility Tools</h3>
+                            <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg">Close</button>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <button onclick="readPage()" class="w-full bg-blue-100 hover:bg-blue-200 text-blue-900 font-bold py-4 rounded-lg flex items-center justify-center gap-3 border border-blue-300 text-lg">
+                                <span class="text-2xl">🔊</span> Read Page Aloud
+                            </button>
+                            <button onclick="stopReading()" class="text-red-600 underline mt-3 w-full text-center hidden font-bold text-lg" id="stop-btn">Stop Reading</button>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block font-bold text-gray-700 mb-2 text-lg">Contrast Level</label>
+                            <div class="flex gap-2">
+                                <button onclick="setContrast('normal')" class="flex-1 py-3 bg-white border-2 border-gray-300 rounded font-bold">Normal</button>
+                                <button onclick="setContrast('high')" class="flex-1 py-3 bg-black text-yellow-300 border-2 border-white rounded font-bold">High</button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded border border-gray-200 mt-4">
+                            <label class="font-bold text-gray-700 text-lg">Dyslexia Friendly Font</label>
+                            <input type="checkbox" onchange="document.body.classList.toggle('dyslexia-mode')" class="w-8 h-8 accent-[#208090]">
+                        </div>
+                    </div>
+                </div>
+
+                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold hover:bg-[#165E6A] shadow-md transition decoration-0">
+                    <span class="text-2xl">🛒</span>
+                    <span class="text-lg">Cart (0)</span>
+                </a>
+
+            </div>
         </div>
-
-        <form class="search-container touch-target-box" id="searchForm">
-            <input type="text" class="search-input" id="searchInput" placeholder="Search..." aria-label="Search">
-            <button type="submit" class="search-btn">🔍</button>
-        </form>
     </header>
 
-    <section class="hero">
-        <div class="hero-card">
-            <div>
-                <h1 class="h1-label">Tech Made Simple</h1>
-                <p>Phones with large buttons & loud speakers.</p>
-                <button class="btn-primary touch-target-box" onclick="scrollToShop()">Browse</button>
+    <div id="voice-bar">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-center gap-4">
+            <div class="flex items-center">
+                <span class="mic-pulse"></span>
+                <span>Listening... Try saying "Find Easy Phones"</span>
             </div>
-            <div style="min-width:200px; height:150px; background:#EDF2F7; display:flex; align-items:center; justify-content:center; text-align:center; border:2px dashed #CBD5E0;">
-                [Image: Tablet]<br>ALT: "Senior using tablet"
+            <button onclick="toggleVoice()" class="bg-white text-[#208090] px-6 py-2 rounded-lg text-lg font-bold shadow hover:bg-gray-100">Cancel</button>
+        </div>
+    </div>
+
+    <main id="main-content" class="container mx-auto px-4 py-12 flex-grow">
+        
+        <section class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 mb-12 flex flex-col md:flex-row items-center gap-8">
+            <div class="flex-1 text-center md:text-left">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-[#208090]">Technology Made Simple</h1>
+                <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">We sell phones with large buttons, easy-to-read tablets, and loud speakers. Designed for your comfort.</p>
+                <button class="bg-[#208090] text-white px-10 py-5 rounded-xl text-2xl font-bold shadow-lg hover:bg-[#165E6A] btn-primary">
+                    Browse New Arrivals
+                </button>
             </div>
-        </div>
+            <div class="w-full md:w-1/3 bg-gray-100 h-64 rounded-xl flex items-center justify-center text-gray-400 border-2 border-dashed border-gray-300">
+                <span class="text-xl font-bold">[Image: Senior using tablet]</span>
+            </div>
+        </section>
 
-        <div id="shopSection">
-            <h2 style="font-size:1.5rem; margin-top:32px;">Featured Items [H2]</h2>
-            <div class="product-grid" id="productGrid"></div>
+        <h2 class="text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">Shop by Category</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <a href="shop.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
+                <div class="text-7xl mb-4">📱</div>
+                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Easy Phones</h3>
+                <p class="text-xl text-gray-600 mt-2">Large buttons & loud volume</p>
+            </a>
+            <a href="#" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
+                <div class="text-7xl mb-4">💊</div>
+                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Health Aids</h3>
+                <p class="text-xl text-gray-600 mt-2">Pill organizers & monitors</p>
+            </a>
+            <a href="#" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
+                <div class="text-7xl mb-4">👓</div>
+                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Vision Aids</h3>
+                <p class="text-xl text-gray-600 mt-2">Magnifiers & reading lights</p>
+            </a>
         </div>
-    </section>
+    </main>
 
-    <button class="fab touch-target-box" onclick="toggleHighContrast()">
-        👁️ Visibility Mode
-    </button>
+    <footer class="bg-gray-800 text-white pt-12 pb-6 mt-12 text-center">
+        <p class="text-xl mb-4">© 2026 Senior Shop. Compliance: WCAG 2.1 Level AA.</p>
+        <p class="text-gray-400">Need Help? Call 1-800-555-0199</p>
+    </footer>
 
     <script>
-        // DATA
-        const products = [
-            { name: "Big Button Phone", price: 89, icon: "📱", desc: "Large keys" },
-            { name: "Easy Tablet", price: 199, icon: "💻", desc: "Simple menu" },
-            { name: "Talking Watch", price: 29, icon: "⌚", desc: "Speaks time" },
-            { name: "SOS Pendant", price: 49, icon: "🔴", desc: "Alert button" }
-        ];
-
-        let cartItems = [];
-        let currentFontSize = 16;
-
-        window.onload = function() { renderProducts(products); };
-
-        function renderProducts(items) {
-            const grid = document.getElementById('productGrid');
-            grid.innerHTML = "";
-            items.forEach(p => {
-                grid.innerHTML += `
-                    <div class="product-card touch-target-box">
-                        <div style="font-size:2.5rem;">${p.icon}</div>
-                        <h3>${p.name}</h3>
-                        <div class="price">$${p.price}</div>
-                        <button class="btn-primary" style="width:100%; justify-content:center; margin-top:8px;" onclick="addToCart('${p.name}', ${p.price})">Add</button>
-                    </div>
-                `;
-            });
+        // 1. MENU TOGGLE
+        function toggleMenu() {
+            document.getElementById('a11y-menu').classList.toggle('open');
         }
 
-        function addToCart(name, price) {
-            cartItems.push({ name, price });
-            document.getElementById('cartCount').innerText = cartItems.length;
+        // 2. CONTRAST SETTINGS
+        function setContrast(mode) {
+            if (mode === 'high') document.body.classList.add('contrast-high');
+            else document.body.classList.remove('contrast-high');
+        }
+
+        // 3. VOICE COMMAND SIMULATION
+        function toggleVoice() {
+            const bar = document.getElementById('voice-bar');
+            if (bar.style.display === 'block') {
+                bar.style.display = 'none';
+            } else {
+                bar.style.display = 'block';
+                // Simulate listening logic
+                setTimeout(() => {
+                    if(bar.style.display === 'block') {
+                         bar.innerHTML = '<div class="container mx-auto text-center font-bold text-white">Redirecting to Easy Phones...</div>';
+                         setTimeout(() => { window.location.href = 'shop.html'; }, 1500);
+                    }
+                }, 3000);
+            }
+        }
+
+        // 4. SCREEN READER (Reads the Main Content)
+        let speech = new SpeechSynthesisUtterance();
+        speech.lang = "en-US";
+        speech.rate = 0.9;
+
+        function readPage() {
+            const heading = document.querySelector('h1').innerText;
+            const sub = document.querySelector('p').innerText;
+            speech.text = "Welcome to Senior Shop. " + heading + ". " + sub + ". Use the Tab key to navigate categories.";
             
-            // Update Modal
-            const list = document.getElementById('cartItemsList');
-            let total = 0;
-            list.innerHTML = "";
-            cartItems.forEach(item => {
-                total += item.price;
-                list.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>${item.name}</span><b>$${item.price}</b></div>`;
-            });
-            document.getElementById('cartTotal').innerText = "$" + total;
-            
-            // Mobile Alert
-            alert("✓ Added " + name + " to cart!");
+            window.speechSynthesis.speak(speech);
+            document.getElementById('stop-btn').classList.remove('hidden');
         }
 
-        function toggleCart() {
-            const modal = document.getElementById('cartModal');
-            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+        function stopReading() {
+            window.speechSynthesis.cancel();
+            document.getElementById('stop-btn').classList.add('hidden');
         }
-
-        // --- NEW: RESIZE TEXT ON TOUCH ---
-        function resizeText(amount) {
-            currentFontSize += amount;
-            if(currentFontSize < 12) currentFontSize = 12;
-            if(currentFontSize > 24) currentFontSize = 24;
-            document.body.style.fontSize = currentFontSize + "px";
-        }
-
-        // --- NEW: TOGGLE ANNOTATIONS ON TOUCH ---
-        function toggleAnnotations() {
-            document.body.classList.toggle('show-annotations');
-        }
-
-        function toggleHighContrast() {
-            document.body.classList.toggle('high-contrast-mode');
-        }
-
-        document.getElementById('searchForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const term = document.getElementById('searchInput').value.toLowerCase();
-            renderProducts(products.filter(p => p.name.toLowerCase().includes(term)));
-        });
-
-        function scrollToShop() { document.getElementById('shopSection').scrollIntoView({behavior: 'smooth'}); }
     </script>
+	<div id="visibility-controls" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+    <button onclick="toggleAnnotations()" style="background: #ef4444; color: white; font-weight: bold; padding: 12px 24px; border-radius: 50px; border: 2px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: sans-serif; cursor: pointer;">
+        👁️ Advance Visibility Mode
+    </button>
+</div>
+
+<style>
+    /* Styles for the annotations */
+    .a11y-target { outline: 2px dashed #ff0000 !important; position: relative; }
+    .a11y-target::after { content: '48px Target'; position: absolute; top: -12px; right: 0; background: #ff0000; color: white; font-size: 9px; padding: 2px 4px; border-radius: 2px; font-weight: bold; pointer-events: none; z-index: 1000; }
+    
+    .a11y-heading { outline: 2px solid #2563eb !important; position: relative; }
+    .a11y-heading::after { content: attr(tagName); position: absolute; top: 0; left: -24px; background: #2563eb; color: white; font-size: 10px; padding: 2px 4px; font-weight: bold; z-index: 1000; }
+</style>
+
+<script>
+    function toggleAnnotations() {
+        const targets = document.querySelectorAll('button, a, input, select, label');
+        const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        
+        targets.forEach(el => {
+            el.classList.toggle('a11y-target');
+        });
+        
+        headings.forEach(el => {
+            el.classList.toggle('a11y-heading');
+            // Store tag name for the label
+            if(!el.getAttribute('tagName')) el.setAttribute('tagName', el.tagName);
+        });
+    }
+</script>
 </body>
 </html>
