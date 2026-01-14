@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta na<me="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Senior Shop - Home</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -80,60 +80,41 @@
   </section>
 
   <!-- CATEGORIES GRID -->
-  <section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-
-    <!-- CATEGORY CARD -->
-    <a href="shop.html" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
-      <div class="text-4xl mb-3">📱</div>
-      <div class="text-xl font-bold">Easy Phones</div>
-    </a>
-
-    <a href="health.html" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
-      <div class="text-4xl mb-3">💊</div>
-      <div class="text-xl font-bold">Health Aids</div>
-    </a>
-
-    <a href="#" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
-      <div class="text-4xl mb-3">👂</div>
-      <div class="text-xl font-bold">Hearing Help</div>
-    </a>
-
-    <a href="vision.html" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
-      <div class="text-4xl mb-3">👓</div>
-      <div class="text-xl font-bold">Vision Support</div>
-    </a>
-
-    <a href="#" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
-      <div class="text-4xl mb-3">🚶</div>
-      <div class="text-xl font-bold">Mobility</div>
-    </a>
-
-    <a href="#" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
-      <div class="text-4xl mb-3">🪑</div>
-      <div class="text-xl font-bold">Comfort Living</div>
-    </a>
-
-    <a href="#" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
-      <div class="text-4xl mb-3">🚨</div>
-      <div class="text-xl font-bold">Emergency</div>
-    </a>
-
-    <a href="#" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
-      <div class="text-4xl mb-3">🛁</div>
-      <div class="text-xl font-bold">Bathroom Safety</div>
-    </a>
-
-    <a href="#" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
-      <div class="text-4xl mb-3">🛏️</div>
-      <div class="text-xl font-bold">Sleep Aids</div>
-    </a>
-
-    <a href="#" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
-      <div class="text-4xl mb-3">🎁</div>
-      <div class="text-xl font-bold">Daily Essentials</div>
-    </a>
-
-  </section>
+ <div class="content-wrapper">
+    <h2 style="margin-top: 40px;">Shop by Category</h2>
+    <div class="category-grid">
+        <div class="category-card touch-target-box" onclick="window.location.href='shop.html'">
+            <span style="font-size: 2.5rem;">📱</span><br><b>Easy Phones</b>
+        </div>
+        <div class="category-card touch-target-box" onclick="window.location.href='health.html'">
+            <span style="font-size: 2.5rem;">💊</span><br><b>Health Aids</b>
+        </div>
+        <div class="category-card touch-target-box" onclick="window.location.href='hearing.html'">
+            <span style="font-size: 2.5rem;">👂</span><br><b>Hearing Help</b>
+        </div>
+        <div class="category-card touch-target-box" onclick="window.location.href='vision.html'">
+            <span style="font-size: 2.5rem;">👓</span><br><b>Vision Support</b>
+        </div>
+        <div class="category-card touch-target-box" onclick="window.location.href='mobility.html'">
+            <span style="font-size: 2.5rem;">🚶</span><br><b>Mobility</b>
+        </div>
+        <div class="category-card touch-target-box" onclick="window.location.href='comfort.html'">
+            <span style="font-size: 2.5rem;">🪑</span><br><b>Comfort Living</b>
+        </div>
+        <div class="category-card touch-target-box" onclick="window.location.href='emergency.html'">
+            <span style="font-size: 2.5rem;">🚨</span><br><b>Emergency</b>
+        </div>
+        <div class="category-card touch-target-box" onclick="window.location.href='bathroom.html'">
+            <span style="font-size: 2.5rem;">🛁</span><br><b>Bathroom Safety</b>
+        </div>
+        <div class="category-card touch-target-box" onclick="window.location.href='sleep.html'">
+            <span style="font-size: 2.5rem;">🛏️</span><br><b>Sleep Aids</b>
+        </div>
+        <div class="category-card touch-target-box" onclick="window.location.href='essentials.html'">
+            <span style="font-size: 2.5rem;">🎁</span><br><b>Daily Essentials</b>
+        </div>
+    </div>
+</div>
 
 </main>
   <script>
@@ -253,6 +234,7 @@ function handleVoice(cmd) {
 
 </body>
 </html>
+
 
 
 
