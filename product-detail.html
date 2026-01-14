@@ -2,108 +2,130 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Product Details</title>
-<script src="https://cdn.tailwindcss.com"></script>
-  <button onclick="startVoice()"
-  class="bg-blue-100 text-blue-900 px-4 py-2 rounded-lg font-bold">
-  🗣️ Voice
-</button>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Details – Senior Shop</title>
 
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background:#F8FAFC;
+  }
+</style>
 </head>
 
-<body class="bg-gray-100 p-6">
+<body class="min-h-screen flex flex-col">
 
-<a href="shop.html" class="underline mb-4 block">← Back</a>
+<!-- Screen reader alerts -->
+<div id="sr-alert" role="alert" class="sr-only"></div>
 
-<div class="bg-white p-6 rounded shadow max-w-xl mx-auto">
-  <h1 id="name" class="text-3xl font-bold mb-4"></h1>
-  <p id="price" class="text-2xl mb-6"></p>
+<!-- HEADER -->
+<header class="bg-white shadow p-4">
+  <div class="max-w-5xl mx-auto flex justify-between items-center">
+    <a href="index.html" class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-[#208090] rounded-full flex items-center justify-center text-white font-bold">S</div>
+      <span class="text-2xl font-bold text-[#208090]">Senior Shop</span>
+    </a>
+    <a href="cart.html" class="text-xl font-bold">🛒 Cart</a>
+  </div>
+</header>
 
- <button data-add-to-cart onclick="addToCart()"
-  class="bg-[#208090] text-white px-6 py-3 rounded text-xl font-bold">
-  Add to Cart
-</button>
+<!-- MAIN -->
+<main class="max-w-4xl mx-auto p-6 flex-grow">
 
+<a href="shop.html" class="underline text-lg mb-6 inline-block">← Back to products</a>
+
+<div id="product" class="bg-white p-8 rounded-xl shadow border hidden">
+  <h1 id="name" class="text-4xl font-bold mb-4"></h1>
+  <p id="desc" class="text-xl text-gray-600 mb-6"></p>
+  <div class="text-3xl font-bold text-[#208090] mb-6">
+    $<span id="price"></span>
+  </div>
+
+  <button onclick="addToCart()"
+    class="bg-[#208090] text-white text-2xl font-bold px-10 py-4 rounded-xl">
+    Add to Cart
+  </button>
 </div>
 
+<div id="not-found" class="text-2xl text-red-600 hidden">
+  Product not found.
+</div>
+
+</main>
+
+<!-- SCRIPT -->
 <script>
+// PRODUCT DATABASE
+const products = {
+  jitterbug: {
+    id: "jitterbug",
+    name: "Jitterbug Flip 2",
+    price: 99.99,
+    desc: "Easy-to-use phone with big buttons and loud sound."
+  },
+  clarity: {
+    id: "clarity",
+    name: "Clarity Alto Plus",
+    price: 129.99,
+    desc: "Extra loud phone with visual ringer for hearing support."
+  },
+  snapfon: {
+    id: "snapfon",
+    name: "Snapfon ez4G",
+    price: 79.99,
+    desc: "High contrast bar phone with talking keypad."
+  },
+  nokia: {
+    id: "nokia",
+    name: "Nokia 2780 Flip",
+    price: 69.99,
+    desc: "Reliable flip phone with simple interface."
+  }
+};
+
+// LOAD PRODUCT
 const params = new URLSearchParams(window.location.search);
-const name = params.get('name');
-const price = params.get('price');
+const productId = params.get("id");
+const product = products[productId];
 
-document.getElementById('name').innerText = name;
-document.getElementById('price').innerText = `$${price}`;
+if (!product) {
+  document.getElementById("not-found").classList.remove("hidden");
+} else {
+  document.getElementById("product").classList.remove("hidden");
+  document.getElementById("name").textContent = product.name;
+  document.getElementById("price").textContent = product.price.toFixed(2);
+  document.getElementById("desc").textContent = product.desc;
+}
 
+// ADD TO CART
 function addToCart() {
-  let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-  cart.push({ name, price });
-  localStorage.setItem('cart', JSON.stringify(cart));
-  window.location.href = 'cart.html';
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const existing = cart.find(i => i.id === product.id);
+
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      qty: 1
+    });
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  document.getElementById("sr-alert").textContent = "Item added to cart";
+  window.location.href = "cart.html";
 }
 </script>
-  <script>
-let recognition;
-
-function startVoice() {
-  if (!('webkitSpeechRecognition' in window)) {
-    alert("Voice commands not supported in this browser.");
-    return;
-  }
-
-  recognition = new webkitSpeechRecognition();
-  recognition.lang = 'en-US';
-  recognition.continuous = false;
-  recognition.interimResults = false;
-
-  recognition.onresult = function(event) {
-    const command = event.results[0][0].transcript.toLowerCase();
-    handleCommand(command);
-  };
-
-  recognition.start();
-}
-
-function handleCommand(command) {
-  console.log("Voice command:", command);
-
-  if (command.includes("home")) {
-    window.location.href = "index.html";
-  }
-
-  else if (command.includes("phone")) {
-    window.location.href = "shop.html";
-  }
-
-  else if (command.includes("health")) {
-    window.location.href = "health.html";
-  }
-
-  else if (command.includes("vision")) {
-    window.location.href = "vision.html";
-  }
-
-  else if (command.includes("cart")) {
-    window.location.href = "cart.html";
-  }
-
-  else if (command.includes("checkout")) {
-    window.location.href = "payment.html";
-  }
-
-  else if (command.includes("add to cart")) {
-    const btn = document.querySelector("button[data-add-to-cart]");
-    if (btn) btn.click();
-  }
-
-  else {
-    alert("Sorry, I didn't understand that.");
-  }
-}
-</script>
-
 
 </body>
 </html>
+
 
 
 
