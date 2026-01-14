@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <title>Easy Phones</title>
 <script src="https://cdn.tailwindcss.com"></script>
+   <button onclick="startVoice()"
+  class="bg-blue-100 text-blue-900 px-4 py-2 rounded-lg font-bold">
+  🗣️ Voice
+</button>
+
 </head>
 
 <body class="bg-gray-100 p-6">
@@ -37,6 +42,67 @@
 </a>
 
 </div>
+   <script>
+let recognition;
+
+function startVoice() {
+  if (!('webkitSpeechRecognition' in window)) {
+    alert("Voice commands not supported in this browser.");
+    return;
+  }
+
+  recognition = new webkitSpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.onresult = function(event) {
+    const command = event.results[0][0].transcript.toLowerCase();
+    handleCommand(command);
+  };
+
+  recognition.start();
+}
+
+function handleCommand(command) {
+  console.log("Voice command:", command);
+
+  if (command.includes("home")) {
+    window.location.href = "index.html";
+  }
+
+  else if (command.includes("phone")) {
+    window.location.href = "shop.html";
+  }
+
+  else if (command.includes("health")) {
+    window.location.href = "health.html";
+  }
+
+  else if (command.includes("vision")) {
+    window.location.href = "vision.html";
+  }
+
+  else if (command.includes("cart")) {
+    window.location.href = "cart.html";
+  }
+
+  else if (command.includes("checkout")) {
+    window.location.href = "payment.html";
+  }
+
+  else if (command.includes("add to cart")) {
+    const btn = document.querySelector("button[data-add-to-cart]");
+    if (btn) btn.click();
+  }
+
+  else {
+    alert("Sorry, I didn't understand that.");
+  }
+}
+</script>
+
 
 </body>
 </html>
+
