@@ -1,193 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Senior Shop - Accessible E-Commerce</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Senior Shop - Home</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
 
 <style>
-:root {
-    --primary: #208090;
-    --bg-color: #F8FAFC;
-    --text-color: #1F2937;
-    --focus-ring: #F59E0B;
-}
-body {
+  body {
     font-family: 'Source Sans 3', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-}
-body.contrast-high {
-    --primary: #FFFF00;
-    --bg-color: #000000;
-    --text-color: #FFFFFF;
-    background-color: #000 !important;
-    color: #FFF !important;
-}
-body.contrast-high .bg-white { background:#000 !important; border:2px solid #fff }
-body.contrast-high .btn-primary { background:#ff0 !important; color:#000 !important }
-body.dyslexia-mode { font-family:'OpenDyslexic', sans-serif !important }
-
-button,a,input { min-height:48px; min-width:48px }
-*:focus-visible { outline:4px solid var(--focus-ring); outline-offset:2px }
-
-#a11y-menu { display:none; position:absolute; right:0; top:100%; width:340px; background:white; border:2px solid #208090; padding:20px; z-index:50; border-radius:12px }
-#a11y-menu.open { display:block }
-
-#voice-bar {
-    display:none;
-    position:fixed;
-    bottom:0; left:0; width:100%;
-    background:#208090; color:white;
-    padding:24px; text-align:center;
-    font-size:1.5rem; font-weight:bold;
-    z-index:100;
-}
-.mic-pulse {
-    display:inline-block;
-    width:20px; height:20px;
-    background:#F59E0B;
-    border-radius:50%;
-    animation:pulse 1s infinite;
-    margin-right:12px;
-}
-@keyframes pulse { to { transform:scale(1.5); opacity:0 } }
-
-.a11y-target { outline:2px dashed red !important }
-.a11y-heading { outline:2px solid #2563eb !important }
+    background-color: #F8FAFC;
+  }
 </style>
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body class="min-h-screen flex flex-col">
 
-<a href="#main-content" class="absolute -top-96 focus:top-0 left-0 bg-[#208090] text-white p-4 z-50 text-xl font-bold">
-Skip to Content
-</a>
+<!-- HEADER -->
+<header class="bg-white shadow p-4">
+  <div class="max-w-6xl mx-auto flex justify-between items-center">
+    <a href="index.html" class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-[#208090] rounded-full flex items-center justify-center text-white text-xl font-bold">
+        S
+      </div>
+      <span class="text-2xl font-bold text-[#208090]">Senior Shop</span>
+    </a>
 
-<header class="bg-white shadow-md p-4 relative z-40">
-<div class="container mx-auto flex flex-wrap justify-between items-center gap-4">
-
-<a href="index.html" class="flex items-center gap-3">
-<div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold">S</div>
-<span class="text-4xl font-bold text-[#208090]">Senior Shop</span>
-</a>
-
-<div class="flex gap-3 items-center">
-<button onclick="toggleVoice()" class="bg-blue-50 border-2 border-[#208090] px-4 py-3 rounded-lg font-bold text-lg">🗣️ Voice</button>
-
-<div class="relative">
-<button onclick="toggleMenu()" class="bg-gray-100 border-2 px-4 py-3 rounded-lg font-bold">♿ Settings</button>
-<div id="a11y-menu">
-<button onclick="readPage()" class="w-full py-3 font-bold">🔊 Read Page</button>
-<button id="stop-btn" onclick="stopReading()" class="hidden text-red-600 font-bold">Stop</button>
-<hr class="my-3">
-<button onclick="setContrast('high')" class="w-full py-2">High Contrast</button>
-<button onclick="setContrast('normal')" class="w-full py-2">Normal Contrast</button>
-<label class="flex gap-2 mt-3 items-center">
-<input type="checkbox" onchange="document.body.classList.toggle('dyslexia-mode')">
-Dyslexia Font
-</label>
-</div>
-</div>
-
-<a href="cart.html" class="bg-[#208090] text-white px-5 py-3 rounded-lg font-bold">🛒 Cart (0)</a>
-</div>
-</div>
+    <a href="cart.html" class="text-xl font-bold">
+      🛒 Cart
+    </a>
+  </div>
 </header>
 
-<div id="voice-bar">
-<div class="flex justify-center items-center gap-4">
-<span class="mic-pulse"></span>
-<span>Listening... Redirecting to Easy Phones</span>
-<button onclick="toggleVoice()" class="bg-white text-[#208090] px-4 py-2 rounded-lg font-bold">Cancel</button>
-</div>
-</div>
+<!-- MAIN -->
+<main class="flex-grow max-w-6xl mx-auto p-6">
 
-<main id="main-content" class="container mx-auto px-4 py-12 flex-grow">
+  <!-- WELCOME -->
+  <section class="mb-10 text-center">
+    <h1 class="text-4xl font-bold mb-4">Shop by Category</h1>
+    <p class="text-xl text-gray-600">
+      Simple products designed for comfort, safety, and ease of use.
+    </p>
+  </section>
 
-<h1 class="text-5xl font-bold text-[#208090] mb-6">Technology Made Simple</h1>
-<p class="text-2xl mb-10">Phones with big buttons, loud speakers, and easy screens.</p>
+  <!-- CATEGORIES GRID -->
+  <section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<a href="shop.html" class="bg-white p-8 rounded-xl shadow text-center">📱 Easy Phones</a>
-<a href="health.html" class="bg-white p-8 rounded-xl shadow text-center">💊 Health Aids</a>
-<a href="vision.html" class="bg-white p-8 rounded-xl shadow text-center">👓 Vision Aids</a>
-</div>
+    <!-- CATEGORY CARD -->
+    <a href="shop.html" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
+      <div class="text-4xl mb-3">📱</div>
+      <div class="text-xl font-bold">Easy Phones</div>
+    </a>
+
+    <a href="health.html" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
+      <div class="text-4xl mb-3">💊</div>
+      <div class="text-xl font-bold">Health Aids</div>
+    </a>
+
+    <a href="#" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
+      <div class="text-4xl mb-3">👂</div>
+      <div class="text-xl font-bold">Hearing Help</div>
+    </a>
+
+    <a href="vision.html" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
+      <div class="text-4xl mb-3">👓</div>
+      <div class="text-xl font-bold">Vision Support</div>
+    </a>
+
+    <a href="#" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
+      <div class="text-4xl mb-3">🚶</div>
+      <div class="text-xl font-bold">Mobility</div>
+    </a>
+
+    <a href="#" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
+      <div class="text-4xl mb-3">🪑</div>
+      <div class="text-xl font-bold">Comfort Living</div>
+    </a>
+
+    <a href="#" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
+      <div class="text-4xl mb-3">🚨</div>
+      <div class="text-xl font-bold">Emergency</div>
+    </a>
+
+    <a href="#" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
+      <div class="text-4xl mb-3">🛁</div>
+      <div class="text-xl font-bold">Bathroom Safety</div>
+    </a>
+
+    <a href="#" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
+      <div class="text-4xl mb-3">🛏️</div>
+      <div class="text-xl font-bold">Sleep Aids</div>
+    </a>
+
+    <a href="#" class="bg-white border rounded-xl p-6 text-center shadow hover:border-[#208090] transition">
+      <div class="text-4xl mb-3">🎁</div>
+      <div class="text-xl font-bold">Daily Essentials</div>
+    </a>
+
+  </section>
 
 </main>
 
-<footer class="bg-gray-800 text-white text-center py-6">
-© 2026 Senior Shop
+<!-- FOOTER -->
+<footer class="bg-white border-t p-4 text-center text-gray-600">
+  © 2026 Senior Shop — Simple. Safe. Senior-Friendly.
 </footer>
-
-<script>
-const voiceBar = document.getElementById('voice-bar');
-const originalVoiceHTML = voiceBar.innerHTML;
-
-// MENU
-function toggleMenu() {
-    document.getElementById('a11y-menu').classList.toggle('open');
-}
-
-// CONTRAST
-function setContrast(mode) {
-    document.body.classList.toggle('contrast-high', mode === 'high');
-}
-
-// VOICE
-function toggleVoice() {
-    if (voiceBar.style.display === 'block') {
-        voiceBar.style.display = 'none';
-        voiceBar.innerHTML = originalVoiceHTML;
-    } else {
-        voiceBar.style.display = 'block';
-        setTimeout(() => {
-            if (voiceBar.style.display === 'block') {
-                window.location.href = 'shop.html';
-            }
-        }, 2500);
-    }
-}
-
-// SPEECH
-const speech = new SpeechSynthesisUtterance(
-    "Welcome to Senior Shop. We sell phones with large buttons and loud speakers."
-);
-speech.lang = 'en-US';
-speech.rate = 0.9;
-
-function readPage() {
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(speech);
-    document.getElementById('stop-btn').classList.remove('hidden');
-}
-
-function stopReading() {
-    window.speechSynthesis.cancel();
-    document.getElementById('stop-btn').classList.add('hidden');
-}
-
-// ANNOTATIONS
-function toggleAnnotations() {
-    document.querySelectorAll('button,a,input').forEach(el => el.classList.toggle('a11y-target'));
-    document.querySelectorAll('h1,h2,h3').forEach(el => el.classList.toggle('a11y-heading'));
-}
-</script>
-
-<div style="position:fixed;bottom:20px;right:20px;">
-<button onclick="toggleAnnotations()" class="bg-red-600 text-white px-6 py-3 rounded-full font-bold">
-👁️ Advance Visibility
-</button>
-</div>
 
 </body>
 </html>
-
 
 
 
