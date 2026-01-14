@@ -29,6 +29,10 @@
         
         .a11y-menu { display: none; position: absolute; top: 100%; right: 0; width: 320px; background: white; border: 2px solid #208090; padding: 20px; z-index: 50; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
     </style>
+	const cartSpan = document.querySelector('[href="cart.html"] span');
+const count = localStorage.getItem('cartCount') || 0;
+if (cartSpan) cartSpan.textContent = `Cart (${count})`;
+
 </head>
 <body class="flex flex-col min-h-screen">
 
@@ -61,7 +65,14 @@
 
                 <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold hover:bg-[#165E6A] shadow-md transition decoration-0">
                     <span class="text-2xl">🛒</span>
-                    <span class="text-lg">Cart (0)</span>
+					
+                   function addToCart(btn) {
+    let count = parseInt(localStorage.getItem('cartCount') || '0');
+    localStorage.setItem('cartCount', count + 1);
+    btn.innerHTML = "✓ Added!";
+    setTimeout(() => location.href = 'cart.html', 800);
+}
+
                 </a>
             </div>
         </div>
@@ -165,3 +176,4 @@
 </body>
 
 </html>
+
