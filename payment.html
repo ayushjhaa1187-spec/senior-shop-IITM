@@ -183,5 +183,24 @@
         });
     }
 </script>
+	<script>
+        function validateForm() {
+            // Simple validation
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const zip = document.getElementById('zip').value;
+
+            if (name === "" || address === "" || zip === "") {
+                alert("Please fill in all the required fields (Name, Address, and Zip Code).");
+                return false; // Stop submission
+            }
+            
+            // If everything is good, allow the form to submit to success.html
+            return true;
+        }
+    </script>
 </body>
+</html>
+</body>
+
 </html>
