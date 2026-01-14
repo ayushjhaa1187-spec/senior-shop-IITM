@@ -2,96 +2,43 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Cart - Senior Shop</title>
+<title>Cart</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex flex-col">
+<body class="bg-gray-100 p-6">
 
-<header class="bg-white shadow p-4">
-  <div class="max-w-6xl mx-auto flex justify-between items-center">
-    <a href="index.html" class="text-3xl font-bold text-[#208090]">Senior Shop</a>
-    <a href="shop.html" class="text-xl underline">Continue Shopping</a>
-  </div>
-</header>
+<h1 class="text-3xl font-bold mb-6">Your Cart</h1>
 
-<main class="flex-grow max-w-4xl mx-auto p-6">
-
-<h1 class="text-4xl font-bold mb-8">Your Cart</h1>
-
-<div id="cart-items"></div>
-<div id="cart-total" class="text-3xl font-bold mt-6 text-[#208090]"></div>
-
-</main>
+<div id="cart"></div>
 
 <script>
-function loadCart() {
-  const cartItems = document.getElementById("cart-items");
-  const cartTotal = document.getElementById("cart-total");
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const cartDiv = document.getElementById('cart');
+let cart = JSON.parse(localStorage.getItem('cart') || '[]');
 
-  if (cart.length === 0) {
-    cartItems.innerHTML = "<p class='text-2xl'>🛒 Your cart is empty.</p>";
-    cartTotal.innerHTML = "";
-    return;
-  }
-
-  let total = 0;
-  cartItems.innerHTML = "";
-
+if (cart.length === 0) {
+  cartDiv.innerHTML = '<p class="text-xl">Your cart is empty.</p>';
+} else {
   cart.forEach((item, index) => {
-    total += item.price * item.qty;
-
-    cartItems.innerHTML += `
-      <div class="flex justify-between items-center border-b py-4">
+    cartDiv.innerHTML += `
+      <div class="bg-white p-4 rounded shadow mb-4 flex justify-between items-center">
         <div>
-          <div class="text-2xl font-bold">${item.name}</div>
-          <div class="text-xl">$${item.price.toFixed(2)}</div>
+          <h2 class="text-xl font-bold">${item.name}</h2>
+          <p>$${item.price}</p>
         </div>
-
-        <div class="flex items-center gap-4">
-          <button onclick="changeQty(${index}, -1)"
-            class="px-4 py-2 text-2xl bg-gray-200 rounded">−</button>
-
-          <span class="text-2xl">${item.qty}</span>
-
-          <button onclick="changeQty(${index}, 1)"
-            class="px-4 py-2 text-2xl bg-gray-200 rounded">+</button>
-
-          <button onclick="removeItem(${index})"
-            class="text-red-600 font-bold text-xl">Remove</button>
-        </div>
+        <button onclick="removeItem(${index})"
+          class="text-red-600 font-bold">Remove</button>
       </div>
     `;
   });
-
-  cartTotal.innerHTML = `Total: $${total.toFixed(2)}`;
-}
-
-function changeQty(index, delta) {
-  let cart = JSON.parse(localStorage.getItem("cart"));
-  cart[index].qty += delta;
-
-  if (cart[index].qty <= 0) {
-    cart.splice(index, 1);
-  }
-
-  localStorage.setItem("cart", JSON.stringify(cart));
-  loadCart();
 }
 
 function removeItem(index) {
-  let cart = JSON.parse(localStorage.getItem("cart"));
   cart.splice(index, 1);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  loadCart();
+  localStorage.setItem('cart', JSON.stringify(cart));
+  location.reload();
 }
-
-loadCart();
 </script>
 
 </body>
 </html>
-
-
