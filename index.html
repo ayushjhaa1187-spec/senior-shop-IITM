@@ -228,15 +228,20 @@
         function readPage() {
             const heading = document.querySelector('h1').innerText;
             const sub = document.querySelector('p').innerText;
-            speech.text = "Welcome to Senior Shop. " + heading + ". " + sub + ". Use the Tab key to navigate categories.";
+            speech.text = "Welcome to Senior Shop. We sell phones with large buttons, easy to read screens, and loud speakers.";
+window.speechSynthesis.speak(speech);
+document.getElementById('stop-btn').classList.remove('hidden');
+
             
             window.speechSynthesis.speak(speech);
             document.getElementById('stop-btn').classList.remove('hidden');
         }
 
         function stopReading() {
-            window.speechSynthesis.cancel();
-            document.getElementById('stop-btn').classList.add('hidden');
+    window.speechSynthesis.cancel();
+    document.getElementById('stop-btn').classList.add('hidden');
+}
+
         }
     </script>
 	<div id="visibility-controls" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
@@ -272,4 +277,5 @@
 </script>
 </body>
 </html>
+
 
