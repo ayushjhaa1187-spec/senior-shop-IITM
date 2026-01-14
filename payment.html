@@ -263,11 +263,61 @@ function handleCommand(command) {
   }
 }
 </script>
+<script>
+/* ========== READ PAGE ========== */
+function readPage() {
+  window.speechSynthesis.cancel();
+  const text = document.querySelector("main")?.innerText || document.body.innerText;
+  const msg = new SpeechSynthesisUtterance(text);
+  msg.lang = "en-US";
+  msg.rate = 0.9;
+  window.speechSynthesis.speak(msg);
+}
+
+/* ========== SEARCH ========== */
+function searchProducts() {
+  const q = document.getElementById("searchInput").value.trim().toLowerCase();
+  if (!q) return;
+
+  // redirect to shop with query
+  window.location.href = `shop.html?q=${encodeURIComponent(q)}`;
+}
+
+/* ========== VOICE COMMANDS ========== */
+let recognition;
+
+function startVoice() {
+  if (!('webkitSpeechRecognition' in window)) {
+    alert("Voice not supported in this browser.");
+    return;
+  }
+
+  recognition = new webkitSpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.onresult = (e) => {
+    const cmd = e.results[0][0].transcript.toLowerCase();
+    handleVoice(cmd);
+  };
+  recognition.start();
+}
+
+function handleVoice(cmd) {
+  if (cmd.includes("home")) location.href = "index.html";
+  else if (cmd.includes("phone")) location.href = "shop.html";
+  else if (cmd.includes("health")) location.href = "health.html";
+  else if (cmd.includes("vision")) location.href = "vision.html";
+  else if (cmd.includes("cart")) location.href = "cart.html";
+  else if (cmd.includes("checkout")) location.href = "payment.html";
+  else if (cmd.includes("read")) readPage();
+  else alert("Sorry, command not understood");
+}
+</script>
 
 </body>
 </html>
 </body>
 
 </html>
+
 
 
