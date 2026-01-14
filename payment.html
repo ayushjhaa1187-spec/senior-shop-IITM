@@ -39,15 +39,49 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <header class="bg-white shadow-md p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="index.htm" class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-[#208090] rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
-                <span class="text-3xl font-bold text-[#208090]">Senior Shop</span>
-            </a>
-            <div class="text-xl font-bold hidden md:block">Need Help? Call 1-800-555-0199</div>
-        </div>
-    </header>
+    <header class="bg-white shadow p-4">
+  <div class="max-w-6xl mx-auto flex flex-wrap gap-4 justify-between items-center">
+
+    <!-- LOGO -->
+    <a href="index.html" class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-[#208090] rounded-full flex items-center justify-center text-white font-bold">S</div>
+      <span class="text-2xl font-bold text-[#208090]">Senior Shop</span>
+    </a>
+
+    <!-- SEARCH -->
+    <div class="flex items-center gap-2 flex-grow max-w-md">
+      <input id="searchInput"
+        type="text"
+        placeholder="Search products..."
+        class="flex-grow border-2 border-gray-300 rounded-lg px-4 py-2 text-lg"
+        aria-label="Search products">
+      <button onclick="searchProducts()"
+        class="bg-[#208090] text-white px-4 py-2 rounded-lg font-bold">
+        Search
+      </button>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="flex items-center gap-3">
+      <button onclick="readPage()" aria-label="Read page aloud"
+        class="bg-blue-100 text-blue-900 px-3 py-2 rounded-lg font-bold">
+        🔊 Read
+      </button>
+
+      <button onclick="startVoice()" aria-label="Voice commands"
+        class="bg-blue-100 text-blue-900 px-3 py-2 rounded-lg font-bold">
+        🗣️ Voice
+      </button>
+
+      <a href="cart.html" aria-label="Shopping cart"
+        class="bg-[#208090] text-white px-4 py-2 rounded-lg font-bold">
+        🛒 Cart
+      </a>
+    </div>
+
+  </div>
+</header>
+
 
     <main class="container mx-auto px-4 py-8">
         
@@ -318,6 +352,7 @@ function handleVoice(cmd) {
 </body>
 
 </html>
+
 
 
 
