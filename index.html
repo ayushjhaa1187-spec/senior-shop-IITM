@@ -1,292 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senior Shop - Accessible E-Commerce</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior Shop - Accessible E-Commerce</title>
 
-    <style>
-        /* --- CORE STYLES --- */
-        :root {
-            --primary: #208090;
-            --bg-color: #F8FAFC;
-            --text-color: #1F2937;
-            --focus-ring: #F59E0B;
-        }
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
 
-        body {
-            font-family: 'Source Sans 3', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
+<style>
+:root {
+    --primary: #208090;
+    --bg-color: #F8FAFC;
+    --text-color: #1F2937;
+    --focus-ring: #F59E0B;
+}
+body {
+    font-family: 'Source Sans 3', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+body.contrast-high {
+    --primary: #FFFF00;
+    --bg-color: #000000;
+    --text-color: #FFFFFF;
+    background-color: #000 !important;
+    color: #FFF !important;
+}
+body.contrast-high .bg-white { background:#000 !important; border:2px solid #fff }
+body.contrast-high .btn-primary { background:#ff0 !important; color:#000 !important }
+body.dyslexia-mode { font-family:'OpenDyslexic', sans-serif !important }
 
-        /* --- ACCESSIBILITY MODES --- */
-        body.contrast-high {
-            --primary: #FFFF00;
-            --bg-color: #000000;
-            --text-color: #FFFFFF;
-            background-color: #000000 !important;
-            color: #FFFFFF !important;
-        }
-        body.contrast-high .bg-white { background-color: #000000 !important; border: 2px solid #FFFFFF; }
-        body.contrast-high .btn-primary { background-color: #FFFF00 !important; color: #000000 !important; border: 2px solid white; }
-        body.contrast-high .text-gray-600 { color: #DDDDDD !important; }
+button,a,input { min-height:48px; min-width:48px }
+*:focus-visible { outline:4px solid var(--focus-ring); outline-offset:2px }
 
-        body.dyslexia-mode { font-family: 'OpenDyslexic', sans-serif !important; }
+#a11y-menu { display:none; position:absolute; right:0; top:100%; width:340px; background:white; border:2px solid #208090; padding:20px; z-index:50; border-radius:12px }
+#a11y-menu.open { display:block }
 
-        /* --- INTERACTIVE --- */
-        button, a, input { min-height: 48px; min-width: 48px; }
-        *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 2px; }
+#voice-bar {
+    display:none;
+    position:fixed;
+    bottom:0; left:0; width:100%;
+    background:#208090; color:white;
+    padding:24px; text-align:center;
+    font-size:1.5rem; font-weight:bold;
+    z-index:100;
+}
+.mic-pulse {
+    display:inline-block;
+    width:20px; height:20px;
+    background:#F59E0B;
+    border-radius:50%;
+    animation:pulse 1s infinite;
+    margin-right:12px;
+}
+@keyframes pulse { to { transform:scale(1.5); opacity:0 } }
 
-        /* --- VOICE COMMAND BAR --- */
-        #voice-bar {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #208090;
-            color: white;
-            padding: 24px;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            z-index: 100;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
-        }
-        .mic-pulse {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background-color: #F59E0B;
-            border-radius: 50%;
-            margin-right: 12px;
-            animation: pulse 1s infinite;
-        }
-        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
-
-        /* --- MENU --- */
-        .a11y-menu { display: none; position: absolute; top: 100%; right: 0; width: 340px; background: white; border: 2px solid #208090; padding: 20px; z-index: 50; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 12px; }
-        .a11y-menu.open { display: block; }
-    </style>
+.a11y-target { outline:2px dashed red !important }
+.a11y-heading { outline:2px solid #2563eb !important }
+</style>
 </head>
+
 <body class="flex flex-col min-h-screen">
 
-    <a href="#main-content" class="absolute -top-96 left-0 bg-[#208090] text-white p-4 z-50 focus:top-0 text-xl font-bold">Skip to Content</a>
+<a href="#main-content" class="absolute -top-96 focus:top-0 left-0 bg-[#208090] text-white p-4 z-50 text-xl font-bold">
+Skip to Content
+</a>
 
-    <header class="bg-white shadow-md relative z-40 p-4">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            
-            <a href="#" class="flex items-center gap-3 group w-full md:w-auto">
-                <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition">S</div>
-                <span class="text-4xl font-bold text-[#208090]">Senior Shop</span>
-            </a>
+<header class="bg-white shadow-md p-4 relative z-40">
+<div class="container mx-auto flex flex-wrap justify-between items-center gap-4">
 
-            <div class="hidden md:flex relative flex-1 max-w-lg mx-8">
-                <input type="text" placeholder="Search for items..." class="w-full border-2 border-gray-400 rounded-l-lg px-4 py-3 text-xl focus:border-[#208090]">
-                <button class="bg-[#208090] text-white px-8 rounded-r-lg font-bold hover:bg-[#165E6A] text-lg">Search</button>
-            </div>
+<a href="index.html" class="flex items-center gap-3">
+<div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold">S</div>
+<span class="text-4xl font-bold text-[#208090]">Senior Shop</span>
+</a>
 
-            <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-center">
-                
-                <button onclick="toggleVoice()" class="flex items-center gap-2 bg-blue-50 border-2 border-[#208090] text-[#208090] px-4 py-3 rounded-lg font-bold hover:bg-blue-100 transition shadow-sm">
-                    <span class="text-2xl">🗣️</span> 
-                    <span class="text-lg">Voice Command</span>
-                </button>
+<div class="flex gap-3 items-center">
+<button onclick="toggleVoice()" class="bg-blue-50 border-2 border-[#208090] px-4 py-3 rounded-lg font-bold text-lg">🗣️ Voice</button>
 
-                <div class="relative">
-                    <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm">
-                        <span class="text-2xl">♿</span> 
-                        <span class="text-lg">Settings</span>
-                    </button>
+<div class="relative">
+<button onclick="toggleMenu()" class="bg-gray-100 border-2 px-4 py-3 rounded-lg font-bold">♿ Settings</button>
+<div id="a11y-menu">
+<button onclick="readPage()" class="w-full py-3 font-bold">🔊 Read Page</button>
+<button id="stop-btn" onclick="stopReading()" class="hidden text-red-600 font-bold">Stop</button>
+<hr class="my-3">
+<button onclick="setContrast('high')" class="w-full py-2">High Contrast</button>
+<button onclick="setContrast('normal')" class="w-full py-2">Normal Contrast</button>
+<label class="flex gap-2 mt-3 items-center">
+<input type="checkbox" onchange="document.body.classList.toggle('dyslexia-mode')">
+Dyslexia Font
+</label>
+</div>
+</div>
 
-                    <div id="a11y-menu" class="a11y-menu text-left">
-                        <div class="flex justify-between items-center mb-4 border-b pb-2">
-                            <h3 class="font-bold text-xl text-gray-800">Accessibility Tools</h3>
-                            <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg">Close</button>
-                        </div>
-                        
-                        <div class="mb-6">
-                            <button onclick="readPage()" class="w-full bg-blue-100 hover:bg-blue-200 text-blue-900 font-bold py-4 rounded-lg flex items-center justify-center gap-3 border border-blue-300 text-lg">
-                                <span class="text-2xl">🔊</span> Read Page Aloud
-                            </button>
-                            <button onclick="stopReading()" class="text-red-600 underline mt-3 w-full text-center hidden font-bold text-lg" id="stop-btn">Stop Reading</button>
-                        </div>
+<a href="cart.html" class="bg-[#208090] text-white px-5 py-3 rounded-lg font-bold">🛒 Cart (0)</a>
+</div>
+</div>
+</header>
 
-                        <div class="mb-4">
-                            <label class="block font-bold text-gray-700 mb-2 text-lg">Contrast Level</label>
-                            <div class="flex gap-2">
-                                <button onclick="setContrast('normal')" class="flex-1 py-3 bg-white border-2 border-gray-300 rounded font-bold">Normal</button>
-                                <button onclick="setContrast('high')" class="flex-1 py-3 bg-black text-yellow-300 border-2 border-white rounded font-bold">High</button>
-                            </div>
-                        </div>
+<div id="voice-bar">
+<div class="flex justify-center items-center gap-4">
+<span class="mic-pulse"></span>
+<span>Listening... Redirecting to Easy Phones</span>
+<button onclick="toggleVoice()" class="bg-white text-[#208090] px-4 py-2 rounded-lg font-bold">Cancel</button>
+</div>
+</div>
 
-                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded border border-gray-200 mt-4">
-                            <label class="font-bold text-gray-700 text-lg">Dyslexia Friendly Font</label>
-                            <input type="checkbox" onchange="document.body.classList.toggle('dyslexia-mode')" class="w-8 h-8 accent-[#208090]">
-                        </div>
-                    </div>
-                </div>
+<main id="main-content" class="container mx-auto px-4 py-12 flex-grow">
 
-                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold hover:bg-[#165E6A] shadow-md transition decoration-0">
-                    <span class="text-2xl">🛒</span>
-                    <span class="text-lg">Cart (0)</span>
-                </a>
+<h1 class="text-5xl font-bold text-[#208090] mb-6">Technology Made Simple</h1>
+<p class="text-2xl mb-10">Phones with big buttons, loud speakers, and easy screens.</p>
 
-            </div>
-        </div>
-    </header>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<a href="shop.html" class="bg-white p-8 rounded-xl shadow text-center">📱 Easy Phones</a>
+<a href="health.html" class="bg-white p-8 rounded-xl shadow text-center">💊 Health Aids</a>
+<a href="vision.html" class="bg-white p-8 rounded-xl shadow text-center">👓 Vision Aids</a>
+</div>
 
-    <div id="voice-bar">
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-center gap-4">
-            <div class="flex items-center">
-                <span class="mic-pulse"></span>
-                <span>Listening... Try saying "Find Easy Phones"</span>
-            </div>
-            <button onclick="toggleVoice()" class="bg-white text-[#208090] px-6 py-2 rounded-lg text-lg font-bold shadow hover:bg-gray-100">Cancel</button>
-        </div>
-    </div>
+</main>
 
-    <main id="main-content" class="container mx-auto px-4 py-12 flex-grow">
-        
-        <section class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 mb-12 flex flex-col md:flex-row items-center gap-8">
-            <div class="flex-1 text-center md:text-left">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-[#208090]">Technology Made Simple</h1>
-                <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">We sell phones with large buttons, easy-to-read tablets, and loud speakers. Designed for your comfort.</p>
-                <button class="bg-[#208090] text-white px-10 py-5 rounded-xl text-2xl font-bold shadow-lg hover:bg-[#165E6A] btn-primary">
-                    Browse New Arrivals
-                </button>
-            </div>
-            <div class="w-full md:w-1/3 bg-gray-100 h-64 rounded-xl flex items-center justify-center text-gray-400 border-2 border-dashed border-gray-300">
-                <span class="text-xl font-bold">[Image: Senior using tablet]</span>
-            </div>
-        </section>
+<footer class="bg-gray-800 text-white text-center py-6">
+© 2026 Senior Shop
+</footer>
 
-        <h2 class="text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">Shop by Category</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <a href="shop.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
-                <div class="text-7xl mb-4">📱</div>
-                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Easy Phones</h3>
-                <p class="text-xl text-gray-600 mt-2">Large buttons & loud volume</p>
-            </a>
-            <a href="health.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
-                <div class="text-7xl mb-4">💊</div>
-                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Health Aids</h3>
-                <p class="text-xl text-gray-600 mt-2">Pill organizers & monitors</p>
-            </a>
-            <a href="vision.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
-                <div class="text-7xl mb-4">👓</div>
-                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Vision Aids</h3>
-                <p class="text-xl text-gray-600 mt-2">Magnifiers & reading lights</p>
-            </a>
-        </div>
-    </main>
+<script>
+const voiceBar = document.getElementById('voice-bar');
+const originalVoiceHTML = voiceBar.innerHTML;
 
-    <footer class="bg-gray-800 text-white pt-12 pb-6 mt-12 text-center">
-        <p class="text-xl mb-4">© 2026 Senior Shop. Compliance: WCAG 2.1 Level AA.</p>
-        <p class="text-gray-400">Need Help? Call 1-800-555-0199</p>
-    </footer>
+// MENU
+function toggleMenu() {
+    document.getElementById('a11y-menu').classList.toggle('open');
+}
 
-    <script>
-        // 1. MENU TOGGLE
-        function toggleMenu() {
-            document.getElementById('a11y-menu').classList.toggle('open');
-        }
+// CONTRAST
+function setContrast(mode) {
+    document.body.classList.toggle('contrast-high', mode === 'high');
+}
 
-        // 2. CONTRAST SETTINGS
-        function setContrast(mode) {
-            if (mode === 'high') document.body.classList.add('contrast-high');
-            else document.body.classList.remove('contrast-high');
-        }
-
-        // 3. VOICE COMMAND SIMULATION
-        function toggleVoice() {
-            const bar = document.getElementById('voice-bar');
-            if (bar.style.display === 'block') {
-                bar.style.display = 'none';
-            } else {
-                bar.style.display = 'block';
-                // Simulate listening logic
-                setTimeout(() => {
-                    if(bar.style.display === 'block') {
-                        const originalHTML = bar.innerHTML;
-
+// VOICE
 function toggleVoice() {
-    if (bar.style.display === 'block') {
-        bar.style.display = 'none';
-        bar.innerHTML = originalHTML;
+    if (voiceBar.style.display === 'block') {
+        voiceBar.style.display = 'none';
+        voiceBar.innerHTML = originalVoiceHTML;
     } else {
-        bar.style.display = 'block';
+        voiceBar.style.display = 'block';
+        setTimeout(() => {
+            if (voiceBar.style.display === 'block') {
+                window.location.href = 'shop.html';
+            }
+        }, 2500);
     }
 }
 
-                         setTimeout(() => { window.location.href = 'shop.html'; }, 1500);
-                    }
-                }, 3000);
-            }
-        }
+// SPEECH
+const speech = new SpeechSynthesisUtterance(
+    "Welcome to Senior Shop. We sell phones with large buttons and loud speakers."
+);
+speech.lang = 'en-US';
+speech.rate = 0.9;
 
-        // 4. SCREEN READER (Reads the Main Content)
-        let speech = new SpeechSynthesisUtterance();
-        speech.lang = "en-US";
-        speech.rate = 0.9;
+function readPage() {
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(speech);
+    document.getElementById('stop-btn').classList.remove('hidden');
+}
 
-        function readPage() {
-            const heading = document.querySelector('h1').innerText;
-            const sub = document.querySelector('p').innerText;
-            speech.text = "Welcome to Senior Shop. We sell phones with large buttons, easy to read screens, and loud speakers.";
-window.speechSynthesis.speak(speech);
-document.getElementById('stop-btn').classList.remove('hidden');
-
-            
-            window.speechSynthesis.speak(speech);
-            document.getElementById('stop-btn').classList.remove('hidden');
-        }
-
-        function stopReading() {
+function stopReading() {
     window.speechSynthesis.cancel();
     document.getElementById('stop-btn').classList.add('hidden');
 }
 
-        }
-    </script>
-	<div id="visibility-controls" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-    <button onclick="toggleAnnotations()" style="background: #ef4444; color: white; font-weight: bold; padding: 12px 24px; border-radius: 50px; border: 2px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: sans-serif; cursor: pointer;">
-        👁️ Advance Visibility Mode
-    </button>
+// ANNOTATIONS
+function toggleAnnotations() {
+    document.querySelectorAll('button,a,input').forEach(el => el.classList.toggle('a11y-target'));
+    document.querySelectorAll('h1,h2,h3').forEach(el => el.classList.toggle('a11y-heading'));
+}
+</script>
+
+<div style="position:fixed;bottom:20px;right:20px;">
+<button onclick="toggleAnnotations()" class="bg-red-600 text-white px-6 py-3 rounded-full font-bold">
+👁️ Advance Visibility
+</button>
 </div>
 
-<style>
-    /* Styles for the annotations */
-    .a11y-target { outline: 2px dashed #ff0000 !important; position: relative; }
-    .a11y-target::after { content: '48px Target'; position: absolute; top: -12px; right: 0; background: #ff0000; color: white; font-size: 9px; padding: 2px 4px; border-radius: 2px; font-weight: bold; pointer-events: none; z-index: 1000; }
-    
-    .a11y-heading { outline: 2px solid #2563eb !important; position: relative; }
-    .a11y-heading::after { content: attr(tagName); position: absolute; top: 0; left: -24px; background: #2563eb; color: white; font-size: 10px; padding: 2px 4px; font-weight: bold; z-index: 1000; }
-</style>
-
-<script>
-    function toggleAnnotations() {
-        const targets = document.querySelectorAll('button, a, input, select, label');
-        const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-        
-        targets.forEach(el => {
-            el.classList.toggle('a11y-target');
-        });
-        
-        headings.forEach(el => {
-            el.classList.toggle('a11y-heading');
-            // Store tag name for the label
-            if(!el.getAttribute('tagName')) el.setAttribute('tagName', el.tagName);
-        });
-    }
-</script>
 </body>
 </html>
+
+
 
 
 
