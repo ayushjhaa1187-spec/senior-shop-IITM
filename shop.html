@@ -6,16 +6,15 @@
     <title>Easy Phones - Senior Shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    
     <style>
-        :root { --primary: #208090; --bg-color: #F8FAFC; --focus-ring: #F59E0B; }
+        :root { --primary: #208090; --bg-color: #F8FAFC; }
         body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); color: #1F2937; }
         button:active { transform: scale(0.95); }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <header class="bg-white shadow-md sticky top-0 z-50 p-4">
+    <header class="bg-white shadow-md p-4 sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3">
                 <div class="w-12 h-12 bg-[#208090] rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
@@ -34,53 +33,101 @@
 
         <h1 class="text-4xl font-bold mb-8">Easy-to-Use Mobile Phones</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             
-            <article class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col h-full">
-                <img src="https://placehold.co/400x300/208090/FFFFFF?text=Jitterbug+Flip" class="w-full h-56 object-cover">
-                <div class="p-6 flex-grow flex flex-col">
-                    <h2 class="text-2xl font-bold mb-2">Jitterbug Flip 2</h2>
-                    <p class="text-gray-600 mb-4 flex-grow">Large buttons, loud speaker, and emergency button.</p>
-                    <div class="text-3xl font-bold text-[#208090] mb-4">$99.99</div>
-                    
-                    <div class="grid grid-cols-2 gap-3 mt-auto">
-                        <a href="product-detail.html" class="bg-gray-100 text-gray-800 py-3 rounded-lg font-bold text-center border-2 border-gray-300 hover:bg-gray-200">View Details</a>
-                        <button onclick="addToCart('Jitterbug Flip 2', 99.99, 'https://placehold.co/100x100/208090/FFFFFF?text=Phone')" class="bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2">
-                            <span>+</span> Add to Cart
-                        </button>
-                    </div>
+            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
+                <img src="https://placehold.co/400x300/208090/FFFFFF?text=Jitterbug+Flip" class="w-full h-48 object-cover">
+                <div class="p-5 flex-grow flex flex-col">
+                    <h2 class="text-xl font-bold mb-2">Jitterbug Flip 2</h2>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">Large buttons, loud speaker, and emergency button.</p>
+                    <div class="text-2xl font-bold text-[#208090] mb-4">$99.99</div>
+                    <button onclick="addToCart('Jitterbug Flip 2', 99.99, 'https://placehold.co/100x100/208090/FFFFFF?text=Phone')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2">
+                        <span>+</span> Add to Cart
+                    </button>
                 </div>
             </article>
 
-            <article class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col h-full">
-                <img src="https://placehold.co/400x300/333333/FFFFFF?text=Snapfon" class="w-full h-56 object-cover">
-                <div class="p-6 flex-grow flex flex-col">
-                    <h2 class="text-2xl font-bold mb-2">Snapfon ez4G</h2>
-                    <p class="text-gray-600 mb-4 flex-grow">Bar-style phone with high contrast screen.</p>
-                    <div class="text-3xl font-bold text-[#208090] mb-4">$79.99</div>
-                    
-                    <div class="grid grid-cols-2 gap-3 mt-auto">
-                        <a href="#" class="bg-gray-100 text-gray-800 py-3 rounded-lg font-bold text-center border-2 border-gray-300 hover:bg-gray-200">View Details</a>
-                        <button onclick="addToCart('Snapfon ez4G', 79.99, 'https://placehold.co/100x100/333333/FFFFFF?text=Snapfon')" class="bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2">
-                            <span>+</span> Add to Cart
-                        </button>
-                    </div>
+            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
+                <img src="https://placehold.co/400x300/333333/FFFFFF?text=Snapfon+ez4G" class="w-full h-48 object-cover">
+                <div class="p-5 flex-grow flex flex-col">
+                    <h2 class="text-xl font-bold mb-2">Snapfon ez4G</h2>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">Bar-style phone with high contrast screen and big keys.</p>
+                    <div class="text-2xl font-bold text-[#208090] mb-4">$79.99</div>
+                    <button onclick="addToCart('Snapfon ez4G', 79.99, 'https://placehold.co/100x100/333333/FFFFFF?text=Snapfon')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2">
+                        <span>+</span> Add to Cart
+                    </button>
                 </div>
             </article>
 
-            <article class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col h-full">
-                <img src="https://placehold.co/400x300/DDDDDD/208090?text=Nokia+Flip" class="w-full h-56 object-cover">
-                <div class="p-6 flex-grow flex flex-col">
-                    <h2 class="text-2xl font-bold mb-2">Nokia 2780</h2>
-                    <p class="text-gray-600 mb-4 flex-grow">Classic flip design with modern features.</p>
-                    <div class="text-3xl font-bold text-[#208090] mb-4">$69.99</div>
-                    
-                    <div class="grid grid-cols-2 gap-3 mt-auto">
-                        <a href="#" class="bg-gray-100 text-gray-800 py-3 rounded-lg font-bold text-center border-2 border-gray-300 hover:bg-gray-200">View Details</a>
-                        <button onclick="addToCart('Nokia 2780', 69.99, 'https://placehold.co/100x100/DDDDDD/208090?text=Nokia')" class="bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2">
-                            <span>+</span> Add to Cart
-                        </button>
-                    </div>
+            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
+                <img src="https://placehold.co/400x300/DDDDDD/208090?text=Nokia+2780" class="w-full h-48 object-cover">
+                <div class="p-5 flex-grow flex flex-col">
+                    <h2 class="text-xl font-bold mb-2">Nokia 2780 Flip</h2>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">A reliable classic flip phone with FM radio.</p>
+                    <div class="text-2xl font-bold text-[#208090] mb-4">$69.99</div>
+                    <button onclick="addToCart('Nokia 2780', 69.99, 'https://placehold.co/100x100/DDDDDD/208090?text=Nokia')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2">
+                        <span>+</span> Add to Cart
+                    </button>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
+                <img src="https://placehold.co/400x300/FF0000/FFFFFF?text=RAZ+Memory" class="w-full h-48 object-cover">
+                <div class="p-5 flex-grow flex flex-col">
+                    <h2 class="text-xl font-bold mb-2">RAZ Memory Phone</h2>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">Designed for dementia. One-touch photo dialing.</p>
+                    <div class="text-2xl font-bold text-[#208090] mb-4">$309.00</div>
+                    <button onclick="addToCart('RAZ Memory Phone', 309.00, 'https://placehold.co/100x100/FF0000/FFFFFF?text=RAZ')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2">
+                        <span>+</span> Add to Cart
+                    </button>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
+                <img src="https://placehold.co/400x300/222222/FFFFFF?text=Lively+Smart" class="w-full h-48 object-cover">
+                <div class="p-5 flex-grow flex flex-col">
+                    <h2 class="text-xl font-bold mb-2">Lively Smart</h2>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">Simple smartphone with large menu icons.</p>
+                    <div class="text-2xl font-bold text-[#208090] mb-4">$149.99</div>
+                    <button onclick="addToCart('Lively Smart', 149.99, 'https://placehold.co/100x100/222222/FFFFFF?text=Lively')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2">
+                        <span>+</span> Add to Cart
+                    </button>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
+                <img src="https://placehold.co/400x300/000000/FFFFFF?text=Kyocera+Dura" class="w-full h-48 object-cover">
+                <div class="p-5 flex-grow flex flex-col">
+                    <h2 class="text-xl font-bold mb-2">Kyocera DuraXV</h2>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">Ultra-rugged flip phone. Water and drop proof.</p>
+                    <div class="text-2xl font-bold text-[#208090] mb-4">$249.00</div>
+                    <button onclick="addToCart('Kyocera DuraXV', 249.00, 'https://placehold.co/100x100/000000/FFFFFF?text=Kyocera')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2">
+                        <span>+</span> Add to Cart
+                    </button>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
+                <img src="https://placehold.co/400x300/EEEEEE/208090?text=Home+Phone" class="w-full h-48 object-cover">
+                <div class="p-5 flex-grow flex flex-col">
+                    <h2 class="text-xl font-bold mb-2">Clarity Cordless</h2>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">Amplified home phone with visual ringer.</p>
+                    <div class="text-2xl font-bold text-[#208090] mb-4">$49.99</div>
+                    <button onclick="addToCart('Clarity Cordless', 49.99, 'https://placehold.co/100x100/EEEEEE/208090?text=Home')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2">
+                        <span>+</span> Add to Cart
+                    </button>
+                </div>
+            </article>
+
+             <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
+                <img src="https://placehold.co/400x300/555555/FFFFFF?text=Samsung+A14" class="w-full h-48 object-cover">
+                <div class="p-5 flex-grow flex flex-col">
+                    <h2 class="text-xl font-bold mb-2">Samsung A14 Easy</h2>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">Pre-configured with "Easy Mode" enabled.</p>
+                    <div class="text-2xl font-bold text-[#208090] mb-4">$199.99</div>
+                    <button onclick="addToCart('Samsung A14', 199.99, 'https://placehold.co/100x100/555555/FFFFFF?text=Samsung')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2">
+                        <span>+</span> Add to Cart
+                    </button>
                 </div>
             </article>
 
