@@ -6,84 +6,120 @@
     <title>Easy Phones - Senior Shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    <style> body { font-family: 'Source Sans 3', sans-serif; background-color: #F8FAFC; } </style>
+    <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
+    <style>
+        :root { --primary: #208090; --bg-color: #F8FAFC; --focus-ring: #F59E0B; }
+        body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); line-height: 1.6; }
+        .a11y-menu { display: none; position: absolute; top: 100%; right: 0; width: 340px; background: white; border: 2px solid #208090; padding: 20px; z-index: 50; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 12px; }
+        .a11y-menu.open { display: block; }
+        *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 2px; }
+    </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <a href="#main-content" class="skip-link">Skip to Products</a>
+    <a href="#main-content" class="absolute -top-96 left-0 bg-[#208090] text-white p-4 z-50 focus:top-0 text-xl font-bold transition-all">Skip to Products</a>
 
-    <header class="bg-white shadow-md sticky top-0 z-50" role="banner">
-        <div class="bg-gray-800 text-white p-2 text-center text-sm flex justify-center gap-4">
-            <button onclick="toggleTextSize()" class="hover:text-yellow-400 font-bold underline">A+ Text Size</button>
-            <span class="text-gray-600">|</span>
-            <button onclick="toggleContrast()" class="hover:text-yellow-400 font-bold underline">High Contrast</button>
-        </div>
-        <div class="container mx-auto p-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3" aria-label="Back to Home">
-                <div class="w-10 h-10 bg-[#208090] rounded-full flex items-center justify-center text-white text-xl font-bold">S</div>
-                <span class="text-2xl font-bold text-[#208090]">Senior Shop</span>
+    <header class="bg-white shadow-md relative z-40 p-4" role="banner">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <a href="index.html" class="flex items-center gap-3 group" aria-label="Home">
+                <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition" aria-hidden="true">S</div>
+                <span class="text-4xl font-bold text-[#208090]">Senior Shop</span>
             </a>
-            <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold hover:bg-[#165E6A] shadow-md" aria-label="Cart">
-                <span aria-hidden="true">🛒</span> <span class="cart-count-display">Cart (0)</span>
-            </a>
+            
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm" aria-expanded="false" aria-controls="a11y-menu">
+                        <span class="text-2xl" aria-hidden="true">♿</span> <span class="text-lg">Settings</span>
+                    </button>
+                    <div id="a11y-menu" class="a11y-menu text-left">
+                        <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg mb-4" aria-label="Close settings">Close</button>
+                        <button onclick="setContrast('high')" class="w-full text-left p-3 hover:bg-gray-100 font-bold border-b bg-black text-yellow-300">High Contrast</button>
+                        <div class="flex items-center justify-between p-3 hover:bg-gray-100">
+                            <label class="font-bold cursor-pointer" for="large-mode-shop">Large Buttons</label>
+                            <input type="checkbox" id="large-mode-shop" onchange="toggleLargeTargets()" class="w-6 h-6">
+                        </div>
+                        <div class="flex items-center justify-between p-3 hover:bg-gray-100">
+                            <label class="font-bold cursor-pointer" for="dyslexia-mode-shop">Dyslexia Font</label>
+                            <input type="checkbox" id="dyslexia-mode-shop" onchange="toggleDyslexia()" class="w-6 h-6">
+                        </div>
+                    </div>
+                </div>
+                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold shadow-md" aria-label="Shopping Cart">
+                    <span class="text-2xl" aria-hidden="true">🛒</span> 
+                    <span class="text-lg cart-count-display" aria-live="polite">Cart (0)</span>
+                </a>
+            </div>
         </div>
     </header>
 
     <main id="main-content" class="container mx-auto px-4 py-8 flex-grow" role="main">
-        <div class="mb-6">
-            <a href="index.html" class="inline-flex items-center gap-2 text-lg font-bold text-gray-600 hover:text-[#208090] transition">
-                <span>←</span> Back to Home
+        <div class="mb-8">
+            <a href="index.html" class="inline-flex items-center gap-2 text-xl font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 px-6 py-3 rounded-xl transition shadow-sm" aria-label="Back to Home">
+                <span aria-hidden="true">⬅️</span> Back to Home
             </a>
         </div>
 
-        <h1 class="text-3xl font-bold mb-8 text-gray-800 border-l-8 border-[#208090] pl-4">Easy Mobile Phones</h1>
+        <h1 class="text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">Easy-to-Use Mobile Phones</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <article class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
-                <img src="https://placehold.co/400x300/208090/FFFFFF?text=Jitterbug" alt="Jitterbug Flip 2 Phone" class="w-full h-48 object-cover">
-                <div class="p-5">
-                    <h2 class="text-xl font-bold mb-2 text-gray-800">Jitterbug Flip 2</h2>
-                    <p class="text-gray-600 text-sm mb-4">Large buttons, loud speaker, and emergency button.</p>
-                    <div class="flex items-center justify-between mt-4">
-                        <span class="text-2xl font-bold text-[#208090]">$99.99</span>
-                        <button onclick="addToCart('Jitterbug Flip 2', 99.99, 'https://placehold.co/100x100/208090/FFFFFF?text=Phone')" class="bg-[#208090] text-white px-4 py-2 rounded-lg font-bold hover:bg-[#165E6A]" aria-label="Add Jitterbug Flip to Cart">
-                            Add to Cart
-                        </button>
-                    </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden hover:border-[#208090] transition">
+                <img src="https://placehold.co/400x300/208090/FFFFFF?text=Jitterbug+Flip" alt="Jitterbug Flip 2 Phone" class="w-full h-48 object-cover">
+                <div class="p-5 flex-grow flex flex-col">
+                    <h2 class="text-xl font-bold mb-2">Jitterbug Flip 2</h2>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">Large buttons, loud speaker, and emergency button.</p>
+                    <div class="text-2xl font-bold text-[#208090] mb-4">$99.99</div>
+                    <button onclick="addToCart('Jitterbug Flip 2', 99.99, 'https://placehold.co/100x100/208090/FFFFFF?text=Phone')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2 shadow-md" aria-label="Add Jitterbug Flip 2 to cart">
+                        <span aria-hidden="true">+</span> Add to Cart
+                    </button>
                 </div>
             </article>
 
-            <article class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
-                <img src="https://placehold.co/400x300/333333/FFFFFF?text=Snapfon" alt="Snapfon ez4G" class="w-full h-48 object-cover">
-                <div class="p-5">
-                    <h2 class="text-xl font-bold mb-2 text-gray-800">Snapfon ez4G</h2>
-                    <p class="text-gray-600 text-sm mb-4">Bar-style phone with high contrast screen.</p>
-                    <div class="flex items-center justify-between mt-4">
-                        <span class="text-2xl font-bold text-[#208090]">$79.99</span>
-                        <button onclick="addToCart('Snapfon ez4G', 79.99, 'https://placehold.co/100x100/333333/FFFFFF?text=Phone')" class="bg-[#208090] text-white px-4 py-2 rounded-lg font-bold hover:bg-[#165E6A]" aria-label="Add Snapfon to Cart">
-                            Add to Cart
-                        </button>
-                    </div>
+            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden hover:border-[#208090] transition">
+                <img src="https://placehold.co/400x300/333333/FFFFFF?text=Snapfon+ez4G" alt="Snapfon ez4G Phone" class="w-full h-48 object-cover">
+                <div class="p-5 flex-grow flex flex-col">
+                    <h2 class="text-xl font-bold mb-2">Snapfon ez4G</h2>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">Bar-style phone with high contrast screen and big keys.</p>
+                    <div class="text-2xl font-bold text-[#208090] mb-4">$79.99</div>
+                    <button onclick="addToCart('Snapfon ez4G', 79.99, 'https://placehold.co/100x100/333333/FFFFFF?text=Snapfon')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2 shadow-md" aria-label="Add Snapfon ez4G to cart">
+                        <span aria-hidden="true">+</span> Add to Cart
+                    </button>
                 </div>
             </article>
 
-            <article class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
-                <img src="https://placehold.co/400x300/DDDDDD/208090?text=Nokia" alt="Nokia 2780 Flip" class="w-full h-48 object-cover">
-                <div class="p-5">
-                    <h2 class="text-xl font-bold mb-2 text-gray-800">Nokia 2780 Flip</h2>
-                    <p class="text-gray-600 text-sm mb-4">Reliable classic flip phone with FM radio.</p>
-                    <div class="flex items-center justify-between mt-4">
-                        <span class="text-2xl font-bold text-[#208090]">$69.99</span>
-                        <button onclick="addToCart('Nokia 2780', 69.99, 'https://placehold.co/100x100/DDDDDD/208090?text=Nokia')" class="bg-[#208090] text-white px-4 py-2 rounded-lg font-bold hover:bg-[#165E6A]" aria-label="Add Nokia 2780 to Cart">
-                            Add to Cart
-                        </button>
-                    </div>
+            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden hover:border-[#208090] transition">
+                <img src="https://placehold.co/400x300/DDDDDD/208090?text=Nokia+2780" alt="Nokia 2780 Flip Phone" class="w-full h-48 object-cover">
+                <div class="p-5 flex-grow flex flex-col">
+                    <h2 class="text-xl font-bold mb-2">Nokia 2780 Flip</h2>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">A reliable classic flip phone with FM radio.</p>
+                    <div class="text-2xl font-bold text-[#208090] mb-4">$69.99</div>
+                    <button onclick="addToCart('Nokia 2780', 69.99, 'https://placehold.co/100x100/DDDDDD/208090?text=Nokia')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2 shadow-md" aria-label="Add Nokia 2780 to cart">
+                        <span aria-hidden="true">+</span> Add to Cart
+                    </button>
                 </div>
             </article>
 
+            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden hover:border-[#208090] transition">
+                <img src="https://placehold.co/400x300/FF0000/FFFFFF?text=RAZ+Memory" alt="RAZ Memory Phone" class="w-full h-48 object-cover">
+                <div class="p-5 flex-grow flex flex-col">
+                    <h2 class="text-xl font-bold mb-2">RAZ Memory Phone</h2>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">Designed for dementia. One-touch photo dialing.</p>
+                    <div class="text-2xl font-bold text-[#208090] mb-4">$309.00</div>
+                    <button onclick="addToCart('RAZ Memory Phone', 309.00, 'https://placehold.co/100x100/FF0000/FFFFFF?text=RAZ')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2 shadow-md" aria-label="Add RAZ Memory Phone to cart">
+                        <span aria-hidden="true">+</span> Add to Cart
+                    </button>
+                </div>
+            </article>
         </div>
     </main>
+
+    <footer class="bg-gray-800 text-white pt-12 pb-6 mt-12 text-center" role="contentinfo">
+        <p class="text-xl mb-4">© 2026 Senior Shop. Compliance: WCAG 2.1 Level AA.</p>
+        <div class="flex justify-center gap-6 mb-4">
+             <a href="#" aria-label="Visit our Facebook page" class="text-white hover:text-[#208090] text-2xl">Facebook</a>
+             <a href="#" aria-label="Visit our Twitter page" class="text-white hover:text-[#208090] text-2xl">Twitter</a>
+        </div>
+        <p class="text-gray-400">Need Help? <a href="tel:18005550199" class="text-yellow-400 font-bold hover:underline">Call 1-800-555-0199</a></p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
