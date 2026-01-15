@@ -1,45 +1,55 @@
-/* ========= READ PAGE ========= */
-function readPage() {
-  speechSynthesis.cancel();
-  const text = document.querySelector("main").innerText;
-  const msg = new SpeechSynthesisUtterance(text);
-  msg.rate = 0.9;
-  speechSynthesis.speak(msg);
-}
-
-/* ========= VOICE ========= */
-function startVoice() {
-  if (!('webkitSpeechRecognition' in window)) {
-    alert("Voice not supported");
-    return;
+// PRODUCT DATABASE
+const PRODUCTS = {
+  phone1: {
+    id: "phone1",
+    name: "Jitterbug Flip 2",
+    price: 99.99,
+    image: "https://placehold.co/400x300/208090/FFFFFF?text=Jitterbug+Flip",
+    description: "Large buttons, loud speaker, very easy to use."
+  },
+  phone2: {
+    id: "phone2",
+    name: "Clarity Alto Plus",
+    price: 129.99,
+    image: "https://placehold.co/400x300/EEEEEE/208090?text=Clarity+Alto",
+    description: "Extra loud volume with flashing ringer."
+  },
+  phone3: {
+    id: "phone3",
+    name: "Snapfon ez4G",
+    price: 79.99,
+    image: "https://placehold.co/400x300/333333/FFFFFF?text=Snapfon",
+    description: "Talking keypad with SOS button."
   }
-  const r = new webkitSpeechRecognition();
-  r.lang = "en-US";
-  r.onresult = e => handleVoice(e.results[0][0].transcript.toLowerCase());
-  r.start();
-}
+};
 
-function handleVoice(cmd) {
-  if (cmd.includes("home")) location.href = "index.html";
-  else if (cmd.includes("cart")) location.href = "cart.html";
-  else if (cmd.includes("checkout")) location.href = "payment.html";
-  else if (cmd.includes("read")) readPage();
-}
-
-/* ========= CART ========= */
+// CART HELPERS
 function getCart() {
-  return JSON.parse(localStorage.getItem("cart")) || [];
+  return JSON.parse(localStorage.getItem("cart")) || {};
 }
 
 function saveCart(cart) {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-function addToCart(product) {
+function addToCart(id) {
   const cart = getCart();
-  const found = cart.find(p => p.id === product.id);
-  if (found) found.qty++;
-  else cart.push({ ...product, qty: 1 });
+  cart[id] = (cart[id] || 0) + 1;
   saveCart(cart);
-  location.href = "cart.html";
+  window.location.href = "cart.html";
+}
+
+function updateQty(id, delta) {
+  const cart = getCart();
+  cart[id] += delta;
+  if (cart[id] <= 0) delete cart[id];
+  saveCart(cart);
+  location.reload();
+}
+
+function removeItem(id) {
+  const cart = getCart();
+  delete cart[id];
+  saveCart(cart);
+  location.reload();
 }
