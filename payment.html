@@ -7,44 +7,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
-    <style>
-        :root { --primary: #208090; --bg-color: #F8FAFC; --focus-ring: #F59E0B; }
-        body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); line-height: 1.6; }
-        .input-lg { width: 100%; padding: 18px; font-size: 1.25rem; border: 2px solid #9CA3AF; border-radius: 8px; margin-top: 8px; }
-        .input-lg:focus { border-color: #208090; outline: 4px solid var(--focus-ring); }
-        .error-msg { color: #DC2626; font-weight: bold; margin-top: 4px; display: none; }
-        /* A11y Menu */
-        .a11y-menu { display: none; position: absolute; top: 100%; right: 0; width: 340px; background: white; border: 2px solid #208090; padding: 20px; z-index: 50; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 12px; }
-        .a11y-menu.open { display: block; }
-        *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 2px; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <a href="#checkout-form" class="absolute -top-96 left-0 bg-[#208090] text-white p-4 z-50 focus:top-0 text-xl font-bold transition-all">Skip to Form</a>
+    <a href="#checkout-form" class="skip-link">Skip to Form</a>
 
-    <header class="bg-white shadow-md relative z-40 p-4" role="banner">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <a href="index.html" class="flex items-center gap-3 group" aria-label="Home">
-                <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold" aria-hidden="true">S</div>
+    <header class="bg-white shadow-md p-4" role="banner">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-[#208090] rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
                 <span class="text-3xl font-bold text-[#208090]">Senior Shop</span>
             </a>
-            
-            <div class="flex items-center gap-3">
-                <div class="relative">
-                    <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm" aria-expanded="false" aria-controls="a11y-menu">
-                        <span class="text-2xl" aria-hidden="true">♿</span> <span class="text-lg">Settings</span>
-                    </button>
-                    <div id="a11y-menu" class="a11y-menu text-left">
-                        <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg mb-4" aria-label="Close settings">Close</button>
-                        <button onclick="setContrast('high')" class="w-full text-left p-3 hover:bg-gray-100 font-bold border-b bg-black text-yellow-300">High Contrast</button>
-                        <div class="flex items-center justify-between p-3 hover:bg-gray-100">
-                            <label class="font-bold cursor-pointer" for="large-mode-pay">Large Buttons</label>
-                            <input type="checkbox" id="large-mode-pay" onchange="toggleLargeTargets()" class="w-6 h-6">
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="text-xl font-bold hidden md:block">Need Help? Call 1-800-555-0199</div>
         </div>
     </header>
 
