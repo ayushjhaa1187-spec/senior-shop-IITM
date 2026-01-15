@@ -1,55 +1,65 @@
-// PRODUCT DATABASE
-const PRODUCTS = {
-  phone1: {
-    id: "phone1",
-    name: "Jitterbug Flip 2",
-    price: 99.99,
-    image: "https://placehold.co/400x300/208090/FFFFFF?text=Jitterbug+Flip",
-    description: "Large buttons, loud speaker, very easy to use."
-  },
-  phone2: {
-    id: "phone2",
-    name: "Clarity Alto Plus",
-    price: 129.99,
-    image: "https://placehold.co/400x300/EEEEEE/208090?text=Clarity+Alto",
-    description: "Extra loud volume with flashing ringer."
-  },
-  phone3: {
-    id: "phone3",
-    name: "Snapfon ez4G",
-    price: 79.99,
-    image: "https://placehold.co/400x300/333333/FFFFFF?text=Snapfon",
-    description: "Talking keypad with SOS button."
-  }
-};
-
-// CART HELPERS
-function getCart() {
-  return JSON.parse(localStorage.getItem("cart")) || {};
+// --- SEARCH LOGIC ---
+function handleSearch() {
+    const query = document.getElementById('search-input').value.toLowerCase();
+    
+    if (query.includes('phone') || query.includes('mobile') || query.includes('call')) {
+        window.location.href = 'shop.html';
+    } 
+    else if (query.includes('pill') || query.includes('med') || query.includes('pressure') || query.includes('health')) {
+        window.location.href = 'health.html';
+    }
+    else if (query.includes('glass') || query.includes('eye') || query.includes('vision') || query.includes('read')) {
+        window.location.href = 'vision.html';
+    }
+    else if (query.includes('hearing') || query.includes('ear')) {
+        alert("Hearing aids page coming soon!");
+    }
+    else {
+        alert("We couldn't find a specific category for that. Taking you to our full catalog.");
+        window.location.href = 'shop.html';
+    }
 }
 
-function saveCart(cart) {
-  localStorage.setItem("cart", JSON.stringify(cart));
+function handleEnter(e) {
+    if (e.key === 'Enter') {
+        handleSearch();
+    }
 }
 
-function addToCart(id) {
-  const cart = getCart();
-  cart[id] = (cart[id] || 0) + 1;
-  saveCart(cart);
-  window.location.href = "cart.html";
-}
+// --- READER LOGIC (START/STOP) ---
+let currentUtterance = null;
 
-function updateQty(id, delta) {
-  const cart = getCart();
-  cart[id] += delta;
-  if (cart[id] <= 0) delete cart[id];
-  saveCart(cart);
-  location.reload();
-}
+function toggleReader() {
+    const btn = document.getElementById('read-btn');
+    const btnText = document.getElementById('read-text');
 
-function removeItem(id) {
-  const cart = getCart();
-  delete cart[id];
-  saveCart(cart);
-  location.reload();
+    if (window.speechSynthesis.speaking) {
+        // STOP ACTION
+        window.speechSynthesis.cancel();
+        
+        // Reset Button Style
+        btnText.innerText = "Read";
+        btn.classList.remove('bg-red-100', 'text-red-700', 'border-red-500'); 
+        btn.classList.add('bg-gray-100', 'text-gray-700'); 
+    } 
+    else {
+        // START ACTION
+        const content = document.querySelector('main').innerText;
+        currentUtterance = new SpeechSynthesisUtterance(content);
+        currentUtterance.rate = 0.9;
+        
+        // Change Button Style to Stop
+        btnText.innerText = "Stop";
+        btn.classList.remove('bg-gray-100', 'text-gray-700');
+        btn.classList.add('bg-red-100', 'text-red-700', 'border-red-500'); 
+        
+        window.speechSynthesis.speak(currentUtterance);
+
+        // Auto-reset when done
+        currentUtterance.onend = function() {
+            btnText.innerText = "Read";
+            btn.classList.remove('bg-red-100', 'text-red-700', 'border-red-500');
+            btn.classList.add('bg-gray-100', 'text-gray-700');
+        };
+    }
 }
