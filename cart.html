@@ -10,6 +10,18 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
+    <div id="a11y-bar" class="flex flex-col md:flex-row justify-center md:justify-end items-center gap-4 text-sm bg-gray-800 text-white p-2">
+        <span class="font-bold hidden md:inline uppercase tracking-wider text-gray-400">Accessibility Tools:</span>
+        <div class="flex items-center gap-2">
+            <button onclick="changeTextSize('decrease')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">A-</button>
+            <button onclick="changeTextSize('reset')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">Reset</button>
+            <button onclick="changeTextSize('increase')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">A+</button>
+        </div>
+        <button onclick="toggleContrast()" class="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-1 rounded font-bold flex items-center gap-2 shadow-sm">
+            <span>👁️</span> High Contrast
+        </button>
+    </div>
+
     <header class="bg-white shadow-md p-4 sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3">
@@ -21,6 +33,12 @@
     </header>
 
     <main class="container mx-auto px-4 py-8 max-w-4xl flex-grow">
+        <div class="mb-6">
+            <a href="shop.html" class="inline-flex items-center gap-2 text-xl font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 px-6 py-3 rounded-xl transition shadow-sm">
+                <span>⬅️</span> Continue Shopping
+            </a>
+        </div>
+
         <h1 class="text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">Your Shopping Cart</h1>
 
         <div id="empty-cart-msg" class="hidden text-center py-16 bg-white rounded-xl shadow border border-gray-200">
@@ -30,10 +48,9 @@
             <a href="index.html" class="bg-[#208090] text-white text-xl font-bold px-8 py-4 rounded-xl hover:bg-[#165E6A] inline-block">Start Shopping</a>
         </div>
 
-        <div id="cart-items-container">
-            </div>
+        <div id="cart-items-container"></div>
 
-        <div id="cart-summary" class="hidden bg-gray-100 rounded-xl p-8 mt-8 text-right">
+        <div id="cart-summary" class="hidden bg-gray-100 rounded-xl p-8 mt-8 text-right border border-gray-200">
             <div class="text-2xl mb-2">Total: <span id="total-price" class="font-bold text-[#208090]">$0.00</span></div>
             <div class="text-xl text-gray-600 mb-6">Shipping: <span class="font-bold text-green-700">FREE</span></div>
             <a href="payment.html" class="inline-block bg-[#208090] text-white text-2xl font-bold px-12 py-4 rounded-xl shadow-lg hover:bg-[#165E6A]">Proceed to Checkout ➔</a>
