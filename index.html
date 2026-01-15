@@ -7,77 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
-
-    <style>
-        /* --- CORE STYLES --- */
-        :root {
-            --primary: #208090;
-            --bg-color: #F8FAFC;
-            --text-color: #1F2937;
-            --focus-ring: #F59E0B;
-        }
-
-        body {
-            font-family: 'Source Sans 3', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        /* --- ACCESSIBILITY MODES --- */
-        body.contrast-high {
-            --primary: #FFFF00;
-            --bg-color: #000000;
-            --text-color: #FFFFFF;
-            background-color: #000000 !important;
-            color: #FFFFFF !important;
-        }
-        body.contrast-high .bg-white { background-color: #000000 !important; border: 2px solid #FFFFFF; }
-        body.contrast-high .btn-primary { background-color: #FFFF00 !important; color: #000000 !important; border: 2px solid white; }
-        body.contrast-high .text-gray-600 { color: #DDDDDD !important; }
-
-        body.dyslexia-mode { font-family: 'OpenDyslexic', sans-serif !important; }
-
-        /* --- INTERACTIVE --- */
-        button, a, input { min-height: 48px; min-width: 48px; }
-        /* FIX: Visible Focus Indicator */
-        *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 2px; }
-
-        /* --- VOICE COMMAND BAR --- */
-        #voice-bar {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #208090;
-            color: white;
-            padding: 24px;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            z-index: 100;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
-        }
-        .mic-pulse {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background-color: #F59E0B;
-            border-radius: 50%;
-            margin-right: 12px;
-            animation: pulse 1s infinite;
-        }
-        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
-
-        /* --- MENU --- */
-        .a11y-menu { display: none; position: absolute; top: 100%; right: 0; width: 340px; background: white; border: 2px solid #208090; padding: 20px; z-index: 50; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 12px; }
-        .a11y-menu.open { display: block; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <a href="#main-content" class="absolute -top-96 left-0 bg-[#208090] text-white p-4 z-50 focus:top-0 text-xl font-bold transition-all">Skip to Main Content</a>
+    <a href="#main-content" class="skip-link">Skip to Main Content</a>
 
     <header class="bg-white shadow-md relative z-40 p-4" role="banner">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
@@ -90,16 +24,11 @@
             <div class="hidden md:flex relative flex-1 max-w-lg mx-8" role="search">
                 <label for="search-input" class="sr-only">Search products</label>
                 <input type="text" id="search-input" placeholder="Search for items..." class="w-full border-2 border-gray-400 rounded-l-lg px-4 py-3 text-xl focus:border-[#208090]">
-                <button onclick="handleSearch()" class="bg-[#208090] text-white px-8 rounded-r-lg font-bold hover:bg-[#165E6A] text-lg">Search</button>
+                <button class="bg-[#208090] text-white px-8 rounded-r-lg font-bold hover:bg-[#165E6A] text-lg">Search</button>
             </div>
 
             <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-center">
                 
-                <button onclick="toggleVoice()" class="flex items-center gap-2 bg-blue-50 border-2 border-[#208090] text-[#208090] px-4 py-3 rounded-lg font-bold hover:bg-blue-100 transition shadow-sm" aria-label="Activate Voice Command">
-                    <span class="text-2xl" aria-hidden="true">🗣️</span> 
-                    <span class="text-lg">Voice Command</span>
-                </button>
-
                 <div class="relative">
                     <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm" aria-expanded="false" aria-controls="a11y-menu">
                         <span class="text-2xl" aria-hidden="true">♿</span> 
@@ -107,29 +36,15 @@
                     </button>
 
                     <div id="a11y-menu" class="a11y-menu text-left">
-                        <div class="flex justify-between items-center mb-4 border-b pb-2">
-                            <h3 class="font-bold text-xl text-gray-800">Accessibility Tools</h3>
-                            <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg" aria-label="Close Settings">Close</button>
+                        <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg mb-4" aria-label="Close Settings">Close</button>
+                        <button onclick="setContrast('high')" class="w-full text-left p-3 hover:bg-gray-100 font-bold border-b bg-black text-yellow-300">High Contrast</button>
+                        <div class="flex items-center justify-between p-3 hover:bg-gray-100">
+                            <label class="font-bold cursor-pointer" for="large-mode-home">Large Buttons</label>
+                            <input type="checkbox" id="large-mode-home" onchange="toggleLargeTargets()" class="w-6 h-6">
                         </div>
-                        
-                        <div class="mb-6">
-                            <button onclick="readPage()" class="w-full bg-blue-100 hover:bg-blue-200 text-blue-900 font-bold py-4 rounded-lg flex items-center justify-center gap-3 border border-blue-300 text-lg">
-                                <span class="text-2xl" aria-hidden="true">🔊</span> Read Page Aloud
-                            </button>
-                            <button onclick="stopReading()" class="text-red-600 underline mt-3 w-full text-center hidden font-bold text-lg" id="stop-btn">Stop Reading</button>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block font-bold text-gray-700 mb-2 text-lg">Contrast Level</label>
-                            <div class="flex gap-2">
-                                <button onclick="setContrast('normal')" class="flex-1 py-3 bg-white border-2 border-gray-300 rounded font-bold">Normal</button>
-                                <button onclick="setContrast('high')" class="flex-1 py-3 bg-black text-yellow-300 border-2 border-white rounded font-bold">High</button>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded border border-gray-200 mt-4">
-                            <label class="font-bold text-gray-700 text-lg">Dyslexia Friendly Font</label>
-                            <input type="checkbox" onchange="document.body.classList.toggle('dyslexia-mode')" class="w-8 h-8 accent-[#208090]">
+                        <div class="flex items-center justify-between p-3 hover:bg-gray-100">
+                            <label class="font-bold cursor-pointer" for="dyslexia-mode-home">Dyslexia Font</label>
+                            <input type="checkbox" id="dyslexia-mode-home" onchange="toggleDyslexia()" class="w-6 h-6">
                         </div>
                     </div>
                 </div>
@@ -143,23 +58,13 @@
         </div>
     </header>
 
-    <div id="voice-bar" role="status" aria-live="polite">
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-center gap-4">
-            <div class="flex items-center">
-                <span class="mic-pulse"></span>
-                <span>Listening... Try saying "Find Easy Phones"</span>
-            </div>
-            <button onclick="toggleVoice()" class="bg-white text-[#208090] px-6 py-2 rounded-lg text-lg font-bold shadow hover:bg-gray-100">Cancel</button>
-        </div>
-    </div>
-
     <main id="main-content" class="container mx-auto px-4 py-12 flex-grow" role="main">
         
         <section class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 mb-12 flex flex-col md:flex-row items-center gap-8">
             <div class="flex-1 text-center md:text-left">
                 <h1 class="text-4xl md:text-6xl font-bold mb-6 text-[#208090]">Technology Made Simple</h1>
                 <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">We sell phones with large buttons, easy-to-read tablets, and loud speakers. Designed for your comfort.</p>
-                <button onclick="window.location.href='shop.html'" class="bg-[#208090] text-white px-10 py-5 rounded-xl text-2xl font-bold shadow-lg hover:bg-[#165E6A] btn-primary">
+                <button onclick="window.location.href='shop.html'" class="bg-[#208090] text-white px-10 py-5 rounded-xl text-2xl font-bold shadow-lg hover:bg-[#165E6A]">
                     Browse New Arrivals
                 </button>
             </div>
@@ -198,65 +103,5 @@
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        // 1. MENU TOGGLE
-        function toggleMenu() {
-            const menu = document.getElementById('a11y-menu');
-            const btn = document.getElementById('a11y-btn');
-            menu.classList.toggle('open');
-            const isOpen = menu.classList.contains('open');
-            btn.setAttribute('aria-expanded', isOpen);
-        }
-
-        // 2. CONTRAST SETTINGS
-        function setContrast(mode) {
-            if (mode === 'high') {
-                document.body.classList.add('contrast-high');
-                localStorage.setItem('contrast', 'high');
-            } else {
-                document.body.classList.remove('contrast-high');
-                localStorage.setItem('contrast', 'normal');
-            }
-        }
-
-        // 3. INNOVATION: Voice Command Simulation
-        function toggleVoice() {
-            const bar = document.getElementById('voice-bar');
-            if (bar.style.display === 'block') {
-                bar.style.display = 'none';
-            } else {
-                bar.style.display = 'block';
-                // Simulate listening logic
-                setTimeout(() => {
-                    if(bar.style.display === 'block') {
-                         bar.innerHTML = '<div class="container mx-auto text-center font-bold text-white">Redirecting to Easy Phones...</div>';
-                         setTimeout(() => { window.location.href = 'shop.html'; }, 1500);
-                    }
-                }, 3000);
-            }
-        }
-
-        // 4. SCREEN READER (Reads the Main Content)
-        let speech = new SpeechSynthesisUtterance();
-        speech.lang = "en-US";
-        speech.rate = 0.9;
-
-        function readPage() {
-            const heading = document.querySelector('h1').innerText;
-            const sub = document.querySelector('p').innerText;
-            speech.text = "Welcome to Senior Shop. " + heading + ". " + sub + ". Use the Tab key to navigate categories.";
-            
-            window.speechSynthesis.speak(speech);
-            document.getElementById('stop-btn').classList.remove('hidden');
-        }
-
-        function stopReading() {
-            window.speechSynthesis.cancel();
-            document.getElementById('stop-btn').classList.add('hidden');
-        }
-    </script>
 </body>
 </html>
-
-
-
