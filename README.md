@@ -1,6 +1,7 @@
 # senior-shop-IITM
 Project Title: Senior Shop – Accessibility-First E-Commerce
-Team Name: [Your Team Name] Theme: Inclusive Shopping for the Elderly & Disabled
+Name: Ayush Kumar Jha
+Theme: Inclusive Shopping for the Elderly & Disabled
 
 1. Problem Statement
 The Challenge: Modern e-commerce platforms are often overwhelming for older adults and users with disabilities. Small touch targets, low-contrast text, hidden menus, and "timed" sessions create anxiety and barriers to independence.
