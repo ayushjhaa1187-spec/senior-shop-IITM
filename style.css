@@ -1,3 +1,7 @@
+*:focus-visible {
+    outline: 4px solid var(--focus-ring) !important;
+    box-shadow: 0 0 0 4px #fff;
+}
 /* =========================================
    1. CORE VARIABLES & RESET
    ========================================= */
