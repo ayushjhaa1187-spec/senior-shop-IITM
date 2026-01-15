@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Daily Essentials</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Essentials - Senior Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Source Sans 3', sans-serif; background-color: #F8FAFC; }</style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
+    <header class="bg-white shadow-md p-4 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-[#208090] rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
+                <span class="text-3xl font-bold text-[#208090]">Senior Shop</span>
+            </a>
+            <a href="cart.html" class="text-xl font-bold cart-count-display">Cart (0)</a>
+        </div>
+    </header>
 
-<header class="bg-white shadow p-4 flex justify-between">
-  <a href="index.html">← Home</a>
-  <div class="flex gap-2">
-    <input placeholder="Search" class="border px-2 rounded">
-    <button onclick="readPage()">🔊</button>
-    <button onclick="startVoice()">🗣️</button>
-    <a href="cart.html">🛒</a>
-  </div>
-</header>
-
-<main class="p-6 grid md:grid-cols-2 gap-6">
-  <div class="card">📦 Storage Box</div>
-  <div class="card">🧹 Cleaning Tools</div>
-  <div class="card">📓 Reminder Notebook</div>
-  <div class="card">🕯️ Night Light</div>
-</main>
-
+    <main class="container mx-auto px-4 py-8 text-center flex-grow flex flex-col justify-center items-center">
+        <h1 class="text-4xl font-bold mb-6">Daily Essentials</h1>
+        <div class="bg-yellow-50 border-l-8 border-yellow-400 p-8 rounded-r shadow-sm max-w-2xl">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-2">Coming Soon</h2>
+            <p class="text-xl text-gray-700">We are currently stocking Daily Living Aids. Please check back later.</p>
+        </div>
+        <a href="index.html" class="inline-block mt-8 bg-[#208090] text-white px-8 py-3 rounded-lg font-bold text-lg">Return Home</a>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>
-
