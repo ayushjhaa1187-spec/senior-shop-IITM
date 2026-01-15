@@ -6,27 +6,21 @@
     <title>Secure Checkout - Senior Shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Source Sans 3', sans-serif; background-color: #F8FAFC; }
-        .input-lg { width: 100%; padding: 16px; font-size: 1.25rem; border: 2px solid #9CA3AF; border-radius: 8px; margin-top: 8px; }
-        .input-lg:focus { border-color: #208090; outline: 3px solid #F59E0B; }
+        :root { --primary: #208090; --bg-color: #F8FAFC; --focus-ring: #F59E0B; }
+        body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); line-height: 1.6; }
+        .input-lg { width: 100%; padding: 18px; font-size: 1.25rem; border: 2px solid #9CA3AF; border-radius: 8px; margin-top: 8px; }
+        .input-lg:focus { border-color: #208090; outline: 4px solid var(--focus-ring); }
+        .error-msg { color: #DC2626; font-weight: bold; margin-top: 4px; display: none; }
+        *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 2px; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <div id="a11y-bar" class="flex flex-col md:flex-row justify-center md:justify-end items-center gap-4 text-sm bg-gray-800 text-white p-2">
-        <span class="font-bold hidden md:inline uppercase tracking-wider text-gray-400">Accessibility Tools:</span>
-        <div class="flex items-center gap-2">
-            <button onclick="changeTextSize('decrease')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">A-</button>
-            <button onclick="changeTextSize('reset')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">Reset</button>
-            <button onclick="changeTextSize('increase')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">A+</button>
-        </div>
-        <button onclick="toggleContrast()" class="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-1 rounded font-bold flex items-center gap-2 shadow-sm">
-            <span>👁️</span> High Contrast
-        </button>
-    </div>
+    <a href="#checkout-form" class="absolute -top-96 left-0 bg-[#208090] text-white p-4 z-50 focus:top-0 text-xl font-bold">Skip to Form</a>
 
-    <header class="bg-white shadow-md p-4">
+    <header class="bg-white shadow-md p-4" role="banner">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3">
                 <div class="w-12 h-12 bg-[#208090] rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
@@ -36,28 +30,35 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8 max-w-2xl">
+    <main class="container mx-auto px-4 py-8 max-w-2xl" role="main">
         <h1 class="text-3xl font-bold mb-6">Checkout Details</h1>
         
-        <form onsubmit="placeOrder(event)" class="bg-white p-6 rounded-xl shadow border border-gray-200">
+        <form id="checkout-form" onsubmit="validateAndSubmit(event)" class="bg-white p-6 rounded-xl shadow border border-gray-200" novalidate>
+            
             <div class="mb-8">
                 <h2 class="text-xl font-bold mb-4 bg-gray-100 p-3 rounded text-[#208090]">Shipping Address</h2>
+                
                 <div class="mb-4">
-                    <label class="block text-lg font-bold">Full Name</label>
-                    <input type="text" class="input-lg" placeholder="e.g. Martha Smith" required>
+                    <label for="name" class="block text-lg font-bold">Full Name (Required)</label>
+                    <input type="text" id="name" class="input-lg" placeholder="e.g. Martha Smith" autocomplete="name" required aria-required="true">
+                    <span id="name-error" class="error-msg" role="alert">Please enter your full name.</span>
                 </div>
+
                 <div class="mb-4">
-                    <label class="block text-lg font-bold">Address</label>
-                    <input type="text" class="input-lg" placeholder="e.g. 123 Maple Ave" required>
+                    <label for="address" class="block text-lg font-bold">Address (Required)</label>
+                    <input type="text" id="address" class="input-lg" placeholder="e.g. 123 Maple Avenue" autocomplete="street-address" required aria-required="true">
+                    <span id="address-error" class="error-msg" role="alert">Please enter your address.</span>
                 </div>
+
                 <div class="mb-4">
-                    <label class="block text-lg font-bold">Zip Code</label>
-                    <input type="tel" class="input-lg" placeholder="12345" required>
+                    <label for="zip" class="block text-lg font-bold">Zip Code (Required)</label>
+                    <input type="tel" id="zip" class="input-lg" placeholder="12345" autocomplete="postal-code" required aria-required="true">
+                    <span id="zip-error" class="error-msg" role="alert">Please enter your 5-digit zip code.</span>
                 </div>
             </div>
 
             <div class="mb-8">
-                <h2 class="text-xl font-bold mb-4 bg-gray-100 p-3 rounded text-[#208090]">Payment Method</h2>
+                <h2 class="text-xl font-bold mb-4 bg-gray-100 p-3 rounded text-[#208090]">Payment</h2>
                 <label class="flex items-center p-4 border-4 border-[#208090] bg-blue-50 rounded-xl cursor-pointer">
                     <input type="radio" name="payment" class="w-8 h-8 accent-[#208090]" checked>
                     <div class="ml-4">
@@ -75,7 +76,35 @@
             </div>
         </form>
     </main>
+
     <script src="script.js"></script>
+    <script>
+        function validateAndSubmit(event) {
+            event.preventDefault();
+            let isValid = true;
+            
+            // Explicit Error Handling
+            ['name', 'address', 'zip'].forEach(id => {
+                const field = document.getElementById(id);
+                const error = document.getElementById(id + '-error');
+                
+                if (!field.value.trim()) {
+                    error.style.display = 'block';
+                    field.setAttribute('aria-invalid', 'true');
+                    field.style.borderColor = '#DC2626'; // Red border
+                    if(isValid) field.focus(); // Focus first invalid element
+                    isValid = false;
+                } else {
+                    error.style.display = 'none';
+                    field.setAttribute('aria-invalid', 'false');
+                    field.style.borderColor = '#9CA3AF'; // Reset border
+                }
+            });
+
+            if (isValid) {
+                placeOrder(event); // Call the main script logic
+            }
+        }
+    </script>
 </body>
 </html>
-
