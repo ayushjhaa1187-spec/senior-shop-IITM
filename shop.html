@@ -1,56 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Shop – Senior Shop</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script defer src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Phones - Senior Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --primary: #208090; --bg-color: #F8FAFC; --focus-ring: #F59E0B; }
+        body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); color: #1F2937; }
+        button:active { transform: scale(0.95); }
+    </style>
 </head>
+<body class="flex flex-col min-h-screen">
 
-<body class="bg-gray-50">
+    <header class="bg-white shadow-md sticky top-0 z-50 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-[#208090] rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
+                <span class="text-3xl font-bold text-[#208090]">Senior Shop</span>
+            </a>
+            <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold hover:bg-[#165E6A] shadow-md transition">
+                <span class="text-2xl">🛒</span> <span class="text-lg cart-count-display">Cart (0)</span>
+            </a>
+        </div>
+    </header>
 
-<header class="bg-white p-4 shadow flex justify-between">
-  <a href="index.html" class="text-2xl font-bold text-[#208090]">Senior Shop</a>
-  <a href="cart.html" class="text-xl">🛒 Cart</a>
-</header>
+    <main class="container mx-auto px-4 py-8">
+        <nav class="mb-6 text-xl">
+             <a href="index.html" class="underline text-[#208090] font-bold">Home</a> <span class="mx-2">></span> <span class="font-bold">Easy Phones</span>
+        </nav>
 
-<main class="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <h1 class="text-4xl font-bold mb-8">Easy-to-Use Mobile Phones</h1>
 
-  <div class="bg-white p-4 rounded shadow">
-    <img src="https://placehold.co/400x300/208090/FFFFFF?text=Jitterbug+Flip">
-    <h2 class="text-xl font-bold mt-2">Jitterbug Flip 2</h2>
-    <p>$99.99</p>
-    <a href="product-detail.html?id=phone1"
-       class="inline-block mt-2 bg-[#208090] text-white px-4 py-2 rounded">
-       View
-    </a>
-  </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <article class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col h-full">
+                <img src="https://placehold.co/400x300/208090/FFFFFF?text=Jitterbug+Flip" class="w-full h-56 object-cover">
+                <div class="p-6 flex-grow flex flex-col">
+                    <h2 class="text-2xl font-bold mb-2">Jitterbug Flip 2</h2>
+                    <p class="text-gray-600 mb-4 flex-grow">Large buttons, loud speaker, and emergency button.</p>
+                    <div class="text-3xl font-bold text-[#208090] mb-4">$99.99</div>
+                    
+                    <div class="grid grid-cols-2 gap-3 mt-auto">
+                        <a href="product-detail.html" class="bg-gray-100 text-gray-800 py-3 rounded-lg font-bold text-center border-2 border-gray-300 hover:bg-gray-200">View Details</a>
+                        <button onclick="addToCart('Jitterbug Flip 2', 99.99, 'https://placehold.co/100x100/208090/FFFFFF?text=Phone')" class="bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2">
+                            <span>+</span> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </article>
 
-  <div class="bg-white p-4 rounded shadow">
-    <img src="https://placehold.co/400x300/EEEEEE/208090?text=Clarity+Alto">
-    <h2 class="text-xl font-bold mt-2">Clarity Alto Plus</h2>
-    <p>$129.99</p>
-    <a href="product-detail.html?id=phone2"
-       class="inline-block mt-2 bg-[#208090] text-white px-4 py-2 rounded">
-       View
-    </a>
-  </div>
+            <article class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col h-full">
+                <img src="https://placehold.co/400x300/333333/FFFFFF?text=Snapfon" class="w-full h-56 object-cover">
+                <div class="p-6 flex-grow flex flex-col">
+                    <h2 class="text-2xl font-bold mb-2">Snapfon ez4G</h2>
+                    <p class="text-gray-600 mb-4 flex-grow">Bar-style phone with high contrast screen.</p>
+                    <div class="text-3xl font-bold text-[#208090] mb-4">$79.99</div>
+                    
+                    <div class="grid grid-cols-2 gap-3 mt-auto">
+                        <a href="#" class="bg-gray-100 text-gray-800 py-3 rounded-lg font-bold text-center border-2 border-gray-300 hover:bg-gray-200">View Details</a>
+                        <button onclick="addToCart('Snapfon ez4G', 79.99, 'https://placehold.co/100x100/333333/FFFFFF?text=Snapfon')" class="bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2">
+                            <span>+</span> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </article>
 
-  <div class="bg-white p-4 rounded shadow">
-    <img src="https://placehold.co/400x300/333333/FFFFFF?text=Snapfon">
-    <h2 class="text-xl font-bold mt-2">Snapfon ez4G</h2>
-    <p>$79.99</p>
-    <a href="product-detail.html?id=phone3"
-       class="inline-block mt-2 bg-[#208090] text-white px-4 py-2 rounded">
-       View
-    </a>
-  </div>
+            <article class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col h-full">
+                <img src="https://placehold.co/400x300/DDDDDD/208090?text=Nokia+Flip" class="w-full h-56 object-cover">
+                <div class="p-6 flex-grow flex flex-col">
+                    <h2 class="text-2xl font-bold mb-2">Nokia 2780</h2>
+                    <p class="text-gray-600 mb-4 flex-grow">Classic flip design with modern features.</p>
+                    <div class="text-3xl font-bold text-[#208090] mb-4">$69.99</div>
+                    
+                    <div class="grid grid-cols-2 gap-3 mt-auto">
+                        <a href="#" class="bg-gray-100 text-gray-800 py-3 rounded-lg font-bold text-center border-2 border-gray-300 hover:bg-gray-200">View Details</a>
+                        <button onclick="addToCart('Nokia 2780', 69.99, 'https://placehold.co/100x100/DDDDDD/208090?text=Nokia')" class="bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2">
+                            <span>+</span> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </article>
 
-</main>
+        </div>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
