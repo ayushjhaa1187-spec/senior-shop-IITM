@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewpVision Aids- Senior Shop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Senior Shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
@@ -16,7 +17,7 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <a href="#main-content" class="absolute -top-96 left-0 bg-[#208090] text-white p-4 z-50 focus:top-0 text-xl font-bold transition-all">Skip to Magnifiers</a>
+    <a href="#orders-container" class="absolute -top-96 left-0 bg-[#208090] text-white p-4 z-50 focus:top-0 text-xl font-bold transition-all">Skip to Order List</a>
 
     <header class="bg-white shadow-md relative z-40 p-4" role="banner">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
@@ -27,19 +28,19 @@
             
             <div class="flex items-center gap-3">
                 <div class="relative">
-                    <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm" aria-expanded="false">
+                    <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm" aria-expanded="false" aria-controls="a11y-menu">
                         <span class="text-2xl" aria-hidden="true">♿</span> <span class="text-lg">Settings</span>
                     </button>
                     <div id="a11y-menu" class="a11y-menu text-left">
-                        <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg mb-4">Close</button>
+                        <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg mb-4" aria-label="Close settings">Close</button>
                         <button onclick="setContrast('high')" class="w-full text-left p-3 hover:bg-gray-100 font-bold border-b bg-black text-yellow-300">High Contrast</button>
                         <div class="flex items-center justify-between p-3 hover:bg-gray-100">
-                            <label class="font-bold cursor-pointer" for="large-mode-health">Large Buttons</label>
-                            <input type="checkbox" id="large-mode-health" onchange="toggleLargeTargets()" class="w-6 h-6">
+                            <label class="font-bold cursor-pointer" for="large-mode-orders">Large Buttons</label>
+                            <input type="checkbox" id="large-mode-orders" onchange="toggleLargeTargets()" class="w-6 h-6">
                         </div>
                     </div>
                 </div>
-                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold shadow-md">
+                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold shadow-md" aria-label="Shopping Cart">
                     <span class="text-2xl" aria-hidden="true">🛒</span> 
                     <span class="text-lg cart-count-display" aria-live="polite">Cart (0)</span>
                 </a>
@@ -47,40 +48,24 @@
         </div>
     </header>
 
-    <main id="main-content" class="container mx-auto px-4 py-8 flex-grow" role="main">
-        <div class="mb-8">
-            <a href="index.html" class="inline-flex items-center gap-2 text-xl font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 px-6 py-3 rounded-xl transition shadow-sm">
+    <main id="main-content" class="container mx-auto px-4 py-8 max-w-3xl flex-grow" role="main">
+        <div class="mb-6">
+            <a href="index.html" class="inline-flex items-center gap-2 text-xl font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 px-6 py-3 rounded-xl transition shadow-sm" aria-label="Go back to home">
                 <span aria-hidden="true">⬅️</span> Back to Home
             </a>
         </div>
 
-        <h1 class="text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">Health & Wellness</h1>
+        <h1 class="text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">My Order History</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden hover:border-[#208090] transition">
-                <img src="https://placehold.co/400x300/208090/FFFFFF?text=Pill+Dispenser" alt="Automatic Pill Dispenser" class="w-full h-48 object-cover">
-                <div class="p-5 flex-grow flex flex-col">
-                    <h2 class="text-xl font-bold mb-2">Auto Pill Dispenser</h2>
-                    <p class="text-gray-600 text-sm mb-4 flex-grow">Beeps and rotates when it is time to take medicine.</p>
-                    <div class="text-2xl font-bold text-[#208090] mb-4">$49.99</div>
-                    <button onclick="addToCart('Auto Pill Dispenser', 49.99, 'https://placehold.co/100x100/208090/FFFFFF?text=Pill')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2 shadow-md">
-                        <span aria-hidden="true">+</span> Add to Cart
-                    </button>
-                </div>
-            </article>
-            
-            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden hover:border-[#208090] transition">
-                <img src="https://placehold.co/400x300/EEEEEE/208090?text=BP+Monitor" alt="Talking Blood Pressure Monitor" class="w-full h-48 object-cover">
-                <div class="p-5 flex-grow flex flex-col">
-                    <h2 class="text-xl font-bold mb-2">Talking BP Monitor</h2>
-                    <p class="text-gray-600 text-sm mb-4 flex-grow">Reads your blood pressure aloud clearly.</p>
-                    <div class="text-2xl font-bold text-[#208090] mb-4">$39.99</div>
-                    <button onclick="addToCart('Talking BP Monitor', 39.99, 'https://placehold.co/100x100/EEEEEE/208090?text=BP')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2 shadow-md">
-                        <span aria-hidden="true">+</span> Add to Cart
-                    </button>
-                </div>
-            </article>
+        <div id="no-orders-msg" class="hidden text-center py-12 bg-white rounded-xl shadow border border-gray-200">
+            <div class="text-6xl mb-4" aria-hidden="true">📦</div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">No Past Orders</h2>
+            <p class="text-xl text-gray-600 mb-6">You haven't bought anything yet.</p>
+            <a href="index.html" class="bg-[#208090] text-white text-xl font-bold px-8 py-3 rounded-xl hover:bg-[#165E6A]">Start Shopping</a>
         </div>
+
+        <div id="orders-container" role="list" aria-label="List of past orders">
+            </div>
     </main>
 
     <footer class="bg-gray-800 text-white pt-12 pb-6 mt-12 text-center" role="contentinfo">
@@ -88,5 +73,6 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>loadOrderHistory();</script>
 </body>
 </html>
