@@ -6,65 +6,54 @@
     <title>Order Confirmed - Senior Shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style> body { font-family: 'Source Sans 3', sans-serif; background-color: #F8FAFC; } </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <a href="#success-message" class="skip-link">Skip to Message</a>
+    <a href="#success-message" class="skip-link">Skip to Confirmation</a>
 
-    <header class="bg-white shadow-md relative z-40 p-4" role="banner">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <a href="index.html" class="flex items-center gap-3 group" aria-label="Home">
-                <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold" aria-hidden="true">S</div>
-                <span class="text-4xl font-bold text-[#208090]">Senior Shop</span>
+    <header class="bg-white shadow-md sticky top-0 z-50" role="banner">
+        <div class="bg-gray-800 text-white p-2 text-center text-sm flex justify-center gap-4">
+            <button onclick="toggleTextSize()" class="hover:text-yellow-400 font-bold underline">A+ Text Size</button>
+            <span class="text-gray-600">|</span>
+            <button onclick="toggleContrast()" class="hover:text-yellow-400 font-bold underline">High Contrast</button>
+        </div>
+        <div class="container mx-auto p-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3" aria-label="Back to Home">
+                <div class="w-10 h-10 bg-[#208090] rounded-full flex items-center justify-center text-white text-xl font-bold">S</div>
+                <span class="text-2xl font-bold text-[#208090]">Senior Shop</span>
             </a>
-            
-            <div class="flex items-center gap-3">
-                <div class="relative">
-                    <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm" aria-expanded="false" aria-controls="a11y-menu">
-                        <span class="text-2xl" aria-hidden="true">♿</span> <span class="text-lg">Settings</span>
-                    </button>
-                    <div id="a11y-menu" class="a11y-menu text-left">
-                        <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg mb-4" aria-label="Close settings">Close</button>
-                        <button onclick="setContrast('high')" class="w-full text-left p-3 hover:bg-gray-100 font-bold border-b bg-black text-yellow-300">High Contrast</button>
-                        <div class="flex items-center justify-between p-3 hover:bg-gray-100">
-                            <label class="font-bold cursor-pointer" for="large-mode-success">Large Buttons</label>
-                            <input type="checkbox" id="large-mode-success" onchange="toggleLargeTargets()" class="w-6 h-6">
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </header>
 
     <main id="success-message" class="flex-grow flex items-center justify-center p-4 container mx-auto" role="main">
-        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-2xl w-full border-t-8 border-[#208090] text-center" tabindex="-1">
+        <div class="bg-white rounded-2xl shadow-lg p-10 max-w-2xl w-full text-center border border-gray-100" tabindex="-1">
             
-            <div class="w-28 h-28 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6" aria-hidden="true">
-                <span class="text-6xl">✅</span>
+            <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span class="text-5xl" aria-hidden="true">✅</span>
             </div>
 
-            <h1 class="text-4xl font-bold text-[#208090] mb-2">Order Confirmed!</h1>
-            <p class="text-2xl text-gray-800 mb-8">Thank you. Your order has been placed successfully.</p>
+            <h1 class="text-4xl font-bold text-[#208090] mb-4">Order Confirmed!</h1>
+            <p class="text-xl text-gray-700 mb-8">Thank you. Your order has been placed successfully.</p>
 
             <div class="bg-gray-50 rounded-xl p-6 mb-8 text-left border border-gray-200">
-                <h2 class="text-xl font-bold mb-4 border-b pb-2 text-gray-700">Next Steps:</h2>
-                <p class="text-lg text-gray-700">You will pay <strong>Cash on Delivery</strong> when the item arrives.</p>
-                <p class="text-lg text-gray-700 mt-2">Estimated delivery: <strong>3-5 Days</strong>.</p>
+                <h2 class="text-lg font-bold mb-2 text-gray-800">What happens next?</h2>
+                <ul class="list-disc list-inside text-lg text-gray-600 space-y-2">
+                    <li>You will pay <strong>Cash on Delivery</strong>.</li>
+                    <li>Estimated delivery: <strong>3-5 Days</strong>.</li>
+                    <li>We will call you before arrival.</li>
+                </ul>
             </div>
 
-            <a href="tracking.html" class="block w-full bg-blue-100 text-blue-900 border-2 border-blue-300 text-2xl font-bold py-4 rounded-xl shadow hover:bg-blue-200 mb-4 flex items-center justify-center gap-3">
-                <span aria-hidden="true">🚚</span> Track Package Status
+            <a href="tracking.html" class="block w-full bg-blue-50 text-blue-800 border border-blue-200 text-xl font-bold py-4 rounded-xl hover:bg-blue-100 mb-4">
+                Track Package Status
             </a>
 
-            <a href="index.html" class="block w-full bg-[#208090] text-white text-2xl font-bold py-4 rounded-xl shadow hover:bg-[#165E6A]">Return to Home Page</a>
+            <a href="index.html" class="block w-full bg-[#208090] text-white text-xl font-bold py-4 rounded-xl shadow-md hover:bg-[#165E6A]">
+                Return to Home Page
+            </a>
         </div>
     </main>
-
-    <footer class="bg-gray-800 text-white pt-12 pb-6 mt-12 text-center" role="contentinfo">
-        <p class="text-xl mb-4">© 2026 Senior Shop.</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
