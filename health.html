@@ -6,121 +6,88 @@
     <title>Health Aids - Senior Shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
     <style>
-        :root { --primary: #208090; --bg-color: #F8FAFC; }
-        body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); color: #1F2937; }
-        button:active { transform: scale(0.95); }
+        :root { --primary: #208090; --bg-color: #F8FAFC; --focus-ring: #F59E0B; }
+        body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); line-height: 1.6; }
+        .a11y-menu { display: none; position: absolute; top: 100%; right: 0; width: 340px; background: white; border: 2px solid #208090; padding: 20px; z-index: 50; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 12px; }
+        .a11y-menu.open { display: block; }
+        *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 2px; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
-<div id="a11y-bar" class="flex flex-col md:flex-row justify-center md:justify-end items-center gap-4 text-sm bg-gray-800 text-white p-2">
-    <span class="font-bold hidden md:inline uppercase tracking-wider text-gray-400">Accessibility Tools:</span>
-    <div class="flex items-center gap-2">
-        <button onclick="changeTextSize('decrease')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">A-</button>
-        <button onclick="changeTextSize('reset')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">Reset</button>
-        <button onclick="changeTextSize('increase')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">A+</button>
-    </div>
-    <button onclick="toggleContrast()" class="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-1 rounded font-bold flex items-center gap-2 shadow-sm">
-        <span>👁️</span> High Contrast
-    </button>
-</div>
-    <header class="bg-white shadow-md p-4 sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-[#208090] rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
-                <span class="text-3xl font-bold text-[#208090]">Senior Shop</span>
+
+    <a href="#main-content" class="absolute -top-96 left-0 bg-[#208090] text-white p-4 z-50 focus:top-0 text-xl font-bold transition-all">Skip to Products</a>
+
+    <header class="bg-white shadow-md relative z-40 p-4" role="banner">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <a href="index.html" class="flex items-center gap-3 group" aria-label="Home">
+                <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold" aria-hidden="true">S</div>
+                <span class="text-4xl font-bold text-[#208090]">Senior Shop</span>
             </a>
-            <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold hover:bg-[#165E6A] shadow-md transition">
-                <span class="text-2xl">🛒</span> <span class="text-lg cart-count-display">Cart (0)</span>
-            </a>
+            
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm" aria-expanded="false">
+                        <span class="text-2xl" aria-hidden="true">♿</span> <span class="text-lg">Settings</span>
+                    </button>
+                    <div id="a11y-menu" class="a11y-menu text-left">
+                        <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg mb-4">Close</button>
+                        <button onclick="setContrast('high')" class="w-full text-left p-3 hover:bg-gray-100 font-bold border-b bg-black text-yellow-300">High Contrast</button>
+                        <div class="flex items-center justify-between p-3 hover:bg-gray-100">
+                            <label class="font-bold cursor-pointer" for="large-mode-health">Large Buttons</label>
+                            <input type="checkbox" id="large-mode-health" onchange="toggleLargeTargets()" class="w-6 h-6">
+                        </div>
+                    </div>
+                </div>
+                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold shadow-md">
+                    <span class="text-2xl" aria-hidden="true">🛒</span> 
+                    <span class="text-lg cart-count-display" aria-live="polite">Cart (0)</span>
+                </a>
+            </div>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8">
-        
+    <main id="main-content" class="container mx-auto px-4 py-8 flex-grow" role="main">
         <div class="mb-8">
             <a href="index.html" class="inline-flex items-center gap-2 text-xl font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 px-6 py-3 rounded-xl transition shadow-sm">
-                <span>⬅️</span> Back to Home
+                <span aria-hidden="true">⬅️</span> Back to Home
             </a>
         </div>
 
         <h1 class="text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">Health & Wellness</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
-                <img src="https://placehold.co/400x300/208090/FFFFFF?text=Pill+Dispenser" class="w-full h-48 object-cover">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden hover:border-[#208090] transition">
+                <img src="https://placehold.co/400x300/208090/FFFFFF?text=Pill+Dispenser" alt="Automatic Pill Dispenser" class="w-full h-48 object-cover">
                 <div class="p-5 flex-grow flex flex-col">
                     <h2 class="text-xl font-bold mb-2">Auto Pill Dispenser</h2>
                     <p class="text-gray-600 text-sm mb-4 flex-grow">Beeps and rotates when it is time to take medicine.</p>
                     <div class="text-2xl font-bold text-[#208090] mb-4">$49.99</div>
-                    <button onclick="addToCart('Auto Pill Dispenser', 49.99, 'https://placehold.co/100x100/208090/FFFFFF?text=Pill')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2"><span>+</span> Add to Cart</button>
+                    <button onclick="addToCart('Auto Pill Dispenser', 49.99, 'https://placehold.co/100x100/208090/FFFFFF?text=Pill')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2 shadow-md">
+                        <span aria-hidden="true">+</span> Add to Cart
+                    </button>
                 </div>
             </article>
-            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
-                <img src="https://placehold.co/400x300/EEEEEE/208090?text=BP+Monitor" class="w-full h-48 object-cover">
+            
+            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden hover:border-[#208090] transition">
+                <img src="https://placehold.co/400x300/EEEEEE/208090?text=BP+Monitor" alt="Talking Blood Pressure Monitor" class="w-full h-48 object-cover">
                 <div class="p-5 flex-grow flex flex-col">
                     <h2 class="text-xl font-bold mb-2">Talking BP Monitor</h2>
                     <p class="text-gray-600 text-sm mb-4 flex-grow">Reads your blood pressure aloud clearly.</p>
                     <div class="text-2xl font-bold text-[#208090] mb-4">$39.99</div>
-                    <button onclick="addToCart('Talking BP Monitor', 39.99, 'https://placehold.co/100x100/EEEEEE/208090?text=BP')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2"><span>+</span> Add to Cart</button>
-                </div>
-            </article>
-            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
-                <img src="https://placehold.co/400x300/FFCCCC/AA0000?text=SOS+Pendant" class="w-full h-48 object-cover">
-                <div class="p-5 flex-grow flex flex-col">
-                    <h2 class="text-xl font-bold mb-2">Fall Alert Pendant</h2>
-                    <p class="text-gray-600 text-sm mb-4 flex-grow">Wearable button. Calls family if you fall.</p>
-                    <div class="text-2xl font-bold text-[#208090] mb-4">$89.99</div>
-                    <button onclick="addToCart('Fall Alert Pendant', 89.99, 'https://placehold.co/100x100/FFCCCC/AA0000?text=SOS')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2"><span>+</span> Add to Cart</button>
-                </div>
-            </article>
-            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
-                <img src="https://placehold.co/400x300/DDDDDD/333333?text=Oximeter" class="w-full h-48 object-cover">
-                <div class="p-5 flex-grow flex flex-col">
-                    <h2 class="text-xl font-bold mb-2">Pulse Oximeter</h2>
-                    <p class="text-gray-600 text-sm mb-4 flex-grow">Checks oxygen levels. Large, bright display.</p>
-                    <div class="text-2xl font-bold text-[#208090] mb-4">$24.99</div>
-                    <button onclick="addToCart('Pulse Oximeter', 24.99, 'https://placehold.co/100x100/DDDDDD/333333?text=Oximeter')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2"><span>+</span> Add to Cart</button>
-                </div>
-            </article>
-            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
-                <img src="https://placehold.co/400x300/FFFFCC/666600?text=Day+Lamp" class="w-full h-48 object-cover">
-                <div class="p-5 flex-grow flex flex-col">
-                    <h2 class="text-xl font-bold mb-2">Happy Day Lamp</h2>
-                    <p class="text-gray-600 text-sm mb-4 flex-grow">Bright light therapy lamp for mood and energy.</p>
-                    <div class="text-2xl font-bold text-[#208090] mb-4">$59.99</div>
-                    <button onclick="addToCart('Happy Day Lamp', 59.99, 'https://placehold.co/100x100/FFFFCC/666600?text=Lamp')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2"><span>+</span> Add to Cart</button>
-                </div>
-            </article>
-            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
-                <img src="https://placehold.co/400x300/E0E7FF/0000FF?text=7+Day+Box" class="w-full h-48 object-cover">
-                <div class="p-5 flex-grow flex flex-col">
-                    <h2 class="text-xl font-bold mb-2">XL Pill Organizer</h2>
-                    <p class="text-gray-600 text-sm mb-4 flex-grow">Extra large compartments. Easy open lids.</p>
-                    <div class="text-2xl font-bold text-[#208090] mb-4">$14.99</div>
-                    <button onclick="addToCart('XL Pill Organizer', 14.99, 'https://placehold.co/100x100/E0E7FF/0000FF?text=Box')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2"><span>+</span> Add to Cart</button>
-                </div>
-            </article>
-            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
-                <img src="https://placehold.co/400x300/F0F0F0/208090?text=Thermometer" class="w-full h-48 object-cover">
-                <div class="p-5 flex-grow flex flex-col">
-                    <h2 class="text-xl font-bold mb-2">Talking Thermometer</h2>
-                    <p class="text-gray-600 text-sm mb-4 flex-grow">Forehead scanner that speaks the temperature.</p>
-                    <div class="text-2xl font-bold text-[#208090] mb-4">$29.99</div>
-                    <button onclick="addToCart('Talking Thermometer', 29.99, 'https://placehold.co/100x100/F0F0F0/208090?text=Temp')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2"><span>+</span> Add to Cart</button>
-                </div>
-            </article>
-            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden">
-                <img src="https://placehold.co/400x300/CCFFCC/006600?text=Scale" class="w-full h-48 object-cover">
-                <div class="p-5 flex-grow flex flex-col">
-                    <h2 class="text-xl font-bold mb-2">Talking Body Scale</h2>
-                    <p class="text-gray-600 text-sm mb-4 flex-grow">Wide platform. Announces weight loudly.</p>
-                    <div class="text-2xl font-bold text-[#208090] mb-4">$34.99</div>
-                    <button onclick="addToCart('Talking Body Scale', 34.99, 'https://placehold.co/100x100/CCFFCC/006600?text=Scale')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2"><span>+</span> Add to Cart</button>
+                    <button onclick="addToCart('Talking BP Monitor', 39.99, 'https://placehold.co/100x100/EEEEEE/208090?text=BP')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2 shadow-md">
+                        <span aria-hidden="true">+</span> Add to Cart
+                    </button>
                 </div>
             </article>
         </div>
     </main>
+
+    <footer class="bg-gray-800 text-white pt-12 pb-6 mt-12 text-center" role="contentinfo">
+        <p class="text-xl mb-4">© 2026 Senior Shop.</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
