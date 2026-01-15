@@ -17,20 +17,22 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
+    <a href="#main-content" class="absolute -top-96 left-0 bg-[#208090] text-white p-4 z-50 focus:top-0 text-xl font-bold transition-all">Skip to Product Details</a>
+
     <header class="bg-white shadow-md relative z-40 p-4" role="banner">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <a href="index.html" class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-[#208090] rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
-                <span class="text-3xl font-bold text-[#208090]">Senior Shop</span>
+            <a href="index.html" class="flex items-center gap-3 group" aria-label="Home">
+                <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold" aria-hidden="true">S</div>
+                <span class="text-4xl font-bold text-[#208090]">Senior Shop</span>
             </a>
             
             <div class="flex items-center gap-3">
                 <div class="relative">
-                    <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm" aria-expanded="false">
+                    <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm" aria-expanded="false" aria-controls="a11y-menu">
                         <span class="text-2xl" aria-hidden="true">♿</span> <span class="text-lg">Settings</span>
                     </button>
                     <div id="a11y-menu" class="a11y-menu text-left">
-                        <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg mb-4">Close</button>
+                        <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg mb-4" aria-label="Close settings">Close</button>
                         <button onclick="setContrast('high')" class="w-full text-left p-3 hover:bg-gray-100 font-bold border-b bg-black text-yellow-300">High Contrast</button>
                         <div class="flex items-center justify-between p-3 hover:bg-gray-100">
                             <label class="font-bold cursor-pointer" for="large-mode-detail">Large Buttons</label>
@@ -38,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold shadow-md">
+                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold shadow-md" aria-label="Shopping Cart">
                     <span class="text-2xl" aria-hidden="true">🛒</span> 
                     <span class="text-lg cart-count-display" aria-live="polite">Cart (0)</span>
                 </a>
@@ -48,14 +50,14 @@
 
     <main id="main-content" class="container mx-auto px-4 py-8 flex-grow" role="main">
         <div class="mb-6">
-            <a href="shop.html" class="inline-flex items-center gap-2 text-xl font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 px-6 py-3 rounded-xl transition shadow-sm">
+            <a href="shop.html" class="inline-flex items-center gap-2 text-xl font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 px-6 py-3 rounded-xl transition shadow-sm" aria-label="Back to products list">
                 <span aria-hidden="true">⬅️</span> Back to Products
             </a>
         </div>
 
         <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden flex flex-col md:flex-row">
             <div class="w-full md:w-1/2 p-8 bg-gray-50 flex items-center justify-center border-r border-gray-200">
-                <img src="https://placehold.co/600x400/208090/FFFFFF?text=Product+Image" alt="Large detailed view of product" class="rounded-xl shadow-sm border-2 border-gray-200 w-full max-w-md">
+                <img src="https://placehold.co/600x400/208090/FFFFFF?text=Product+Image" alt="Detailed view of Jitterbug Flip 2 Phone" class="rounded-xl shadow-sm border-2 border-gray-200 w-full max-w-md">
             </div>
 
             <div class="w-full md:w-1/2 p-8">
@@ -76,7 +78,7 @@
                     <span class="text-green-800 font-bold bg-green-100 border border-green-300 px-4 py-2 rounded text-xl">✓ In Stock</span>
                 </div>
 
-                <button onclick="addToCart('Jitterbug Flip 2', 99.99, 'https://placehold.co/100x100/208090/FFFFFF?text=Product')" class="w-full bg-[#208090] hover:bg-[#165E6A] text-white text-3xl font-bold py-6 rounded-xl shadow-lg flex justify-center items-center gap-4 transition-transform active:scale-95">
+                <button onclick="addToCart('Jitterbug Flip 2', 99.99, 'https://placehold.co/100x100/208090/FFFFFF?text=Product')" class="w-full bg-[#208090] hover:bg-[#165E6A] text-white text-3xl font-bold py-6 rounded-xl shadow-lg flex justify-center items-center gap-4 transition-transform active:scale-95" aria-label="Add Jitterbug Flip 2 to cart">
                     <span aria-hidden="true">🛒</span> Add to Cart
                 </button>
             </div>
