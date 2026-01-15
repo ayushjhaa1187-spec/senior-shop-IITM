@@ -3,240 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senior Shop - Independent Living</title>
+    <title>Senior Shop - Accessible E-Commerce</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
+
     <style>
-        :root { --primary: #208090; --bg-color: #F8FAFC; --focus-ring: #F59E0B; }
-        body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); line-height: 1.6; color: #1F2937; }
-        
-        /* Card Hover Effects */
-        .category-card { transition: all 0.3s ease; }
-        .category-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 25px rgba(32, 128, 144, 0.15); }
-        
-        /* Accessibility Focus */
-        *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 4px; border-radius: 4px; }
+        /* --- CORE STYLES --- */
+        :root {
+            --primary: #208090;
+            --bg-color: #F8FAFC;
+            --text-color: #1F2937;
+            --focus-ring: #F59E0B;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* --- ACCESSIBILITY MODES --- */
+        body.contrast-high {
+            --primary: #FFFF00;
+            --bg-color: #000000;
+            --text-color: #FFFFFF;
+            background-color: #000000 !important;
+            color: #FFFFFF !important;
+        }
+        body.contrast-high .bg-white { background-color: #000000 !important; border: 2px solid #FFFFFF; }
+        body.contrast-high .btn-primary { background-color: #FFFF00 !important; color: #000000 !important; border: 2px solid white; }
+        body.contrast-high .text-gray-600 { color: #DDDDDD !important; }
+
+        body.dyslexia-mode { font-family: 'OpenDyslexic', sans-serif !important; }
+
+        /* --- INTERACTIVE --- */
+        button, a, input { min-height: 48px; min-width: 48px; }
+        /* FIX: Visible Focus Indicator */
+        *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 2px; }
+
+        /* --- VOICE COMMAND BAR --- */
+        #voice-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #208090;
+            color: white;
+            padding: 24px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            z-index: 100;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
+        }
+        .mic-pulse {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #F59E0B;
+            border-radius: 50%;
+            margin-right: 12px;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+
+        /* --- MENU --- */
+        .a11y-menu { display: none; position: absolute; top: 100%; right: 0; width: 340px; background: white; border: 2px solid #208090; padding: 20px; z-index: 50; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 12px; }
+        .a11y-menu.open { display: block; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
-<div id="a11y-bar" class="flex flex-col md:flex-row justify-center md:justify-end items-center gap-4 text-sm bg-gray-800 text-white p-2">
-    <span class="font-bold hidden md:inline uppercase tracking-wider text-gray-400">Accessibility Tools:</span>
-    <div class="flex items-center gap-2">
-        <button onclick="changeTextSize('decrease')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">A-</button>
-        <button onclick="changeTextSize('reset')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">Reset</button>
-        <button onclick="changeTextSize('increase')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">A+</button>
-    </div>
-    <button onclick="toggleContrast()" class="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-1 rounded font-bold flex items-center gap-2 shadow-sm">
-        <span>👁️</span> High Contrast
-    </button>
-</div>
-   <header class="bg-white shadow-md p-4 sticky top-0 z-50">
-    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-        
-        <a href="index.html" class="flex items-center gap-3">
-            <div class="w-12 h-12 bg-[#208090] rounded-full flex items-center justify-center text-white text-2xl font-bold">S</div>
-            <span class="text-3xl font-bold text-[#208090]">Senior Shop</span>
-        </a>
 
-        <div class="flex items-center gap-3">
-            <a href="orders.html" class="flex items-center gap-2 bg-blue-50 border-2 border-blue-200 text-blue-800 px-4 py-3 rounded-lg font-bold hover:bg-blue-100 transition">
-                <span class="text-2xl">📦</span> <span class="hidden sm:inline text-lg">My Orders</span>
-            </a>
+    <a href="#main-content" class="absolute -top-96 left-0 bg-[#208090] text-white p-4 z-50 focus:top-0 text-xl font-bold transition-all">Skip to Main Content</a>
+
+    <header class="bg-white shadow-md relative z-40 p-4" role="banner">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             
-            <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold hover:bg-[#165E6A] shadow-md transition">
-                <span class="text-2xl">🛒</span> <span class="text-lg cart-count-display">Cart (0)</span>
+            <a href="index.html" class="flex items-center gap-3 group w-full md:w-auto" aria-label="Senior Shop Home">
+                <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition" aria-hidden="true">S</div>
+                <span class="text-4xl font-bold text-[#208090]">Senior Shop</span>
             </a>
+
+            <div class="hidden md:flex relative flex-1 max-w-lg mx-8" role="search">
+                <label for="search-input" class="sr-only">Search products</label>
+                <input type="text" id="search-input" placeholder="Search for items..." class="w-full border-2 border-gray-400 rounded-l-lg px-4 py-3 text-xl focus:border-[#208090]">
+                <button onclick="handleSearch()" class="bg-[#208090] text-white px-8 rounded-r-lg font-bold hover:bg-[#165E6A] text-lg">Search</button>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-center">
+                
+                <button onclick="toggleVoice()" class="flex items-center gap-2 bg-blue-50 border-2 border-[#208090] text-[#208090] px-4 py-3 rounded-lg font-bold hover:bg-blue-100 transition shadow-sm" aria-label="Activate Voice Command">
+                    <span class="text-2xl" aria-hidden="true">🗣️</span> 
+                    <span class="text-lg">Voice Command</span>
+                </button>
+
+                <div class="relative">
+                    <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm" aria-expanded="false" aria-controls="a11y-menu">
+                        <span class="text-2xl" aria-hidden="true">♿</span> 
+                        <span class="text-lg">Settings</span>
+                    </button>
+
+                    <div id="a11y-menu" class="a11y-menu text-left">
+                        <div class="flex justify-between items-center mb-4 border-b pb-2">
+                            <h3 class="font-bold text-xl text-gray-800">Accessibility Tools</h3>
+                            <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg" aria-label="Close Settings">Close</button>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <button onclick="readPage()" class="w-full bg-blue-100 hover:bg-blue-200 text-blue-900 font-bold py-4 rounded-lg flex items-center justify-center gap-3 border border-blue-300 text-lg">
+                                <span class="text-2xl" aria-hidden="true">🔊</span> Read Page Aloud
+                            </button>
+                            <button onclick="stopReading()" class="text-red-600 underline mt-3 w-full text-center hidden font-bold text-lg" id="stop-btn">Stop Reading</button>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block font-bold text-gray-700 mb-2 text-lg">Contrast Level</label>
+                            <div class="flex gap-2">
+                                <button onclick="setContrast('normal')" class="flex-1 py-3 bg-white border-2 border-gray-300 rounded font-bold">Normal</button>
+                                <button onclick="setContrast('high')" class="flex-1 py-3 bg-black text-yellow-300 border-2 border-white rounded font-bold">High</button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded border border-gray-200 mt-4">
+                            <label class="font-bold text-gray-700 text-lg">Dyslexia Friendly Font</label>
+                            <input type="checkbox" onchange="document.body.classList.toggle('dyslexia-mode')" class="w-8 h-8 accent-[#208090]">
+                        </div>
+                    </div>
+                </div>
+
+                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold hover:bg-[#165E6A] shadow-md transition decoration-0" aria-label="Shopping Cart">
+                    <span class="text-2xl" aria-hidden="true">🛒</span>
+                    <span class="text-lg cart-count-display" aria-live="polite">Cart (0)</span>
+                </a>
+
+            </div>
+        </div>
+    </header>
+
+    <div id="voice-bar" role="status" aria-live="polite">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-center gap-4">
+            <div class="flex items-center">
+                <span class="mic-pulse"></span>
+                <span>Listening... Try saying "Find Easy Phones"</span>
+            </div>
+            <button onclick="toggleVoice()" class="bg-white text-[#208090] px-6 py-2 rounded-lg text-lg font-bold shadow hover:bg-gray-100">Cancel</button>
         </div>
     </div>
-</header>
 
-    <main class="flex-grow">
+    <main id="main-content" class="container mx-auto px-4 py-12 flex-grow" role="main">
         
-        <section class="bg-gradient-to-b from-[#e0f2f5] to-[#F8FAFC] py-12 px-4 text-center">
-            <div class="container mx-auto max-w-4xl">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Independent Living Made Easy</h1>
-                <p class="text-xl text-gray-700 mb-8">Simple, reliable products designed for your comfort and safety.</p>
-                
-                <div class="relative max-w-2xl mx-auto">
-                    <input type="text" id="search-input" onkeypress="handleEnter(event)" placeholder="What are you looking for today?" class="w-full text-xl py-4 px-6 rounded-full border-2 border-[#208090] shadow-lg focus:outline-none focus:ring-4 focus:ring-yellow-400 pl-14">
-                    <span class="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl">🔍</span>
-                    <button onclick="handleSearch()" class="absolute right-2 top-2 bottom-2 bg-[#208090] text-white px-8 rounded-full font-bold text-lg hover:bg-[#165E6A]">Search</button>
-                </div>
+        <section class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 mb-12 flex flex-col md:flex-row items-center gap-8">
+            <div class="flex-1 text-center md:text-left">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-[#208090]">Technology Made Simple</h1>
+                <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">We sell phones with large buttons, easy-to-read tablets, and loud speakers. Designed for your comfort.</p>
+                <button onclick="window.location.href='shop.html'" class="bg-[#208090] text-white px-10 py-5 rounded-xl text-2xl font-bold shadow-lg hover:bg-[#165E6A] btn-primary">
+                    Browse New Arrivals
+                </button>
+            </div>
+            <div class="w-full md:w-1/3 bg-gray-100 h-64 rounded-xl flex items-center justify-center overflow-hidden border-2 border-gray-300">
+                <img src="https://placehold.co/600x400/208090/FFFFFF?text=Senior+Using+Tablet" alt="Smiling senior man using a tablet comfortably" class="w-full h-full object-cover">
             </div>
         </section>
 
-       <section class="container mx-auto px-4 py-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 border-l-8 border-[#208090] pl-4">Browse Categories</h2>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <a href="shop.html" class="category-card bg-white p-6 rounded-2xl shadow border-2 border-gray-100 flex flex-col items-center text-center group h-full">
-                    <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center text-4xl mb-4">📱</div>
-                    <h3 class="text-2xl font-bold text-gray-800">Easy Phones</h3>
-                </a>
-                <a href="health.html" class="category-card bg-white p-6 rounded-2xl shadow border-2 border-gray-100 flex flex-col items-center text-center group h-full">
-                    <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center text-4xl mb-4">💊</div>
-                    <h3 class="text-2xl font-bold text-gray-800">Health</h3>
-                </a>
-                <a href="vision.html" class="category-card bg-white p-6 rounded-2xl shadow border-2 border-gray-100 flex flex-col items-center text-center group h-full">
-                    <div class="w-20 h-20 bg-purple-50 rounded-full flex items-center justify-center text-4xl mb-4">👓</div>
-                    <h3 class="text-2xl font-bold text-gray-800">Vision</h3>
-                </a>
-                <a href="hearing.html" class="category-card bg-white p-6 rounded-2xl shadow border-2 border-gray-100 flex flex-col items-center text-center group h-full">
-                    <div class="w-20 h-20 bg-yellow-50 rounded-full flex items-center justify-center text-4xl mb-4">🦻</div>
-                    <h3 class="text-2xl font-bold text-gray-800">Hearing</h3>
-                </a>
-                <a href="mobility.html" class="category-card bg-white p-6 rounded-2xl shadow border-2 border-gray-100 flex flex-col items-center text-center group h-full">
-                    <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center text-4xl mb-4">🚶</div>
-                    <h3 class="text-2xl font-bold text-gray-800">Mobility</h3>
-                </a>
-                <a href="bathroom.html" class="category-card bg-white p-6 rounded-2xl shadow border-2 border-gray-100 flex flex-col items-center text-center group h-full">
-                    <div class="w-20 h-20 bg-cyan-50 rounded-full flex items-center justify-center text-4xl mb-4">🛁</div>
-                    <h3 class="text-2xl font-bold text-gray-800">Bathroom</h3>
-                </a>
-                <a href="comfort.html" class="category-card bg-white p-6 rounded-2xl shadow border-2 border-gray-100 flex flex-col items-center text-center group h-full">
-                    <div class="w-20 h-20 bg-orange-50 rounded-full flex items-center justify-center text-4xl mb-4">🪑</div>
-                    <h3 class="text-2xl font-bold text-gray-800">Comfort</h3>
-                </a>
-                 <a href="sleep.html" class="category-card bg-white p-6 rounded-2xl shadow border-2 border-gray-100 flex flex-col items-center text-center group h-full">
-                    <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center text-4xl mb-4">🛌</div>
-                    <h3 class="text-2xl font-bold text-gray-800">Sleep</h3>
-                </a>
-                <a href="emergency.html" class="category-card bg-white p-6 rounded-2xl shadow border-2 border-gray-100 flex flex-col items-center text-center group h-full">
-                    <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center text-4xl mb-4">🚨</div>
-                    <h3 class="text-2xl font-bold text-gray-800">Emergency</h3>
-                </a>
-                <a href="essentials.html" class="category-card bg-white p-6 rounded-2xl shadow border-2 border-gray-100 flex flex-col items-center text-center group h-full">
-                    <div class="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center text-4xl mb-4">🎁</div>
-                    <h3 class="text-2xl font-bold text-gray-800">Essentials</h3>
-                </a>
-            </div>
-        </section>
-
+        <h2 class="text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">Shop by Category</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <a href="shop.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
+                <div class="text-7xl mb-4" aria-hidden="true">📱</div>
+                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Easy Phones</h3>
+                <p class="text-xl text-gray-600 mt-2">Large buttons & loud volume</p>
+            </a>
+            <a href="health.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
+                <div class="text-7xl mb-4" aria-hidden="true">💊</div>
+                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Health Aids</h3>
+                <p class="text-xl text-gray-600 mt-2">Pill organizers & monitors</p>
+            </a>
+            <a href="vision.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
+                <div class="text-7xl mb-4" aria-hidden="true">👓</div>
+                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Vision Aids</h3>
+                <p class="text-xl text-gray-600 mt-2">Magnifiers & reading lights</p>
+            </a>
+        </div>
     </main>
 
-    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t-8 border-[#208090] mt-12">
-        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-            
-            <div>
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 bg-[#208090] rounded-full flex items-center justify-center text-white text-xl font-bold">S</div>
-                    <span class="text-3xl font-bold">Senior Shop</span>
-                </div>
-                <p class="text-gray-400 text-lg mb-6 leading-relaxed">Empowering independent living with simple, accessible technology designed just for you.</p>
-                <div class="flex gap-4">
-                    <span class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#208090]">f</span>
-                    <span class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#208090]">t</span>
-                    <span class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#208090]">in</span>
-                </div>
-            </div>
-    
-            <div>
-                <h3 class="text-2xl font-bold mb-6 text-[#208090]">Helpful Links</h3>
-                <ul class="space-y-4 text-lg">
-                    <li><a href="shop.html" class="hover:text-[#208090] hover:underline transition">Easy Mobile Phones</a></li>
-                    <li><a href="health.html" class="hover:text-[#208090] hover:underline transition">Health & Wellness</a></li>
-                    <li><a href="#" class="hover:text-[#208090] hover:underline transition">Returns & Exchanges</a></li>
-                    <li><a href="#" class="hover:text-[#208090] hover:underline transition">Shipping Information</a></li>
-                    <li><a href="#" class="hover:text-[#208090] hover:underline transition">Accessibility Statement</a></li>
-                </ul>
-            </div>
-    
-            <div>
-                <h3 class="text-2xl font-bold mb-6 text-[#208090]">Contact Us</h3>
-                <ul class="space-y-6 text-lg">
-                    <li class="flex items-start gap-4">
-                        <span class="text-3xl">📞</span>
-                        <div>
-                            <span class="block font-bold text-gray-400 text-sm">Call Us (Toll-Free)</span>
-                            <a href="tel:18005550199" class="text-yellow-400 font-bold text-2xl hover:underline">1-800-555-0199</a>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-4">
-                        <span class="text-3xl">📧</span>
-                        <div>
-                            <span class="block font-bold text-gray-400 text-sm">Email Support</span>
-                            <a href="mailto:help@seniorshop.com" class="hover:text-[#208090] hover:underline transition">help@seniorshop.com</a>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-4">
-                        <span class="text-3xl">📍</span>
-                        <div>
-                            <span class="block font-bold text-gray-400 text-sm">Headquarters</span>
-                            <span>123 Care Lane, Suite 100<br>Sunshine City, FL 33000</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+    <footer class="bg-gray-800 text-white pt-12 pb-6 mt-12 text-center" role="contentinfo">
+        <p class="text-xl mb-4">© 2026 Senior Shop. Compliance: WCAG 2.1 Level AA.</p>
+        <div class="flex justify-center gap-6 mb-4">
+             <a href="#" aria-label="Visit our Facebook page" class="text-white hover:text-[#208090] text-2xl">Facebook</a>
+             <a href="#" aria-label="Visit our Twitter page" class="text-white hover:text-[#208090] text-2xl">Twitter</a>
         </div>
-        
-        <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
-            <p class="text-lg">© 2026 Senior Shop. All rights reserved. | <a href="#" class="underline hover:text-white">Privacy Policy</a> | <a href="#" class="underline hover:text-white">Terms of Service</a></p>
-        </div>
+        <p class="text-gray-400">Need Help? <a href="tel:18005550199" class="text-yellow-400 font-bold hover:underline">Call 1-800-555-0199</a></p>
     </footer>
 
+    <script src="script.js"></script>
     <script>
-        // --- SEARCH LOGIC ---
-        function handleSearch() {
-            const query = document.getElementById('search-input').value.toLowerCase();
+        // 1. MENU TOGGLE
+        function toggleMenu() {
+            const menu = document.getElementById('a11y-menu');
+            const btn = document.getElementById('a11y-btn');
+            menu.classList.toggle('open');
+            const isOpen = menu.classList.contains('open');
+            btn.setAttribute('aria-expanded', isOpen);
+        }
+
+        // 2. CONTRAST SETTINGS
+        function setContrast(mode) {
+            if (mode === 'high') {
+                document.body.classList.add('contrast-high');
+                localStorage.setItem('contrast', 'high');
+            } else {
+                document.body.classList.remove('contrast-high');
+                localStorage.setItem('contrast', 'normal');
+            }
+        }
+
+        // 3. INNOVATION: Voice Command Simulation
+        function toggleVoice() {
+            const bar = document.getElementById('voice-bar');
+            if (bar.style.display === 'block') {
+                bar.style.display = 'none';
+            } else {
+                bar.style.display = 'block';
+                // Simulate listening logic
+                setTimeout(() => {
+                    if(bar.style.display === 'block') {
+                         bar.innerHTML = '<div class="container mx-auto text-center font-bold text-white">Redirecting to Easy Phones...</div>';
+                         setTimeout(() => { window.location.href = 'shop.html'; }, 1500);
+                    }
+                }, 3000);
+            }
+        }
+
+        // 4. SCREEN READER (Reads the Main Content)
+        let speech = new SpeechSynthesisUtterance();
+        speech.lang = "en-US";
+        speech.rate = 0.9;
+
+        function readPage() {
+            const heading = document.querySelector('h1').innerText;
+            const sub = document.querySelector('p').innerText;
+            speech.text = "Welcome to Senior Shop. " + heading + ". " + sub + ". Use the Tab key to navigate categories.";
             
-            if (query.includes('phone') || query.includes('mobile') || query.includes('call')) {
-                window.location.href = 'shop.html';
-            } 
-            else if (query.includes('pill') || query.includes('med') || query.includes('pressure') || query.includes('health')) {
-                window.location.href = 'health.html';
-            }
-            else if (query.includes('glass') || query.includes('eye') || query.includes('vision') || query.includes('read')) {
-                window.location.href = 'vision.html';
-            }
-            else {
-                alert("We couldn't find a specific category for that. Taking you to our full catalog.");
-                window.location.href = 'shop.html';
-            }
+            window.speechSynthesis.speak(speech);
+            document.getElementById('stop-btn').classList.remove('hidden');
         }
 
-        function handleEnter(e) {
-            if (e.key === 'Enter') {
-                handleSearch();
-            }
-        }
-
-        // --- READER LOGIC (START/STOP) ---
-        let currentUtterance = null;
-
-        function toggleReader() {
-            const btn = document.getElementById('read-btn');
-            const btnText = document.getElementById('read-text');
-
-            if (window.speechSynthesis.speaking) {
-                // STOP Action
-                window.speechSynthesis.cancel();
-                
-                // Reset Button
-                btnText.innerText = "Read";
-                btn.classList.remove('bg-red-100', 'text-red-700', 'border-red-500'); 
-                btn.classList.add('bg-gray-100', 'text-gray-700'); 
-            } 
-            else {
-                // START Action
-                const content = document.querySelector('main').innerText;
-                currentUtterance = new SpeechSynthesisUtterance(content);
-                currentUtterance.rate = 0.9;
-                
-                // Change Button to "Stop"
-                btnText.innerText = "Stop";
-                btn.classList.remove('bg-gray-100', 'text-gray-700');
-                btn.classList.add('bg-red-100', 'text-red-700', 'border-red-500'); 
-                
-                window.speechSynthesis.speak(currentUtterance);
-
-                // Auto-reset when done
-                currentUtterance.onend = function() {
-                    btnText.innerText = "Read";
-                    btn.classList.remove('bg-red-100', 'text-red-700', 'border-red-500');
-                    btn.classList.add('bg-gray-100', 'text-gray-700');
-                };
-            }
+        function stopReading() {
+            window.speechSynthesis.cancel();
+            document.getElementById('stop-btn').classList.add('hidden');
         }
     </script>
 </body>
