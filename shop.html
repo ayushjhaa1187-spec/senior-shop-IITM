@@ -2,30 +2,55 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Phones</title>
+<title>Shop – Senior Shop</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
+<script defer src="script.js"></script>
 </head>
 
-<body>
-<header class="bg-white shadow p-4 flex justify-between">
-  <a href="index.html">← Home</a>
-  <div class="flex gap-3">
-    <button onclick="readPage()">🔊</button>
-    <button onclick="startVoice()">🗣️</button>
-    <a href="cart.html">🛒</a>
-  </div>
+<body class="bg-gray-50">
+
+<header class="bg-white p-4 shadow flex justify-between">
+  <a href="index.html" class="text-2xl font-bold text-[#208090]">Senior Shop</a>
+  <a href="cart.html" class="text-xl">🛒 Cart</a>
 </header>
 
-<main class="p-6 grid md:grid-cols-2 gap-6">
-  <a href="product-detail.html?id=jitterbug" class="card">Jitterbug Flip 2</a>
-  <a href="product-detail.html?id=clarity" class="card">Clarity Alto</a>
-  <a href="product-detail.html?id=snapfon" class="card">Snapfon ez4G</a>
-  <a href="product-detail.html?id=nokia" class="card">Nokia 2780</a>
+<main class="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+  <div class="bg-white p-4 rounded shadow">
+    <img src="https://placehold.co/400x300/208090/FFFFFF?text=Jitterbug+Flip">
+    <h2 class="text-xl font-bold mt-2">Jitterbug Flip 2</h2>
+    <p>$99.99</p>
+    <a href="product-detail.html?id=phone1"
+       class="inline-block mt-2 bg-[#208090] text-white px-4 py-2 rounded">
+       View
+    </a>
+  </div>
+
+  <div class="bg-white p-4 rounded shadow">
+    <img src="https://placehold.co/400x300/EEEEEE/208090?text=Clarity+Alto">
+    <h2 class="text-xl font-bold mt-2">Clarity Alto Plus</h2>
+    <p>$129.99</p>
+    <a href="product-detail.html?id=phone2"
+       class="inline-block mt-2 bg-[#208090] text-white px-4 py-2 rounded">
+       View
+    </a>
+  </div>
+
+  <div class="bg-white p-4 rounded shadow">
+    <img src="https://placehold.co/400x300/333333/FFFFFF?text=Snapfon">
+    <h2 class="text-xl font-bold mt-2">Snapfon ez4G</h2>
+    <p>$79.99</p>
+    <a href="product-detail.html?id=phone3"
+       class="inline-block mt-2 bg-[#208090] text-white px-4 py-2 rounded">
+       View
+    </a>
+  </div>
+
 </main>
 </body>
 </html>
+
+
 
 
 
