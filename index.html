@@ -20,7 +20,17 @@
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
-
+<div id="a11y-bar" class="flex flex-col md:flex-row justify-center md:justify-end items-center gap-4 text-sm bg-gray-800 text-white p-2">
+    <span class="font-bold hidden md:inline uppercase tracking-wider text-gray-400">Accessibility Tools:</span>
+    <div class="flex items-center gap-2">
+        <button onclick="changeTextSize('decrease')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">A-</button>
+        <button onclick="changeTextSize('reset')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">Reset</button>
+        <button onclick="changeTextSize('increase')" class="bg-gray-700 hover:bg-gray-600 text-white border border-gray-600">A+</button>
+    </div>
+    <button onclick="toggleContrast()" class="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-1 rounded font-bold flex items-center gap-2 shadow-sm">
+        <span>👁️</span> High Contrast
+    </button>
+</div>
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <a href="index.html" class="flex items-center gap-3">
@@ -234,4 +244,5 @@
     </script>
 </body>
 </html>
+
 
