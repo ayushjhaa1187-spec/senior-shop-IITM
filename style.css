@@ -1,34 +1,240 @@
+/* =========================================
+   1. CORE VARIABLES & RESET
+   ========================================= */
+:root {
+    --primary: #208090;
+    --bg-color: #F8FAFC;
+    --text-color: #1F2937;
+    --focus-ring: #F59E0B;
+}
+
 body {
-  font-family: 'Source Sans 3', sans-serif;
-  background: #F8FAFC;
+    font-family: 'Source Sans 3', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
 }
 
-button, a {
-  min-height: 48px;
-  min-width: 48px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
+/* =========================================
+   2. ACCESSIBILITY UTILITIES (CRITICAL)
+   ========================================= */
 
-button:hover, a:hover { transform: translateY(-1px); }
-button:active, a:active { transform: scale(0.97); }
-
-.card {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  border: 1px solid #e5e7eb;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
-}
-
+/* Visible Focus Indicator (Motor Impairments) */
 *:focus-visible {
-  outline: 4px solid #F59E0B;
-  outline-offset: 3px;
+    outline: 4px solid var(--focus-ring) !important;
+    outline-offset: 4px;
+    box-shadow: 0 0 0 4px #fff; /* Double ring for visibility on dark backgrounds */
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
+/* Skip Navigation Link (Keyboard Users) */
+a[href^="#main-content"], a[href^="#orders-container"], a[href^="#tracking-container"], a[href^="#success-message"], a[href^="#checkout-form"] {
+    position: absolute;
+    top: -999px;
+    left: 0;
+    background: #208090;
+    color: white;
+    padding: 16px;
+    z-index: 100;
+    font-weight: bold;
+    text-decoration: none;
+    transition: top 0.3s;
 }
+
+a[href^="#"]:focus {
+    top: 0;
+}
+
+/* Interactive Elements Sizing */
+button, a, input {
+    min-height: 48px;
+    min-width: 48px;
+}
+
+/* =========================================
+   3. ACCESSIBILITY MODES (INNOVATION)
+   ========================================= */
+
+/* High Contrast Mode */
+body.contrast-high {
+    --primary: #FFFF00;
+    --bg-color: #000000;
+    --text-color: #FFFFFF;
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+}
+
+body.contrast-high header, 
+body.contrast-high footer, 
+body.contrast-high section, 
+body.contrast-high article, 
+body.contrast-high div, 
+body.contrast-high nav,
+body.contrast-high .bg-white,
+body.contrast-high .bg-gray-100 {
+    background-color: #000000 !important;
+    color: #FFFF00 !important;
+    border-color: #FFFF00 !important;
+}
+
+body.contrast-high a, 
+body.contrast-high button,
+body.contrast-high input {
+    background-color: #000000 !important;
+    color: #FFFF00 !important;
+    border: 2px solid #FFFFFF !important;
+    font-weight: bold;
+}
+
+body.contrast-high img {
+    filter: grayscale(100%) contrast(150%);
+}
+
+/* Large Button Mode (Motor Innovation) */
+body.large-targets button, 
+body.large-targets a, 
+body.large-targets input {
+    min-height: 64px !important;
+    min-width: 64px !important;
+    font-size: 1.25rem !important;
+    padding: 16px 24px !important;
+}
+
+/* Dyslexia Friendly Font */
+body.dyslexia-mode {
+    font-family: 'OpenDyslexic', sans-serif !important;
+}
+
+/* =========================================
+   4. COMPONENT STYLES
+   ========================================= */
+
+/* Accessibility Menu */
+.a11y-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 340px;
+    background: white;
+    border: 2px solid #208090;
+    padding: 20px;
+    z-index: 50;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    border-radius: 12px;
+}
+.a11y-menu.open {
+    display: block;
+}
+
+/* Voice Command Bar */
+#voice-bar {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #208090;
+    color: white;
+    padding: 24px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 100;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
+}
+.mic-pulse {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #F59E0B;
+    border-radius: 50%;
+    margin-right: 12px;
+    animation: pulse 1s infinite;
+}
+
+/* Toast Notification */
+#toast {
+    visibility: hidden;
+    min-width: 280px;
+    margin-left: -140px;
+    background-color: #208090;
+    color: #fff;
+    text-align: center;
+    border-radius: 50px;
+    padding: 16px;
+    position: fixed;
+    z-index: 100;
+    left: 50%;
+    bottom: 30px;
+    font-size: 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    font-weight: bold;
+}
+#toast.show {
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Form Inputs */
+.input-lg {
+    width: 100%;
+    padding: 18px;
+    font-size: 1.25rem;
+    border: 2px solid #9CA3AF;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+.input-lg:focus {
+    border-color: #208090;
+    outline: 4px solid var(--focus-ring);
+}
+.error-msg {
+    color: #DC2626;
+    font-weight: bold;
+    margin-top: 4px;
+    display: none;
+}
+
+/* Timeline (Tracking Page) */
+.timeline-item {
+    position: relative;
+    padding-bottom: 3rem;
+    border-left: 4px solid #E5E7EB;
+    margin-left: 20px;
+    padding-left: 30px;
+}
+.timeline-item:last-child {
+    border-left: 4px solid transparent;
+}
+.timeline-item.completed {
+    border-left-color: #208090;
+}
+.timeline-dot {
+    position: absolute;
+    left: -14px;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #E5E7EB;
+    border: 4px solid #fff;
+}
+.timeline-item.completed .timeline-dot {
+    background: #208090;
+}
+.timeline-item.active .timeline-dot {
+    background: #F59E0B;
+    width: 32px;
+    height: 32px;
+    left: -18px;
+    animation: pulse 2s infinite;
+}
+
+/* Animation Keyframes */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+    100% { transform: scale(1.5); opacity: 0; box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+}
+@keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+@keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
