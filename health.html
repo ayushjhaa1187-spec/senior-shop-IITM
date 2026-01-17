@@ -3,89 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Health Aids - Senior Shop</title>
+    <title>Cheese & Paneer - DairyDash</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
-    <style>
-        :root { --primary: #208090; --bg-color: #F8FAFC; --focus-ring: #F59E0B; }
-        body { font-family: 'Source Sans 3', sans-serif; background-color: var(--bg-color); line-height: 1.6; }
-        .a11y-menu { display: none; position: absolute; top: 100%; right: 0; width: 340px; background: white; border: 2px solid #208090; padding: 20px; z-index: 50; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 12px; }
-        .a11y-menu.open { display: block; }
-        *:focus-visible { outline: 4px solid var(--focus-ring) !important; outline-offset: 2px; }
-    </style>
 </head>
-<body class="flex flex-col min-h-screen">
-
-    <a href="#main-content" class="absolute -top-96 left-0 bg-[#208090] text-white p-4 z-50 focus:top-0 text-xl font-bold transition-all">Skip to Products</a>
-
-    <header class="bg-white shadow-md relative z-40 p-4" role="banner">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <a href="index.html" class="flex items-center gap-3 group" aria-label="Home">
-                <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold" aria-hidden="true">S</div>
-                <span class="text-4xl font-bold text-[#208090]">Senior Shop</span>
+<body class="bg-gray-50">
+    <header class="bg-white shadow-md p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <span class="text-3xl">🥛</span>
+                <span class="text-3xl font-bold text-teal-600">DairyDash</span>
             </a>
-            
-            <div class="flex items-center gap-3">
-                <div class="relative">
-                    <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm" aria-expanded="false" aria-controls="a11y-menu">
-                        <span class="text-2xl" aria-hidden="true">♿</span> <span class="text-lg">Settings</span>
-                    </button>
-                    <div id="a11y-menu" class="a11y-menu text-left">
-                        <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg mb-4" aria-label="Close settings">Close</button>
-                        <button onclick="setContrast('high')" class="w-full text-left p-3 hover:bg-gray-100 font-bold border-b bg-black text-yellow-300">High Contrast</button>
-                        <div class="flex items-center justify-between p-3 hover:bg-gray-100">
-                            <label class="font-bold cursor-pointer" for="large-mode-health">Large Buttons</label>
-                            <input type="checkbox" id="large-mode-health" onchange="toggleLargeTargets()" class="w-6 h-6">
-                        </div>
-                    </div>
-                </div>
-                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold shadow-md" aria-label="Shopping Cart">
-                    <span class="text-2xl" aria-hidden="true">🛒</span> 
-                    <span class="text-lg cart-count-display" aria-live="polite">Cart (0)</span>
-                </a>
-            </div>
+            <a href="cart.html" class="bg-teal-600 text-white px-4 py-2 rounded-lg">
+                🛒 Cart (0)
+            </a>
         </div>
     </header>
 
-    <main id="main-content" class="container mx-auto px-4 py-8 flex-grow" role="main">
-        <div class="mb-8">
-            <a href="index.html" class="inline-flex items-center gap-2 text-xl font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 px-6 py-3 rounded-xl transition shadow-sm" aria-label="Go back to home">
-                <span aria-hidden="true">⬅️</span> Back to Home
-            </a>
-        </div>
+    <main class="container mx-auto px-4 py-8">
+        <a href="index.html" class="inline-block mb-6 text-gray-600 hover:text-teal-600">
+            ← Back to Home
+        </a>
 
-        <h1 class="text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">Health & Wellness</h1>
+        <h1 class="text-4xl font-bold mb-8 text-gray-800">Cheese & Paneer</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden hover:border-[#208090] transition">
-                <img src="https://placehold.co/400x300/208090/FFFFFF?text=Pill+Dispenser" alt="Automatic Pill Dispenser" class="w-full h-48 object-cover">
-                <div class="p-5 flex-grow flex flex-col">
-                    <h2 class="text-xl font-bold mb-2">Auto Pill Dispenser</h2>
-                    <p class="text-gray-600 text-sm mb-4 flex-grow">Beeps and rotates when it is time to take medicine.</p>
-                    <div class="text-2xl font-bold text-[#208090] mb-4">$49.99</div>
-                    <button onclick="addToCart('Auto Pill Dispenser', 49.99, 'https://placehold.co/100x100/208090/FFFFFF?text=Pill')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2 shadow-md" aria-label="Add Auto Pill Dispenser to cart">
-                        <span aria-hidden="true">+</span> Add to Cart
-                    </button>
-                </div>
-            </article>
-            
-            <article class="bg-white rounded-xl shadow border border-gray-200 flex flex-col h-full overflow-hidden hover:border-[#208090] transition">
-                <img src="https://placehold.co/400x300/EEEEEE/208090?text=BP+Monitor" alt="Talking Blood Pressure Monitor" class="w-full h-48 object-cover">
-                <div class="p-5 flex-grow flex flex-col">
-                    <h2 class="text-xl font-bold mb-2">Talking BP Monitor</h2>
-                    <p class="text-gray-600 text-sm mb-4 flex-grow">Reads your blood pressure aloud clearly.</p>
-                    <div class="text-2xl font-bold text-[#208090] mb-4">$39.99</div>
-                    <button onclick="addToCart('Talking BP Monitor', 39.99, 'https://placehold.co/100x100/EEEEEE/208090?text=BP')" class="w-full bg-[#208090] text-white py-3 rounded-lg font-bold hover:bg-[#165E6A] flex items-center justify-center gap-2 shadow-md" aria-label="Add Talking BP Monitor to cart">
-                        <span aria-hidden="true">+</span> Add to Cart
-                    </button>
-                </div>
-            </article>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-lg shadow p-6">
+                <img src="https://placehold.co/400x300/FF6B6B/FFFFFF?text=Fresh+Paneer" alt="Fresh Paneer" class="w-full h-48 object-cover rounded mb-4">
+                <h2 class="text-xl font-bold mb-2">Fresh Paneer 200g</h2>
+                <p class="text-gray-600 mb-4">Soft cottage cheese, made daily</p>
+                <p class="text-2xl font-bold text-teal-600 mb-4">₹80</p>
+                <button onclick="addToCart('Fresh Paneer 200g', 80)" class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <img src="https://placehold.co/400x300/4ECDC4/FFFFFF?text=Cheddar+Cheese" alt="Cheddar Cheese" class="w-full h-48 object-cover rounded mb-4">
+                <h2 class="text-xl font-bold mb-2">Cheddar Cheese 250g</h2>
+                <p class="text-gray-600 mb-4">Sharp & flavorful cheddar</p>
+                <p class="text-2xl font-bold text-teal-600 mb-4">₹150</p>
+                <button onclick="addToCart('Cheddar Cheese 250g', 150)" class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <img src="https://placehold.co/400x300/FFE66D/333333?text=Mozzarella" alt="Mozzarella" class="w-full h-48 object-cover rounded mb-4">
+                <h2 class="text-xl font-bold mb-2">Mozzarella 200g</h2>
+                <p class="text-gray-600 mb-4">Perfect for pizzas</p>
+                <p class="text-2xl font-bold text-teal-600 mb-4">₹180</p>
+                <button onclick="addToCart('Mozzarella 200g', 180)" class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <img src="https://placehold.co/400x300/95E1D3/333333?text=Butter+Paneer" alt="Butter Paneer" class="w-full h-48 object-cover rounded mb-4">
+                <h2 class="text-xl font-bold mb-2">Butter Paneer 250g</h2>
+                <p class="text-gray-600 mb-4">Extra soft & creamy</p>
+                <p class="text-2xl font-bold text-teal-600 mb-4">₹100</p>
+                <button onclick="addToCart('Butter Paneer 250g', 100)" class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <img src="https://placehold.co/400x300/F38181/FFFFFF?text=Amul+Cheese" alt="Amul Cheese" class="w-full h-48 object-cover rounded mb-4">
+                <h2 class="text-xl font-bold mb-2">Amul Cheese Slices</h2>
+                <p class="text-gray-600 mb-4">Pack of 10 slices</p>
+                <p class="text-2xl font-bold text-teal-600 mb-4">₹90</p>
+                <button onclick="addToCart('Amul Cheese Slices', 90)" class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <img src="https://placehold.co/400x300/AA96DA/FFFFFF?text=Cream+Cheese" alt="Cream Cheese" class="w-full h-48 object-cover rounded mb-4">
+                <h2 class="text-xl font-bold mb-2">Cream Cheese 200g</h2>
+                <p class="text-gray-600 mb-4">Smooth & spreadable</p>
+                <p class="text-2xl font-bold text-teal-600 mb-4">₹120</p>
+                <button onclick="addToCart('Cream Cheese 200g', 120)" class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700">
+                    Add to Cart
+                </button>
+            </div>
         </div>
     </main>
 
-    <footer class="bg-gray-800 text-white pt-12 pb-6 mt-12 text-center" role="contentinfo">
-        <p class="text-xl mb-4">© 2026 Senior Shop.</p>
+    <footer class="bg-gray-800 text-white text-center py-6 mt-12">
+        <p>© 2026 DairyDash - Fresh Dairy Delivered Fast</p>
     </footer>
 
     <script src="script.js"></script>
