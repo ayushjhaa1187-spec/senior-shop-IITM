@@ -3,104 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DairyDash - Quick Commerce Dairy Delivery</title>
+    <title>DairyDash - Fresh Dairy Delivery in 10-15 Minutes</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/opendyslexic@2.0.0/open-dyslexic.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * { font-family: 'Plus Jakarta Sans', sans-serif; }
+        :root { --primary: #1B5E5F; --accent: #FFB84D; --success: #6DC24E; --light-bg: #F5F9F8; }
+        body { background: var(--light-bg); }
+        .hero-gradient { background: linear-gradient(135deg, var(--primary) 0%, #0F3E3E 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(27, 94, 95, 0.15); }
+        .btn-primary { background: var(--primary); transition: all 0.2s; }
+        .btn-primary:hover { background: #0F3E3E; transform: scale(1.02); }
+        .a11y-menu { display: none; position: absolute; top: 100%; right: 0; width: 340px; background: white; border: 3px solid var(--primary); padding: 20px; z-index: 50; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 12px; }
+        .a11y-menu.open { display: block; }
+        *:focus-visible { outline: 4px solid var(--accent) !important; outline-offset: 2px; }
+    </style>
 </head>
 <body class="flex flex-col min-h-screen">
-    <a href="#main-content" class="skip-link">Skip to Main Content</a>
-
-    <header class="bg-white shadow-md relative z-40 p-4" role="banner">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            
-            <a href="index.html" class="flex items-center gap-3 group w-full md:w-auto" aria-label="DairyDash Home">
-                <div class="w-14 h-14 bg-[#208090] rounded-full flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition" aria-hidden="true">🥛</div>
-                <span class="text-4xl font-bold text-[#208090]">DairyDash</span>
-            </a>
-
-            <div class="hidden md:flex relative flex-1 max-w-lg mx-8" role="search">
-                <label for="search-input" class="sr-only">Search dairy products</label>
-                <input type="text" id="search-input" placeholder="Search for dairy products..." class="w-full border-2 border-gray-400 rounded-l-lg px-4 py-3 text-xl focus:border-[#208090]">
-                <button class="bg-[#208090] text-white px-8 rounded-r-lg font-bold hover:bg-[#165E6A] text-lg">Search</button>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-center">
+    <a href="#main-content" class="absolute -top-96 left-0 bg-[var(--primary)] text-white p-4 z-50 focus:top-0 text-xl font-bold transition-all">Skip to Main Content</a>
+    
+    <!-- HEADER -->
+    <header class="bg-white shadow-lg relative z-40 p-4" role="banner">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <a href="index.html" class="flex items-center gap-3 group" aria-label="DairyDash Home">
+                    <div class="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center text-white text-4xl font-bold group-hover:scale-110 transition shadow-md" aria-hidden="true">🥛</div>
+                    <div>
+                        <h1 class="text-3xl font-bold text-[var(--primary)]">DairyDash</h1>
+                        <p class="text-sm text-gray-600 font-medium">Fresh in 10-15 mins</p>
+                    </div>
+                </a>
                 
-                <div class="relative">
-                    <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm" aria-expanded="false" aria-controls="a11y-menu">
-                        <span class="text-2xl" aria-hidden="true">♿</span> 
-                        <span class="text-lg">Settings</span>
-                    </button>
-                    <div id="a11y-menu" class="a11y-menu text-left">
-                        <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg mb-4" aria-label="Close Settings">Close</button>
-                        <button onclick="setContrast('high')" class="w-full text-left p-3 hover:bg-gray-100 font-bold border-b bg-black text-yellow-300">High Contrast</button>
-                        <div class="flex items-center justify-between p-3 hover:bg-gray-100">
-                            <label class="font-bold cursor-pointer" for="large-mode-home">Large Buttons</label>
-                            <input type="checkbox" id="large-mode-home" onchange="toggleLargeTargets()" class="w-6 h-6">
-                        </div>
-                        <div class="flex items-center justify-between p-3 hover:bg-gray-100">
-                            <label class="font-bold cursor-pointer" for="dyslexia-mode-home">Dyslexia Font</label>
-                            <input type="checkbox" id="dyslexia-mode-home" onchange="toggleDyslexia()" class="w-6 h-6">
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <button id="a11y-btn" onclick="toggleMenu()" class="flex items-center gap-2 bg-gray-100 border-2 border-gray-400 text-gray-800 px-4 py-3 rounded-lg font-bold hover:bg-gray-200 shadow-sm" aria-expanded="false" aria-controls="a11y-menu">
+                            <span class="text-2xl" aria-hidden="true">♿</span>
+                            <span>Settings</span>
+                        </button>
+                        <div id="a11y-menu" class="a11y-menu text-left">
+                            <button onclick="toggleMenu()" class="text-red-600 underline font-bold text-lg mb-4">Close</button>
+                            <button onclick="setContrast('high')" class="w-full text-left p-3 hover:bg-gray-100 font-bold border-b bg-black text-yellow-300">High Contrast</button>
+                            <div class="flex items-center justify-between p-3 hover:bg-gray-100">
+                                <label class="font-bold cursor-pointer" for="large-mode-home">Large Buttons</label>
+                                <input type="checkbox" id="large-mode-home" onchange="toggleLargeTargets()" class="w-6 h-6">
+                            </div>
+                            <div class="flex items-center justify-between p-3 hover:bg-gray-100">
+                                <label class="font-bold cursor-pointer" for="dyslexia-mode-home">Dyslexia Font</label>
+                                <input type="checkbox" id="dyslexia-mode-home" onchange="toggleDyslexia()" class="w-6 h-6">
+                            </div>
                         </div>
                     </div>
+                    
+                    <a href="cart.html" class="flex items-center gap-2 btn-primary text-white px-5 py-3 rounded-lg font-bold shadow-md" aria-label="Shopping Cart">
+                        <span class="text-2xl" aria-hidden="true">🛒</span>
+                        <span class="cart-count-display" aria-live="polite">Cart (0)</span>
+                    </a>
                 </div>
-
-                <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold hover:bg-[#165E6A] shadow-md transition decoration-0" aria-label="Shopping Cart">
-                    <span class="text-2xl" aria-hidden="true">🛒</span>
-                    <span class="text-lg cart-count-display" aria-live="polite">Cart (0)</span>
-                </a>
             </div>
         </div>
     </header>
-
-    <main id="main-content" class="container mx-auto px-4 py-12 flex-grow" role="main">
-        
-        <section class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 mb-12 flex flex-col md:flex-row items-center gap-8">
-            <div class="flex-1 text-center md:text-left">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-[#208090]">Fresh Dairy in Minutes</h1>
-                <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">Farm-fresh milk, paneer, curd, butter & more delivered to your doorstep in 10-15 minutes. Easy ordering for everyone.</p>
-                <button onclick="window.location.href='shop.html'" class="bg-[#208090] text-white px-10 py-5 rounded-xl text-2xl font-bold shadow-lg hover:bg-[#165E6A]">
-                    Order Now
-                </button>
-            </div>
-            <div class="w-full md:w-1/3 bg-gray-100 h-64 rounded-xl flex items-center justify-center overflow-hidden border-2 border-gray-300">
-                <img src="https://placehold.co/600x400/208090/FFFFFF?text=Fresh+Dairy+Products" alt="Fresh dairy products including milk, cheese, and yogurt" class="w-full h-full object-cover">
+    
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="flex-grow">
+        <!-- HERO SECTION -->
+        <section class="hero-gradient text-white py-16 md:py-24">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">Fresh Dairy Delivered Fast ⚡</h2>
+                        <p class="text-xl md:text-2xl mb-8 opacity-95 leading-relaxed">Farm-fresh milk, paneer, curd, butter & more. From your local dairy to your kitchen in just 10-15 minutes.</p>
+                        <button onclick="window.location.href='shop.html'" class="btn-primary text-white px-8 py-4 rounded-xl text-xl font-bold shadow-lg flex items-center gap-2 w-fit hover:shadow-2xl">
+                            <span>Shop Now</span>
+                            <span aria-hidden="true">→</span>
+                        </button>
+                        <div class="mt-8 flex gap-6 text-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="text-2xl" aria-hidden="true">⚡</span>
+                                <span>10-15 min delivery</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-2xl" aria-hidden="true">🌾</span>
+                                <span>100% Fresh</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden md:block">
+                        <img src="https://placehold.co/500x400/1B5E5F/FFFFFF?text=Fresh+Dairy+Products" alt="Fresh dairy products" class="rounded-2xl shadow-2xl w-full">
+                    </div>
+                </div>
             </div>
         </section>
-
-        <h2 class="text-4xl font-bold mb-8 border-l-8 border-[#208090] pl-6">Shop by Category</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <a href="shop.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
-                <div class="text-7xl mb-4" aria-hidden="true">🥛</div>
-                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Milk & Buttermilk</h3>
-                <p class="text-xl text-gray-600 mt-2">Full cream, toned & flavored</p>
-            </a>
-
-            <a href="health.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
-                <div class="text-7xl mb-4" aria-hidden="true">🧀</div>
-                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Cheese & Paneer</h3>
-                <p class="text-xl text-gray-600 mt-2">Fresh cottage cheese & varieties</p>
-            </a>
-
-            <a href="vision.html" class="bg-white p-8 rounded-xl shadow border-2 border-gray-100 hover:border-[#208090] transition text-center group">
-                <div class="text-7xl mb-4" aria-hidden="true">🍨</div>
-                <h3 class="text-3xl font-bold text-gray-800 group-hover:underline">Curd & Yogurt</h3>
-                <p class="text-xl text-gray-600 mt-2">Fresh dahi, greek yogurt & lassi</p>
-            </a>
-        </div>
+        
+        <!-- CATEGORIES SECTION -->
+        <section class="container mx-auto px-4 py-16">
+            <h2 class="text-4xl font-bold mb-4 text-[var(--primary)]">Shop by Category</h2>
+            <p class="text-gray-600 text-lg mb-12">Browse our premium selection of fresh dairy products</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="shop.html" class="bg-white rounded-2xl p-8 card-hover border-2 border-gray-100 shadow-md text-center group">
+                    <div class="text-6xl mb-4" aria-hidden="true">🥛</div>
+                    <h3 class="text-2xl font-bold text-[var(--primary)] group-hover:underline">Milk</h3>
+                    <p class="text-gray-600 mt-2">Full cream, toned & flavored</p>
+                </a>
+                
+                <a href="health.html" class="bg-white rounded-2xl p-8 card-hover border-2 border-gray-100 shadow-md text-center group">
+                    <div class="text-6xl mb-4" aria-hidden="true">🧀</div>
+                    <h3 class="text-2xl font-bold text-[var(--primary)] group-hover:underline">Paneer & Cheese</h3>
+                    <p class="text-gray-600 mt-2">Fresh cottage cheese & varieties</p>
+                </a>
+                
+                <a href="vision.html" class="bg-white rounded-2xl p-8 card-hover border-2 border-gray-100 shadow-md text-center group">
+                    <div class="text-6xl mb-4" aria-hidden="true">🍨</div>
+                    <h3 class="text-2xl font-bold text-[var(--primary)] group-hover:underline">Curd & Yogurt</h3>
+                    <p class="text-gray-600 mt-2">Fresh dahi, greek yogurt & lassi</p>
+                </a>
+                
+                <a href="bathroom.html" class="bg-white rounded-2xl p-8 card-hover border-2 border-gray-100 shadow-md text-center group">
+                    <div class="text-6xl mb-4" aria-hidden="true">🧈</div>
+                    <h3 class="text-2xl font-bold text-[var(--primary)] group-hover:underline">Butter & Ghee</h3>
+                    <p class="text-gray-600 mt-2">Pure ghee & premium butter</p>
+                </a>
+            </div>
+        </section>
+        
+        <!-- WHY DAIRYDASH -->
+        <section class="bg-white py-16 border-t border-b border-gray-200">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold mb-4 text-[var(--primary)] text-center">Why Choose DairyDash?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4" aria-hidden="true">🚀</div>
+                        <h3 class="text-2xl font-bold text-[var(--primary)] mb-2">Lightning Fast</h3>
+                        <p class="text-gray-600">Delivery in just 10-15 minutes with real-time tracking</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl mb-4" aria-hidden="true">🌾</div>
+                        <h3 class="text-2xl font-bold text-[var(--primary)] mb-2">Farm Fresh</h3>
+                        <p class="text-gray-600">Direct from local dairy farms to your kitchen</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl mb-4" aria-hidden="true">💚</div>
+                        <h3 class="text-2xl font-bold text-[var(--primary)] mb-2">Quality Assured</h3>
+                        <p class="text-gray-600">100% fresh, tested & verified by experts</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
-
-    <footer class="bg-gray-800 text-white pt-12 pb-6 mt-12 text-center" role="contentinfo">
-        <p class="text-xl mb-4">© 2026 DairyDash. Compliance: WCAG 2.1 Level AA.</p>
-        <div class="flex justify-center gap-6 mb-4">
-            <a href="#" aria-label="Visit our Facebook page" class="text-white hover:text-[#208090] text-2xl">Facebook</a>
-            <a href="#" aria-label="Visit our Twitter page" class="text-white hover:text-[#208090] text-2xl">Twitter</a>
+    
+    <!-- FOOTER -->
+    <footer class="bg-[var(--primary)] text-white pt-12 pb-6 mt-auto" role="contentinfo">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg mb-4">© 2026 DairyDash. Delivering freshness since day one.</p>
+            <div class="flex justify-center gap-6 mb-6">
+                <a href="#" aria-label="Visit our Facebook page" class="hover:text-[var(--accent)] transition">Facebook</a>
+                <a href="#" aria-label="Visit our Twitter page" class="hover:text-[var(--accent)] transition">Twitter</a>
+                <a href="#" aria-label="Visit our Instagram page" class="hover:text-[var(--accent)] transition">Instagram</a>
+            </div>
+            <p class="text-gray-300">Need Help? <a href="tel:+919876543210" class="text-[var(--accent)] font-bold hover:underline">Call +91-9876-543-210</a></p>
+            <p class="text-sm text-gray-400 mt-4">WCAG 2.1 Level AA Accessible | All Features Available</p>
         </div>
-        <p class="text-gray-400">Need Help? <a href="tel:18005550199" class="text-yellow-400 font-bold hover:underline">Call 1-800-555-0199</a></p>
     </footer>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
