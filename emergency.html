@@ -3,48 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emergency items - Senior Shop</title>
+    <title>Organic & Natural Dairy - DairyDash</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    <style> body { font-family: 'Source Sans 3', sans-serif; background-color: #F8FAFC; } </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="flex flex-col min-h-screen">
-
-    <a href="#main-content" class="skip-link">Skip to Products</a>
-
-    <header class="bg-white shadow-md sticky top-0 z-50" role="banner">
-        <div class="bg-gray-800 text-white p-2 text-center text-sm flex justify-center gap-4">
-            <button onclick="toggleTextSize()" class="hover:text-yellow-400 font-bold underline">A+ Text Size</button>
-            <span class="text-gray-600">|</span>
-            <button onclick="toggleContrast()" class="hover:text-yellow-400 font-bold underline">High Contrast</button>
-        </div>
-        <div class="container mx-auto p-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3" aria-label="Back to Home">
-                <div class="w-10 h-10 bg-[#208090] rounded-full flex items-center justify-center text-white text-xl font-bold">S</div>
-                <span class="text-2xl font-bold text-[#208090]">Senior Shop</span>
+<body class="bg-gray-50">
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">🥛</div>
+                <span class="text-2xl font-bold text-green-600">DairyDash</span>
             </a>
-            <a href="cart.html" class="flex items-center gap-2 bg-[#208090] text-white px-5 py-3 rounded-lg font-bold shadow-md" aria-label="Cart">
-                <span aria-hidden="true">🛒</span> <span class="cart-count-display">Cart (0)</span>
-            </a>
+            <div class="flex items-center gap-4">
+                <a href="shop.html" class="text-gray-600 hover:text-green-600 font-semibold">All Products</a>
+                <a href="cart.html" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 font-semibold">🛒 Cart</a>
+            </div>
         </div>
     </header>
 
-    <main id="main-content" class="container mx-auto px-4 py-8 flex-grow" role="main">
-        <div class="mb-6">
-            <a href="index.html" class="inline-flex items-center gap-2 text-lg font-bold text-gray-600 hover:text-[#208090] transition">
-                <span>←</span> Back to Home
-            </a>
+    <main id="main-content" class="container mx-auto px-4 py-8">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">🌱 Organic & Natural Dairy</h1>
+            <p class="text-gray-600 text-lg">100% organic, pesticide-free dairy products from certified farms</p>
         </div>
 
-        <h1 class="text-3xl font-bold mb-8 text-gray-800 border-l-8 border-[#208090] pl-4">Emergency items</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden">
+                <div class="h-48 bg-gradient-to-br from-yellow-100 to-yellow-200 flex items-center justify-center text-6xl">🧁</div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Organic Fresh Butter</h3>
+                    <p class="text-gray-600 text-sm mb-3">Handcrafted from grass-fed cow milk</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-green-600">₹220</span>
+                        <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 font-semibold text-sm">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
 
-        <div class="bg-yellow-50 border-l-8 border-yellow-400 p-8 rounded shadow-sm">
-            <h2 class="text-2xl font-bold text-yellow-800 mb-2">Coming Soon</h2>
-            <p class="text-lg text-gray-700">We are currently stocking products for this category. Please check back later.</p>
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden">
+                <div class="h-48 bg-gradient-to-br from-amber-100 to-amber-200 flex items-center justify-center text-6xl">🧂</div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Pure Ghee (Clarified Butter)</h3>
+                    <p class="text-gray-600 text-sm mb-3">Premium quality, no additives</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-green-600">₹380</span>
+                        <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 font-semibold text-sm">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden">
+                <div class="h-48 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center text-6xl">🥨</div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Organic Curd/Yogurt</h3>
+                    <p class="text-gray-600 text-sm mb-3">Probiotic rich and naturally fermented</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-green-600">₹55</span>
+                        <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 font-semibold text-sm">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-16 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Why Organic Dairy?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="text-4xl mb-3">🌿</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">100% Organic</h3>
+                    <p class="text-gray-600">No pesticides, hormones, or antibiotics</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl mb-3">🧂</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Better Taste</h3>
+                    <p class="text-gray-600">Natural taste from healthy animals</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl mb-3">✅</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Higher Nutrition</h3>
+                    <p class="text-gray-600">More omega-3 and nutrients</p>
+                </div>
+            </div>
         </div>
     </main>
 
-    <script src="script.js"></script>
+    <footer class="bg-gray-800 text-white mt-16 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2026 DairyDash. Organic dairy from certified farms. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.bg-green-600').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if(this.textContent.includes('Add to Cart')) {
+                    const productName = this.closest('.bg-white').querySelector('h3').textContent;
+                    const price = this.closest('.bg-white').querySelector('.text-2xl').textContent;
+                    alert('Added ' + productName + ' to cart! Price: ' + price);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-
